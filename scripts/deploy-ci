@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Enable error reporting to the console
+set -e
+
+# Cleanup /_site/
+rm -rf _site
+mkdir _site
+
+# Clone the remote repo to /_site/
+git clone https://${GITHUB_TOKEN}@github.com/magento-devdocs/devdocs-for-tests.git --branch gh-pages _site
+
+# Build with Jekyll to /_site/
+JEKYLL_ENV=production bundle exec jekyll build --verbose
+
+# Setup git user details in _site
+cd _site
+git config user.email "dshevstov@magento.com"
+git config user.name "Dima Shevtsov"
+
+# Stage all changes
+git add --all
+
+# Commit the staged changes
+git commit -a -m "Travis build #$TRAVIS_BUILD_NUMBER"
+
+# Force push the commit to gh-pages
+git push --force origin gh-pages
