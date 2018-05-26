@@ -26,7 +26,7 @@ versions:
       name: "2.2"
       url: /guides/v2.2/
    -
-      name: "2.3"
+      name: "2.3 Pre-release"
       url: /guides/v2.3/
 
 # GitHub variables
@@ -118,4 +118,14 @@ algolia:
 google:
   analytics: 'UA-66243208-1'
 
-exclude: ['scss', 'bin', 'node_modules', 'vendor', '.git', '.idea', 'Rakefile' ]
+exclude: 
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - Rakefile
+  - scss
+  - bin
+  - node_modules
+  - .idea
