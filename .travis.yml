@@ -8,6 +8,6 @@ before_script:
  - chmod +x ./scripts/deploy-ci
 
 script:
- - travis_wait ./scripts/deploy-ci
+ - travis_wait 30 ./scripts/deploy-ci
 
 verbose: true
