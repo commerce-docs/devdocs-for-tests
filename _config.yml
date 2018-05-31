@@ -105,19 +105,6 @@ kramdown:
 
 incremental: false
 
-algolia:
-  application_id: 'E642SEDTHL'
-  index_name: 'devdocs'
-  api_key: 'd2d0f33ab73e291ef8d88d8b565e754c'
-  lazy_update: false
-  files_to_exclude:
-    - guides/m1x/**/*.html
-    - guides/m1x/**/*.md
-    - swagger
-
-google:
-  analytics: 'UA-66243208-1'
-
 exclude: 
   - vendor
   - Gemfile
