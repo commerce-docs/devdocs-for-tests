@@ -9,17 +9,19 @@ mkdir _site
 
 # Clone the remote repo to _site
 git clone https://${GITHUB_TOKEN}@github.com/magento-devdocs/devdocs-for-tests.git --branch gh-pages _site
+git clone https://${GITHUB_TOKEN}@github.com/magento-devdocs/m1x-devdocs.git --branch gh-pages _m1x
+
 
 # Build with Jekyll to _site
 bundle exec jekyll build --verbose
 
 # Clone m1 website
 mkdir _site/guides/m1x
-cd _site/guides/m1x
-git clone https://${GITHUB_TOKEN}@github.com/magento-devdocs/m1x-devdocs.git --branch gh-pages _site
+mv _m1x/* _site/guides/m1x
+rm -rf _m1x
 
 # Setup git user details in _site
-cd ../..
+cd _site
 git config user.email "dshevstov@magento.com"
 git config user.name "Dima Shevtsov"
 
