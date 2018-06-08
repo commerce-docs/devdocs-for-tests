@@ -3,18 +3,23 @@
 # Enable error reporting to the console
 set -e
 
-# Cleanup /_site/
+# Cleanup _site
 rm -rf _site
 mkdir _site
 
-# Clone the remote repo to /_site/
-git clone --recurse-submodules https://${GITHUB_TOKEN}@github.com/magento-devdocs/devdocs-for-tests.git --branch gh-pages _site
+# Clone the remote repo to _site
+git clone https://${GITHUB_TOKEN}@github.com/magento-devdocs/devdocs-for-tests.git --branch gh-pages _site
 
-# Build with Jekyll to /_site/
-JEKYLL_ENV=production bundle exec jekyll build --verbose
+# Build with Jekyll to _site
+bundle exec jekyll build --verbose
+
+# Clone m1 website
+mkdir _site/guides/m1x
+cd _site/guides/m1x
+git clone https://${GITHUB_TOKEN}@github.com/magento-devdocs/m1x-devdocs.git --branch gh-pages _site
 
 # Setup git user details in _site
-cd _site
+cd ../..
 git config user.email "dshevstov@magento.com"
 git config user.name "Dima Shevtsov"
 
