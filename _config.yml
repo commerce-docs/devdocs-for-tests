@@ -74,7 +74,8 @@ collections:
 
 plugins:
   - jekyll-redirect-from
-
+  - jekyll-optional-front-matter
+  - jekyll-relative-links
 
 defaults:
 
@@ -94,6 +95,11 @@ defaults:
       type: videos
     values:
       layout: video
+  -
+    scope:
+      path: "page-builder"
+    values:
+      layout: full-width
 
 # toc_baseurl: "https://github.corp.ebay.com/pages/Magento/devdocs_internal"
 
@@ -119,3 +125,6 @@ google:
   analytics: 'UA-66243208-1'
 
 exclude: ['scss', 'bin', 'node_modules', 'vendor', '.git', '.idea', 'Rakefile' ]
+
+optional_front_matter:
+  remove_originals: true
