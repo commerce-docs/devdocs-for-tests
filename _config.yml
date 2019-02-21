@@ -66,17 +66,11 @@ defaults:
 
   -
     scope:
-      path: mftf/2.2
+      path: mftf/
     values:
-      group: magento-functional-testing-framework-guide
-      functional_areas:
-        - Test
-
-  -
-    scope:
-      path: mftf/2.3
-    values:
-      group: magento-functional-testing-framework-guide-2_3
+      group: mftf
+      github_repo: https://github.com/magento-devdocs/devdocs-for-tests
+      github_files: https://github.com/magento-devdocs/devdocs-for-tests/tree/docs-in-code-mftf
       functional_areas:
         - Test
 
