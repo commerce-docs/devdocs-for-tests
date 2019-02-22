@@ -6,13 +6,13 @@ link: /whats-new.html
 thread: /whatsnew-feed.xml
 updated: Tue Feb 19 10:45:50 2019
 entries:
-- description: Added [Use parameterized selectors in action groups with argument references](https://devdocs.magento.com/mftf/2.3/tips-tricks.html#use-parameterized-selectors-in-action-groups-with-argument-references)
+- description: Added [Use parameterized selectors in action groups with argument references](https://devdocs.magento.com/mftf/tips-tricks.html#use-parameterized-selectors-in-action-groups-with-argument-references)
     to Tips and Tricks.
   versions: 2.3.x
   type: Major update
   date: February 15, 2019
   link: https://github.com/magento/devdocs/pull/3754
-- description: "[Debugging](https://devdocs.magento.com/mftf/2.3/debugging.html) topic
+- description: "[Debugging](https://devdocs.magento.com/mftf/debugging.html) topic
     added to the MFTF guide."
   versions: 2.2.x, 2.3.x
   type: Major update
@@ -39,8 +39,8 @@ entries:
   date: February 12, 2019
   link: https://github.com/magento/devdocs/pull/3569
 - description: Added MFTF tips:<br/>-[Perform the most critical actions first in the
-    `<after>` block](https://devdocs.magento.com/mftf/2.3/tips-tricks.html#perform-the-most-critical-actions-first-in-the-after-block)<br/>-[When
-    to use `see` versus `seeElement`](https://devdocs.magento.com/mftf/2.3/tips-tricks.html#when-to-use-see-vs-seeelement)
+    `<after>` block](https://devdocs.magento.com/mftf/tips-tricks.html#perform-the-most-critical-actions-first-in-the-after-block)<br/>-[When
+    to use `see` versus `seeElement`](https://devdocs.magento.com/mftf/tips-tricks.html#when-to-use-see-vs-seeelement)
   versions: 2.3.x
   type: Major update
   date: February  8, 2019
@@ -70,7 +70,7 @@ entries:
   date: January 30, 2019
   link: https://github.com/magento/devdocs/pull/3586
 - description: Adds two new PWA actions to the Actions reference guide for the MFTF
-    2.3.13 release:<br/>[waitforPwaElementNotVisibleType](https://devdocs.magento.com/mftf/2.3/test/actions.html#waitforpwaelementnotvisible)<br/>[waitforPwaElementVisibleType](https://devdocs.magento.com/mftf/2.3/test/actions.html#waitforpwaelementvisible)
+    2.3.13 release:<br/>[waitforPwaElementNotVisibleType](https://devdocs.magento.com/mftf/test/actions.html#waitforpwaelementnotvisible)<br/>[waitforPwaElementVisibleType](https://devdocs.magento.com/mftf/test/actions.html#waitforpwaelementvisible)
   versions: 2.3.x
   type: Major update
   date: January 29, 2019
@@ -80,7 +80,7 @@ entries:
   type: New topic
   date: January 29, 2019
   link: https://github.com/magento/devdocs/pull/3580
-- description: Adds a new [Tips and Tricks](https://devdocs.magento.com/mftf/2.3/tips-tricks.html)
+- description: Adds a new [Tips and Tricks](https://devdocs.magento.com/mftf/tips-tricks.html)
     page to the MFTF guide.
   versions: 2.3.1
   type: New topic
@@ -129,7 +129,7 @@ entries:
   type: Major update
   date: January 18, 2019
   link: https://github.com/magento/devdocs/pull/3596
-- description: Added a [section](https://devdocs.magento.com/mftf/2.3/test/action-groups.html#optimizing-action-group-structures)
+- description: Added a [section](https://devdocs.magento.com/mftf/test/action-groups.html#optimizing-action-group-structures)
     that describes how to better optimize action groups for readability and reusability.
   versions: 2.3.x
   type: Major update
@@ -197,9 +197,9 @@ entries:
   date: December 21, 2018
   link: https://github.com/magento/devdocs/pull/3484
 - description: MFTF 2.3.12 was released:<br/>- Added more documentation with examples
-    for [`<value>`](https://devdocs.magento.com/mftf/2.3/metadata.html#value-tag)
+    for [`<value>`](https://devdocs.magento.com/mftf/metadata.html#value-tag)
     in metadata array.<br/>- Added use of reference to data field in `url` of [metadata
-    operation](https://devdocs.magento.com/mftf/2.3/metadata.html#operation-tag).
+    operation](https://devdocs.magento.com/mftf/metadata.html#operation-tag).
   versions: 2.2.x, 2.3.x
   type: Major update
   date: December 21, 2018
@@ -392,7 +392,7 @@ entries:
   versions: 2.1.x, 2.2.x, 2.3.x
   type: Major update
   date: November 14 2018
-- description: 'MFTF 2.3.11: Added the [mftf run:failed](https://devdocs.magento.com/mftf/2.3/commands/mftf.html#runfailed)
+- description: 'MFTF 2.3.11: Added the [mftf run:failed](https://devdocs.magento.com/mftf/commands/mftf.html#runfailed)
     command to rerun the previously failed tests.'
   versions: 2.3.x
   type: Major update
@@ -402,7 +402,7 @@ entries:
   versions: 2.3.x
   type: Major update
   date: November 14 2018
-- description: Added a topic about [Credentials in the MFTF](https://devdocs.magento.com/mftf/2.3/credentials.html).
+- description: Added a topic about [Credentials in the MFTF](https://devdocs.magento.com/mftf/credentials.html).
   versions: 2.3.x
   type: New topic
   date: November  9 2018
@@ -420,7 +420,7 @@ entries:
   versions: 2.x
   type: Major update
   date: November  6 2018
-- description: Added [Reporting in the MFTF](https://devdocs.magento.com/mftf/2.3/reporting.html).
+- description: Added [Reporting in the MFTF](https://devdocs.magento.com/mftf/reporting.html).
   versions: 2.3.x
   type: New topic
   date: November  2 2018
@@ -464,7 +464,7 @@ entries:
   versions: 2.1.x, 2.2.x, 2.3.x
   type: Major update
   date: October 22 2018
-- description: Added guidelines how to [Set up a standalone MFTF](https://devdocs.magento.com/mftf/2.3/getting-started.html#set-up-a-standalone-mftf).
+- description: Added guidelines how to [Set up a standalone MFTF](https://devdocs.magento.com/mftf/getting-started.html#set-up-a-standalone-mftf).
   versions: 2.3.x
   type: Major update
   date: October 19 2018
@@ -503,7 +503,7 @@ entries:
   type: Major update
   date: October 10 2018
 - description: 'MFTF:<br/>- New release: [2.3.8](https://github.com/magento/magento2-functional-testing-framework/blob/develop/CHANGELOG.md)<br/>-
-    Changed obsolete `--lines` to `--time` in the [`mftf generate:tests`](https://devdocs.magento.com/mftf/2.3/commands/mftf.html#generatetests)'
+    Changed obsolete `--lines` to `--time` in the [`mftf generate:tests`](https://devdocs.magento.com/mftf/commands/mftf.html#generatetests)'
   versions: 2.3.x
   type: Technical changes
   date: October 10 2018
@@ -517,9 +517,9 @@ entries:
   versions: 2.x
   type: New topic
   date: October  7 2018
-- description: MFTF 2.3.7 release:<br/>Updated the [pressKey](https://devdocs.magento.com/mftf/2.3/test/actions.html#presskey)
-    action.<br/>Updated the [action group argument](https://devdocs.magento.com/mftf/2.3/test/action-groups.html#data-type-usage)
-    syntax for a value based on data entity resolution.<br/>Added the [DEFAULT_TIMEZONE](https://devdocs.magento.com/mftf/2.3/configuration.html#default_timezone)
+- description: MFTF 2.3.7 release:<br/>Updated the [pressKey](https://devdocs.magento.com/mftf/test/actions.html#presskey)
+    action.<br/>Updated the [action group argument](https://devdocs.magento.com/mftf/test/action-groups.html#data-type-usage)
+    syntax for a value based on data entity resolution.<br/>Added the [DEFAULT_TIMEZONE](https://devdocs.magento.com/mftf/configuration.html#default_timezone)
     configuration parameter.
   versions: 2.3.x
   type: Technical changes
@@ -1521,7 +1521,7 @@ entries:
   versions: 2.1.x, 2.2.x
   type: Updated
   date: Dec 13 2017
-- description: "[Magento Functional Testing Framework Guide](https://devdocs.magento.com/mftf/2.2/introduction.html)"
+- description: "[Magento Functional Testing Framework Guide](https://devdocs.magento.com/mftf/introduction.html)"
   versions: 2.2.x
   type: New
   date: Dec 08 2017
