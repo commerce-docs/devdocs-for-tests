@@ -135,7 +135,7 @@
       url: /test/testing.html
 
     - label: Functional Acceptance Testing (MFTF)
-      url: /mftf/introduction.html
+      url: /mftf/docs/introduction.html
       exclude_versions: ['2.0', '2.1']
       versionless: true
 
@@ -153,8 +153,6 @@
 
     - label: Web API Functional Testing
       url: /get-started/web-api-functional-testing.html
-
--
 
 - label: Functional Areas
   children:
@@ -183,6 +181,12 @@
     - label: Staging
       url: /extension-dev-guide/staging.html
       exclude_versions: ['2.0']
+
+    - label: Page Builder
+      url: /page-builder/docs/index.html
+      exclude_versions: ['2.0', '2.1', '2.2']
+      versionless: true
+
 
 - label: Tutorials
   children:
