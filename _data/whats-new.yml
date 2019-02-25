@@ -1521,7 +1521,7 @@ entries:
   versions: 2.1.x, 2.2.x
   type: Updated
   date: Dec 13 2017
-- description: "[Magento Functional Testing Framework Guide](https://devdocs.magento.com/mftf/introduction.html)"
+- description: "[Magento Functional Testing Framework Guide](https://devdocs.magento.com/mftf/docs/introduction.html)"
   versions: 2.2.x
   type: New
   date: Dec 08 2017
