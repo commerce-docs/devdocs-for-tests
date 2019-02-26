@@ -66,7 +66,7 @@ defaults:
 
   -
     scope:
-      path: mftf/
+      path: mftf
     values:
       group: mftf
       github_repo: https://github.com/magento-devdocs/devdocs-for-tests
@@ -78,7 +78,6 @@ defaults:
     scope:
       path: page-builder
     values:
-      layout: default
       group: page-builder
       strip_title: true
       github_link: false
