@@ -28,5 +28,5 @@ docs_from_code () {
   cd ..
 }
 
-docs_from_code mftf magento2-functional-testing-framework docs-in-code
+docs_from_code mftf magento2-functional-testing-framework docs-in-code "$token"
 docs_from_code page-builder magento2-page-builder ds_docs-in-code "$token"
