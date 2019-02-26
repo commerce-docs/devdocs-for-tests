@@ -5,10 +5,21 @@ docs_from_code () {
   local branch=$3
   local token=$4
 
+  local ssh=git@github.com:
+  local https=https://"$token"@github.com/
+  local org=magento-devdocs
+
+  if "$token"
+        then
+    protocol=$https
+  else 
+    protocol=$ssh
+  fi
+
   mkdir "$dir"
   cd "$dir" || exit
   git init
-  git remote add origin -f https://"$token"@github.com/magento-devdocs/"$repo".git
+  git remote add origin -f "$protocol""$org"/"$repo".git;
   git config core.sparseCheckout true
 
   echo '/docs/*' >> .git/info/sparse-checkout

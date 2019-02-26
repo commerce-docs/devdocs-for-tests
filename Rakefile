@@ -56,3 +56,8 @@ task build: %w[clean] do
   sh 'bundle exec jekyll build --verbose --trace'
   puts 'Built!'.green
 end
+
+desc 'Pull docs from external repositories'
+task :init do
+  sh './scripts/docs-from-code'
+end
