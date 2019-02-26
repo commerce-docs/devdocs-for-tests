@@ -9,7 +9,7 @@ docs_from_code () {
   local https=https://"$token"@github.com/
   local org=magento-devdocs
 
-  if "$token"
+  if [ -n "$token" ]
         then
     protocol=$https
   else 
