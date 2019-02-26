@@ -7,7 +7,7 @@ docs_from_code () {
   mkdir "$dir"
   cd "$dir" || exit
   git init
-  git remote add origin -f git@github.com:magento-devdocs/"$repo".git
+  git remote add origin -f https://github.com/magento-devdocs/"$repo".git
   git config core.sparseCheckout true
 
   echo '/docs/*' >> .git/info/sparse-checkout
