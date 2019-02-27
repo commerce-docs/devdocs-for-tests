@@ -1,32 +1,25 @@
 #!/usr/bin/env bash
-docs_from_code () {
-  local dir=$1
-  local repo=$2
-  local branch=$3
-  local token=$4
 
-  local ssh=git@github.com:
-  local https=https://"$token"@github.com/
-  local org=magento-devdocs
+dir=$1
+repo=$2
+branch=$3
 
-  if [ -n "$token" ]
-        then
-    protocol=$https
-  else 
-    protocol=$ssh
-  fi
+echo "Creating a directory: $dir"
+mkdir "$dir"
+cd "$dir" || exit
 
-  mkdir "$dir"
-  cd "$dir" || exit
-  git init
-  git remote add origin -f "$protocol""$org"/"$repo".git;
-  git config core.sparseCheckout true
+echo 'Initiating git in the directory'
+git init
 
-  echo '/docs/*' >> .git/info/sparse-checkout
+echo "Adding a remote repository: $repo"
+git remote add origin -f "$repo"
 
-  git checkout "$branch"
-  cd ..
-}
+echo 'Enabling sparse checkout'
+git config core.sparseCheckout true
 
-docs_from_code mftf magento2-functional-testing-framework docs-in-code "$token"
-docs_from_code page-builder magento2-page-builder ds_docs-in-code "$token"
+echo 'Adding /docs/* to sparse checkout'
+echo '/docs/*' >> .git/info/sparse-checkout
+
+echo "Checkouting a branch: $branch"
+git checkout "$branch"
+cd ..
