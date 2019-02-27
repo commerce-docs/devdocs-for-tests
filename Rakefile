@@ -58,6 +58,4 @@ task build: %w[clean] do
 end
 
 desc 'Pull docs from external repositories'
-task :init do
-  sh './scripts/docs-from-code.sh'
-end
+task init: %w[multirepo:init]
