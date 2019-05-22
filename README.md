@@ -1,3 +1,5 @@
+[![Build Status](https://magedoc-test.ci.corp.adobe.com:443/buildStatus/icon?job=multirepo-devdocs-build-deploy-staging)](https://magedoc-test.ci.corp.adobe.com:443/view/devdocs/job/multirepo-devdocs-build-deploy-staging/)
+
 # Magento Developer Documentation
 
 Welcome! This site contains the latest Magento developer documentation for ongoing Magento 2.x releases. For additional information, see our [Contribution Guide](https://github.com/magento/devdocs/blob/master/.github/CONTRIBUTING.md).
