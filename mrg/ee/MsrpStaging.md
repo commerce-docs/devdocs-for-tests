@@ -1,6 +1,10 @@
 ---
 group: module-reference-guide
+subgroup: 20_Enterprise Edition
+ee_only: true
 title: Magento_MsrpStaging module
+menu_title: MsrpStaging
+menu_order: 2
 ee_only: true
 ---
 
@@ -10,8 +14,8 @@ The Magento_MsrpStaging [module](https://glossary.magento.com/module) is a part 
 
 The Magento_MsrpStaging module extends the Magento_Msrp module to be used in staging. It adds the following fields in the Advice Pricing form:
 
-- Manufacturer's Suggested Retail Price
-- Display Actual Price
+-  Manufacturer's Suggested Retail Price
+-  Display Actual Price
 
 ## Dependencies
 
@@ -19,7 +23,7 @@ You can find the list of modules that have dependencies on the Magento_MsrpStagi
 
 ## Extension points
 
-[The Magento dependency injection mechanism]({{ site.baseurl }}/guides/v2.1/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Magento_MsrpStaging module.
+[The Magento dependency injection mechanism]({{ site.baseurl }}/guides/v2.2/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Magento_MsrpStaging module.
 
 ## Additional information
 

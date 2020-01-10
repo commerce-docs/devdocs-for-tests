@@ -7,46 +7,25 @@ functional_areas:
   - Setup
 ---
 
-## Prerequisite {#reds-cache-prereq}
+## Prerequisite
 
 You must [install Redis]({{ page.baseurl }}/config-guide/redis/config-redis.html#config-redis-install) before continuing.
 
-{:.bs-callout .bs-callout-info}
-You can use Redis for session storage in Magento versions 2.0.6 and later only.
+## Configure Magento to use Redis for session storage
 
-## Configure Magento to use Redis for session storage {#config-redis-config}
+Magento now provides command line options to configure Redis session storage. In previous releases, you edited the `<Magento install dir>app/etc/env.php` file. The command line provides validation and is the recommended configuration method, but you can still edit the `env.php` file.
 
-Following is a sample configuration to add to `<magento_root>app/etc/env.php`:
+Run the `setup:config:set` command and specify Redis-specific parameters.
 
-```php?start_inline=1
-    'session' =>
-    array (
-      'save' => 'redis',
-      'redis' =>
-      array (
-        'host' => '127.0.0.1',
-        'port' => '6379',
-        'password' => '',
-        'timeout' => '2.5',
-        'persistent_identifier' => '',
-        'database' => '2',
-        'compression_threshold' => '2048',
-        'compression_library' => 'gzip',
-        'log_level' => '1',
-        'max_concurrency' => '6',
-        'break_after_frontend' => '5',
-        'break_after_adminhtml' => '30',
-        'first_lifetime' => '600',
-        'bot_first_lifetime' => '60',
-        'bot_lifetime' => '7200',
-        'disable_locking' => '0',
-        'min_lifetime' => '60',
-        'max_lifetime' => '2592000'
-      )
-    ),
+```bash
+bin/magento setup:config:set --session-save=redis --session-save-redis-<parameter_name>=<parameter_value>...
 ```
 
 where
+
+`--session-save=redis` enables Redis session storage. If this feature has already been enabled, omit this parameter.
+
+`--session-save-redis-<parameter_name>=<parameter_value>` is a list of parameter/value pairs that configure session storage:
 
 |Command line Parameter|Parameter name|Meaning|Default value|
 |--- |--- |--- |--- |
@@ -69,15 +48,55 @@ where
 |session-save-redis-min-lifetime|min_lifetime|Minimum session lifetime, in seconds.|60|
 |session-save-redis-max-lifetime|max_lifetime|Maximum session lifetime, in seconds.|2592000 (720 hours)|
 
+### Example command
 
-{: .bs-callout .bs-callout-info }
+The following example sets Redis as the session data store, sets the host to `127.0.0.1`, sets the log level to 3, and sets the database number to 2. All other parameters are set to the default value.
+
+```bash
+bin/magento setup:config:set --session-save=redis --session-save-redis-host=127.0.0.1 --session-save-redis-log-level=3 --session-save-redis-db=2
+```
+
+### Result
+
+Magento adds lines similar to the following to `<magento_root>app/etc/env.php`:
+
+```php?start_inline=1
+    'session' =>
+    array (
+      'save' => 'redis',
+      'redis' =>
+      array (
+        'host' => '127.0.0.1',
+        'port' => '6379',
+        'password' => '',
+        'timeout' => '2.5',
+        'persistent_identifier' => '',
+        'database' => '2',
+        'compression_threshold' => '2048',
+        'compression_library' => 'gzip',
+        'log_level' => '3',
+        'max_concurrency' => '6',
+        'break_after_frontend' => '5',
+        'break_after_adminhtml' => '30',
+        'first_lifetime' => '600',
+        'bot_first_lifetime' => '60',
+        'bot_lifetime' => '7200',
+        'disable_locking' => '0',
+        'min_lifetime' => '60',
+        'max_lifetime' => '2592000'
+      )
+    ),
+```
+
+ {:.bs-callout-info}
 TTL for session records use the value for Cookie Lifetime, which is configured in Admin. If Cookie Lifetime is set to 0 (the default is 3600), then Redis sessions expire in the number of seconds specified in min_lifetime (the default is 60). This discrepancy is due to differences in how Redis and session cookies interpret a lifetime value of 0. If that behavior is not desired, increase the value of min_lifetime.
 
 ## Basic verification {#redis-verify}
 
 {% include config/redis-verify.md %}
 
-## Related topics
+{:.ref-header}
+Related topics
 
-* [Create or extend configuration types]({{ page.baseurl }}/config-guide/config/config-create.html)
-* [Magento's deployment configuration]({{ page.baseurl }}/config-guide/config/config-php.html)
+*  [Create or extend configuration types]({{ page.baseurl }}/config-guide/config/config-create.html)
+*  [Magento's deployment configuration]({{ page.baseurl }}/config-guide/config/config-php.html)

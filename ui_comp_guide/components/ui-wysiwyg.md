@@ -1,8 +1,6 @@
 ---
 group: ui-components-guide
-subgroup: components
 title: WYSIWYG component
-menu_title: Wysiwyg component
 ---
 
 The WYSIWYG component is an [adapter](https://glossary.magento.com/adapter) for the [TinyMCE editor](https://www.tinymce.com/). WYSIWYG integrates editor's instance into the [Form component]({{ page.baseurl }}/ui_comp_guide/components/ui-form.html). It expects to receive complete [widget](https://glossary.magento.com/widget) declaration in the `content` option, which should contain both [markup](https://glossary.magento.com/markup) and the script responsible for creating the editor's instance.
@@ -42,7 +40,7 @@ The WYSIWYG component is an [adapter](https://glossary.magento.com/adapter) for 
   </tr>
   <tr>
     <td><div><code>links</code></div>
-        <div><code>value</code></div>
+      <div><code>value</code></div>
     </td>
     <td><a href="{{ page.baseurl }}/ui_comp_guide/concepts/ui_comp_linking_concept.html">Links</a> the component's <code>value</code> property with the provider, using the path that is declared in the <code>dataScope</code> property.</td>
     <td>Object<br />String</td>
@@ -55,4 +53,3 @@ The WYSIWYG component is an [adapter](https://glossary.magento.com/adapter) for 
     <td><code>ui/form/field</code></td>
   </tr>
 </table>
-

@@ -16,14 +16,14 @@ Configure a test environment in scope of the particular [application area][] wit
 ## Fallback sequence
 
 1. Test annotation
-2. Test case annotation
-3. Default application area, which is `global`
+1. Test case annotation
+1. Default application area, which is `global`
 
 ## Test case annotation
 
 A test case annotation enables the specified application area for all tests in the test case.
 
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 Test annotations override test case annotations.
 
 Example:
@@ -33,7 +33,7 @@ Example:
  * @magentoAppArea adminhtml
  */
 namespace Vendor\Module;
-class ClassToTest extends \PHPUnit_Framework_TestCase
+class ClassToTest extends \PHPUnit\Framework\TestCase
 {
     public function testOne()
     {
@@ -67,7 +67,7 @@ Example:
 ```php?start_inline=1
 namespace \Vendor\Module;
 
-class ClassToTest extends \PHPUnit_Framework_TestCase
+class ClassToTest extends \PHPUnit\Framework\TestCase
 {
     // executes the test in scope of the global area
     public function testOne()

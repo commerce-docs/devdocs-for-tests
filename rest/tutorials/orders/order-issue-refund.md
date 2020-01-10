@@ -9,7 +9,6 @@ return_to:
 menu_order: 10
 level3_subgroup: order-tutorial
 redirect_from:
-  - /guides/v2.1/get-started/order-tutorial/order-issue-refund.html
   - /guides/v2.2/get-started/order-tutorial/order-issue-refund.html
 functional_areas:
   - Integration
@@ -34,17 +33,17 @@ If the customer had selected the `flatrate` shipping method ($5 per item), we wo
 
 The `return_to_stock_items` array specifies which `order_item_id`s can be returned to stock and be resold.
 
-**Endpoint**
+**Endpoint:**
 
 `POST <host>/rest/<store_code>/V1/order/5/refund`
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
 `Authorization` `Bearer <administrator token>`
 
-**Payload**
+**Payload:**
 
 ```json
 {
@@ -68,7 +67,7 @@ The `return_to_stock_items` array specifies which `order_item_id`s can be return
 }
 ```
 
-**Response**
+**Response:**
 
 A [credit memo](https://glossary.magento.com/credit-memo) id, such as `3`.
 
@@ -77,11 +76,11 @@ A [credit memo](https://glossary.magento.com/credit-memo) id, such as `3`.
 Log in to [Admin](https://glossary.magento.com/admin). Click **Sales** > **Credit Memos**. The credit memo is displayed in the grid.
 
 ## Congratulations! You've finished.
-{:.no_toc}
 
-## Related topics
+{:.ref-header}
+Related topics
 
-* [Getting Started with Magento Web APIs]({{ page.baseurl }}/get-started/bk-get-started-api.html)
-* [Create a configurable product Tutorial]({{ site.baseurl }}/guides/v2.2/rest/tutorials/configurable-product/config-product-intro.html)
-* [REST API Reference Overview]({{ page.baseurl }}/rest/bk-rest.html)
-* [REST API documentation]({{ site.baseurl }}/swagger/){:target="_blank"}
+*  [Getting Started with Magento Web APIs]({{ page.baseurl }}/get-started/bk-get-started-api.html)
+*  [Create a configurable product Tutorial]({{ site.baseurl }}/guides/v2.2/rest/tutorials/configurable-product/config-product-intro.html)
+*  [REST API Reference Overview]({{ page.baseurl }}/rest/bk-rest.html)
+*  [REST API documentation]({{ site.baseurl }}/swagger/){:target="_blank"}

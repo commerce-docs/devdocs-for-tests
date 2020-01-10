@@ -6,13 +6,13 @@ This topic contains examples of the Tile pattern used in the [Admin](https://glo
 
 ## Functional Behavior
 
-* Drag and Drop
-* Remove
-* Hero Product checkbox and link
-* Advance position left and right
-* Numerical input box
-* Multi selection
-* Hero Product Section
+*  Drag and Drop
+*  Remove
+*  Hero Product checkbox and link
+*  Advance position left and right
+*  Numerical input box
+*  Multi selection
+*  Hero Product Section
 
 ## Use of Tiles
 
@@ -51,10 +51,6 @@ The user has the ability to advance a tile to the first position in the category
 Clicking in the input field will allow the user to manually enter a numeric order and have the tile move to the position entered. If a tile is already in the chosen position, the tile will then move one space to the right and the new numeric value entered will take the position. Once the user enters a numeric value, using the keyboard and hitting return will move the tile to the entered position.
 
 ![](img/Tile05.jpg)
-
-## Multi-selection and Selection Indicators
-
-The user can select multiple tiles at one time by keyboard command (SHIFT and COMMAND) and selecting individual tiles. When tiles are dropped in the desired location, the tiles will be arranged according to how they were selected. (The first tile selected will be the first tile in the dropped position and all other tiles selected will arrange according to selection.)
 
 ## Hero Product Section
 

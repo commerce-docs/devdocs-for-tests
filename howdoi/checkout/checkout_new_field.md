@@ -4,7 +4,7 @@ group: how-do-i
 subgroup:
 title: Add a new field in address form
 subtitle: Customize Checkout
-menu_order: 10
+menu_order: 9
 level3_subgroup: checkout-tutorial
 functional_areas:
   - Checkout
@@ -15,10 +15,10 @@ You can add new fields to default [checkout](https://glossary.magento.com/checko
 To add your custom field to the checkout address form and access its value on the client side:
 
 1. [Add the field to layout](#add).
-2. [Add a JS mixin to modify data submission](#mixin).
-3. [Load your mixin](#load_mixin).
-4. [Add the field to address model](#field).
-5. [Access the value of the custom field on server side](#access).
+1. [Add a JS mixin to modify data submission](#mixin).
+1. [Load your mixin](#load_mixin).
+1. [Add the field to address model](#field).
+1. [Access the value of the custom field on server side](#access).
 
 ## Step 1: Add the field to layout {#add}
 
@@ -148,21 +148,58 @@ The following code is an example of an `extension_attributes.xml` file:
 </config>
 ```
 
-Clear the `var/generation` directory when you run the `setup:di:compile` command. New getter and setter methods will be added in `/var/generation/Magento/Quote/Api/Data/AddressInterface.php` file.
+Clear the `generated/code` directory when you run the `setup:di:compile` command. New getter and setter methods will be added in `generated/code/Magento/Quote/Api/Data/AddressExtension.php` file.
 
 ## Step 5: Access the value of the custom field on server side {#access}
 
 If you completed all the steps described in the previous sections, Magento will generate the interface that includes your custom attribute and you can access your field value.
 
-You can set/get these attributes values by creating an instance of the  `Magento/Quote/Api/Data/AddressInterface.php interface`.
+You can set/get these attributes values by creating an instance of the  `Magento/Quote/Api/Data/AddressInterface.php` interface.
 
 ```php
-$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$addressInformation = $objectManager->create('Magento\Checkout\Api\Data\ShippingInformationInterface');
-$extAttributes = $addressInformation->getExtensionAttributes();
-$selectedShipping = $extAttributes->getCustomShippingCharge(); //get custom attribute data.
+<?php
+
+// ... //
+
+use Magento\Checkout\Api\Data\ShippingInformationInterface;
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Element\Template\Context;
+
+class MyBlock extends Template {
+
+    /**
+     * @var ShippingInformationInterface
+     */
+    private $_addressInformation;
+
+    /**
+     * @param Context $context
+     * @param ShippingInformationInterface $addressInformation
+     * @param array $data
+     */
+    public function __construct(
+        Context $context,
+        ShippingInformationInterface $addressInformation,
+        array $data = []
+    ) {
+        $this->_addressInformation = $addressInformation;
+        parent::__construct($context, $data);
+    }
+
+    /**
+     * Get custom Shipping Charge
+     *
+     * @return String
+     */
+    public function getShippingCharge()
+    {
+        $extAttributes = $this->_addressInformation->getExtensionAttributes();
+        return $extAttributes->getCustomField(); //get custom attribute data.
+    }
+}
 ```
 
-### Related topics
+{:.ref-header}
+Related topic
 
-- [EAV and extension attributes]({{ page.baseurl }}/extension-dev-guide/attributes.html)
+[EAV and extension attributes]({{ page.baseurl }}/extension-dev-guide/attributes.html)

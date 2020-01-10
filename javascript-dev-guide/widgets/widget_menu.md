@@ -3,13 +3,12 @@ group: javascript-developer-guide
 subgroup: 3_Widgets
 title: Menu widget
 ---
-## Overview
 
 The Magento menu widget is a customized [jQuery UI Menu widget](http://api.jqueryui.com/menu/){:target="_blank"}. Magento menu extends the default functionality with the following:
 
--   expanding all layers of the menu tree past the second layer
--   declaring a responsive menu
--   setting hover delay
+-  expanding all layers of the menu tree past the second layer
+-  declaring a responsive menu
+-  setting hover delay
 
 The Magento menu [widget](https://glossary.magento.com/widget) source is [lib/web/mage/menu.js].
 
@@ -20,13 +19,30 @@ For information about how to initialize a widget in a JS component or `.phtml` t
 ## Options {#menu_options}
 
 Menu widget options mostly coincide with the options of the jQuery UI Menu widget, with addition of the following custom ones:
--   [delay](#m_delay)
--   [responsive](#m_responsive)
--   [expanded](#m_expanded)
--   [mediaBreakpoint](#m_mediaBreakpoint)
+
+-  [delay](#m_delay)
+-  [showDelay](#m_showDelay)
+-  [hideDelay](#m_hideDelay)
+-  [responsive](#m_responsive)
+-  [expanded](#m_expanded)
+-  [mediaBreakpoint](#m_mediaBreakpoint)
 
 ### `delay` {#m_delay}
 Set the delay length of opening submenu.
+
+**Type**: Number
+
+**Default value**: `300`
+
+### `showDelay` {#m_showDelay}
+Set the delay length of showing menu. Used in `toggle` method of the widget.
+
+**Type**: Number
+
+**Default value**: `42`
+
+### `hideDelay` {#m_hideDelay}
+Set the delay length of closing menu. Used in `toggle` method of the widget.
 
 **Type**: Number
 
@@ -60,8 +76,8 @@ plus a couple more.
 
 ### Additional available methods
 
-- [toggle](#m_toggle)
-- [isExpanded](#m_isExpanded)
+-  [toggle](#m_toggle)
+-  [isExpanded](#m_isExpanded)
 
 ### `toggle()` {#m_toggle}
 
@@ -70,6 +86,9 @@ Toggles website's menu opened state.
 ### `isExpanded()` {#m_isExpanded}
 
 Add class for expanded option.
+
+{:.bs-callout-info}
+The following methods from [jQuery UI menu widget] were adjusted in scope of the widget: `expand(event)` and `select(event)`.
 
 [lib/web/mage/menu.js]: {{ site.mage2bloburl }}/{{ page.guide_version }}/lib/web/mage/menu.js
 [Initialize JavaScript]: {{page.baseurl}}/javascript-dev-guide/javascript/js_init.html

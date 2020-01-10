@@ -1,6 +1,10 @@
 ---
 group: module-reference-guide
+subgroup: 20_Enterprise Edition
+ee_only: true
 title: Magento_GiftMessageStaging module
+menu_title: GiftMessageStaging
+menu_order: 2
 ee_only: true
 ---
 
@@ -16,7 +20,7 @@ You can find the list of modules that have dependencies on the Magento_GiftMessa
 
 ## Extension points
 
-[The Magento dependency injection mechanism]({{ site.baseurl }}/guides/v2.1/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Magento_GiftMessageStaging module.
+[The Magento dependency injection mechanism]({{ site.baseurl }}/guides/v2.2/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Magento_GiftMessageStaging module.
 
 ## Additional information
 

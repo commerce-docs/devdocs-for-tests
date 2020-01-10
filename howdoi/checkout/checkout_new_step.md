@@ -14,14 +14,14 @@ This topic describes how to create the [frontend](https://glossary.magento.com/f
 
 The default Magento [Checkout](https://glossary.magento.com/checkout) consists of two steps:
 
- - Shipping Information
- - Review and Payments Information
+-  Shipping Information
+-  Review and Payments Information
 
 You can add a custom checkout step, it should be implemented as a [UI component](https://glossary.magento.com/ui-component). For the sake of compatibility, upgradability and easy maintenance, do not edit the default Magento code, add your customizations in a separate [module](https://glossary.magento.com/module).
 
 1. [Create the view part of the checkout step component](#create-view).
-2. [Add your step to the Checkout page layout](#checkout).
-3. [Create mixins for payment and shipping steps (optional)](#create-mixin).
+1. [Add your step to the Checkout page layout](#checkout).
+1. [Create mixins for payment and shipping steps (optional)](#create-mixin).
 
 ## Step 1: Create the view part of the checkout step component {#create-view}
 
@@ -37,7 +37,7 @@ A new checkout step must be implemented as UI component. That is, its [JavaScrip
 
 The file must be stored under the `<your_module_dir>/view/frontend/web/js/view` directory.
 
-{: .bs-callout .bs-callout-info }
+ {:.bs-callout-info}
 `<your_module_dir>` notation stands for the path to your module directory from the root directory. Usually it will be one of the following: `app/code/<YourVendor>/<YourModule>` or `vendor/<yourvendor>/module-<module>-<name>`. For more details see [Conventional notations for paths to modules and themes]({{ page.baseurl }}/frontend-dev-guide/conventions.html)
 
 A sample `my-step-view.js` with comments follows:
@@ -103,11 +103,11 @@ define(
             },
 
             /**
-	    * The navigate() method is responsible for navigation between checkout step
-	    * during checkout. You can add custom logic, for example some conditions
-	    * for switching to your custom step
-	    * When the user navigates to the custom step via url anchor or back button we_must show step manually here
-	    */
+        * The navigate() method is responsible for navigation between checkout step
+        * during checkout. You can add custom logic, for example some conditions
+        * for switching to your custom step
+        * When the user navigates to the custom step via url anchor or back button we_must show step manually here
+        */
             navigate: function () {
 
                 this.isVisible(true);
@@ -203,20 +203,20 @@ Create a mixin as follows:
 
     ```js
     var config = {
-    	'config': {
-    	    'mixins': {
-    	       'Magento_Checkout/js/view/shipping': {
-    	           'Vendor_Module/js/view/shipping-payment-mixin': true
-    	       },
-    	       'Magento_Checkout/js/view/payment': {
-    	           'Vendor_Module/js/view/shipping-payment-mixin': true
-    	       }
-    	   }
-    	}
+        'config': {
+            'mixins': {
+               'Magento_Checkout/js/view/shipping': {
+                   'Vendor_Module/js/view/shipping-payment-mixin': true
+               },
+               'Magento_Checkout/js/view/payment': {
+                   'Vendor_Module/js/view/shipping-payment-mixin': true
+               }
+           }
+        }
     }
     ```
 
-2. Create the mixin. We'll use the same mixin for both payment and shipping:
+1. Create the mixin. We'll use the same mixin for both payment and shipping:
 
     ```js
     define(
@@ -242,5 +242,5 @@ Create a mixin as follows:
     );
     ```
 
-{: .bs-callout .bs-callout-info }
+ {:.bs-callout-info}
 For your changes to be applied, you might need to [clean layout cache]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-cache.html ) and [static view file cache]({{ page.baseurl }}/frontend-dev-guide/cache_for_frontdevs.html#clean_static_cache). For more info on mixins, see [JS Mixins]({{ page.baseurl }}/javascript-dev-guide/javascript/js_mixins.html).

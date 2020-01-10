@@ -3,7 +3,7 @@ group: testing
 title: Configuration fixture annotation
 ---
 
-To set the Magento configuration values for individual tests and revert them after the test executes, use the `@magentoConfigFixture` annotation.
+To set the Magento configuration values for individual tests and revert them after the test execution, use the `@magentoConfigFixture` annotation.
 
 ## Format
 
@@ -13,18 +13,17 @@ To set the Magento configuration values for individual tests and revert them aft
  */
 ```
 
-- `<store_code>` is a code of the store to be configured.
-  By default, the configuration option is applied globally.
-  To specify the current store, use `current`.
-- `<config_path>` is an XPath to the configuration option.
-  See [configuration reference][] for available options.
-- `<config_value>` is a fixture value for the configuration option.
+-  `<store_code>` is a code of the store to be configured.
+
+   By default, the configuration option is applied globally. To specify the current store, use `current`.
+-  `<config_path>` is an XPath to the configuration option. See [configuration reference][] for available options.
+-  `<config_value>` is a fixture value for the configuration option.
 
 ## Principles
 
 1. The `@magentoConfigFixture` is available at the test method level only.
-   It is not available on a test case level.
-2. A test can contain several configuration options.
+   It is not available on the test case level.
+1. A test can contain several configuration options.
 
 ## Example
 
@@ -36,7 +35,7 @@ To set the Magento configuration values for individual tests and revert them aft
  */
 namespace Magento\Test\Annotation;
 
-class ConfigFixtureTest extends \PHPUnit_Framework_TestCase
+class ConfigFixtureTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Magento\TestFramework\Annotation\ConfigFixture|\PHPUnit_Framework_MockObject_MockObject
@@ -45,8 +44,8 @@ class ConfigFixtureTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->_object = $this->getMock(
-            'Magento\TestFramework\Annotation\ConfigFixture',
+        $this->_object = $this->createPartialMock(
+            \Magento\TestFramework\Annotation\ConfigFixture::class,
             ['_getConfigValue', '_setConfigValue']
         );
     }
@@ -195,7 +194,6 @@ class ConfigFixtureTest extends \PHPUnit_Framework_TestCase
         $this->_object->initStoreAfter();
     }
 }
-
 ```
 
 <!-- Link definitions -->

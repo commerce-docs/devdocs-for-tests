@@ -13,10 +13,11 @@ Memcache provides a very large hash table that can be distributed across multipl
 
 Magento uses memcached for session storage but not for page caching. For page caching, we recommend [Redis]({{ page.baseurl }}/config-guide/redis/config-redis.html) or [Varnish]({{ page.baseurl }}/config-guide/varnish/config-varnish.html).
 
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 Refer to [Why Redis is better]({{ page.baseurl }}/config-guide/redis/config-redis.html) for a list of advantages to using Redis.
 
-#### Next step
+{:.ref-header}
+Related topics
 
-*   [Install, configure, verify memcached on Ubuntu]({{ page.baseurl }}/config-guide/memcache/memcache_ubuntu.html)
-*   [Install, configure, verify memcached on CentOS]({{ page.baseurl }}/config-guide/memcache/memcache_centos.html)
+*  [Install, configure, verify memcached on Ubuntu]({{ page.baseurl }}/config-guide/memcache/memcache_ubuntu.html)
+*  [Install, configure, verify memcached on CentOS]({{ page.baseurl }}/config-guide/memcache/memcache_centos.html)

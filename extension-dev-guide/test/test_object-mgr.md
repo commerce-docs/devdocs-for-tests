@@ -10,16 +10,16 @@ menu_order: 3
 <p>To unit test such classes, you must manually create mocks for all constructor parameters before you can instantiate the class objects. If the number of dependencies is ten or greater, this task is time-consuming.</p>
 <p>Use the <code>\Magento\TestFramework\Helper\ObjectManager</code> helper class to simplify this task. Its methods automatically create mocks for all required dependencies. You can then instantiate a testing object by passing these mocks to a class constructor.</p>
 <p>You can still create your custom mocks, if needed.</p>
-{: .bs-callout .bs-callout-info }
+ {:.bs-callout-info}
 Do not use the ObjectManager helper class for classes with a small number of dependencies.
 
 ## ObjectManager methods {#help}
 
 The ObjectManager public interface methods are:
 
--   [getObject method](#getobject). Creates class instances with automatically mocked dependencies.
--   [getCollectionMock method](#getCollectionMock). Lists mocked constructor arguments.
--   [getConstructArguments method](#getConstructArguments). Creates collection instances that contain specified elements.
+-  [getObject method](#getobject). Creates class instances with automatically mocked dependencies.
+-  [getCollectionMock method](#getCollectionMock). Lists mocked constructor arguments.
+-  [getConstructArguments method](#getConstructArguments). Creates collection instances that contain specified elements.
 
 ### getObject method {#getobject}
 
@@ -28,7 +28,7 @@ The ObjectManager public interface methods are:
 <p><b>Syntax:</b></p>
 <pre>
 public function getObject($className,
-     array $arguments = array());
+     array $arguments = []);
 </pre>
 <p><b>Example:</b></p>
 <pre>
@@ -61,7 +61,7 @@ $objectManagerHelper = new \Magento\TestFramework\Helper\ObjectManager($this);
 $option = $this->getMock(
     'Magento\Bundle\Model\Option',
     array('getSelections', '__wakeup', 'getData'),
-    array(),
+    [],
     '',
     false
 );
@@ -76,7 +76,7 @@ $optionCollection =
 <p><b>Syntax:</b></p>
 <pre>
 public function getConstructArguments($className,
-     array $arguments = array());
+     array $arguments = []);
 </pre>
 <p>In the Magento system, several tests introduced mocks for abstract models and blocks.</p>
 <p><b>Example:</b></p>

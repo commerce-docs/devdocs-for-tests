@@ -26,22 +26,22 @@ When the slideout is triggered (by an action taken on the "parent page"), the pa
 
 ![Example of panel animation](img/slideout-panel1.png)
 
-_Example of panel animation_
+Example of panel animation
 
 ### Anatomy of Slideout
 
 The active panel should include the following elements:
 
-* Content container (Panel)
-* A Page title
-* Close control "×" (ESC-key via keyboard)
-* Button bar for actions, including a "Cancel" (ESC-key is Cancel via keyboard)
-* Page content
-* "Shade" to disable lower level page
+*  Content container (Panel)
+*  A Page title
+*  Close control "×" (ESC-key via keyboard)
+*  Button bar for actions, including a "Cancel" (ESC-key is Cancel via keyboard)
+*  Page content
+*  "Shade" to disable lower level page
 
 ![Example of active panel positioned over "parent"](img/slideout-panel2.png)
 
-_Example of active panel positioned over "parent"_
+Example of active panel positioned over "parent"
 
 ### Cancel and Close controls
 
@@ -49,7 +49,7 @@ The close control ( × ) and the "Cancel" link/button will cancel the sub-proces
 
 ![Close and cancel controls](img/slideout-panel3.png)
 
-_Close and cancel controls_
+Close and cancel controls
 
 ### Passive Close
 
@@ -61,13 +61,13 @@ When two panels are open (one over the other), only the topmost is active. Click
 
 ![](img/slideout-panel5.png)
 
-_Passive close "zone" - one level down_
+Passive close "zone" - one level down
 
 Clicking or tapping the "alley" that represents the parent page (lowest level) will slide each panel out of view, closing them, and return the user to the parent page. It is recommended that no more than two panels be used in any given "task flow".
 
 ![](img/slideout-panel6.png)
 
-_Passive close "zone" - two levels down_
+Passive close "zone" - two levels down
 
 ### Slideout Button Bar actions
 
@@ -82,7 +82,7 @@ If the form in slide-in panel creates new entities, or changes existing ones (Cr
 Clicking that button will:
 
 1. Validate the form in Slideout. If form has errors, it will show the error messages following the Error Messaging Pattern. If no errors found, it will:
-2. Close the Slideout and apply changes immediately (entity will be created in the database, for example).
+1. Close the Slideout and apply changes immediately (entity will be created in the database, for example).
 
 ### Extend Form
 
@@ -91,7 +91,7 @@ Clicking that button will:
 If the Slideout panel is a part of the form, extending it (like Advanced Inventory, or Advanced Pricing), primary action should be labeled as "Done". Clicking it will:
 
 1. Validate the form in Slideout. If form has errors, it will show the error messages following the Error Messaging Pattern. If no errors found, it will:
-2. Close the Slideout and save the contents of its form. User still has to click "Save" button on the main form to apply changes.
+1. Close the Slideout and save the contents of its form. User still has to click "Save" button on the main form to apply changes.
 
 Clicking "Cancel" or clicking "&times;" or clicking outside of the panel (passive close) in both cases should reset contents of the current level Slideout form to default state.
 If user made changes to a form, he is presented with the modal window to confirm Cancellation:
@@ -106,20 +106,19 @@ In its final position the panel does not snap to the page-grid of the parent pag
 
 ![](img/slideout-panel7.png)
 
-_Panel position in relation to browser edge_
+Panel position in relation to browser edge
 
 A 12-column page-grid is nested inside the content area of the slideout panel, with an additional 15px of padding added to the left edge.
 
 ![](img/slideout-panel8.png)
 
-_Nested page-grid with additional padding_
+Nested page-grid with additional padding
 
 This method of nesting a 12-column page-grid inside the slideout panel is repeated with each subsequent panel. This is done so that the panels can easily accommodate established page templates used in the Magento framework. With each additional panel, the position of the active panel should indent to create the page-over-page metaphor and allow a zone(s) for the passive close interaction mentioned above.
 
 ![](img/slideout-panel9.png)
 
-## Modals 
-{: #modals}
+## Modals
 
 ### Behavior and Animation
 
@@ -127,18 +126,18 @@ When an action is taken that triggers a modal, the modal window should appear ce
 
 ![](img/modal1.png)
 
-_Example of a Confirmation Modal_
+Example of a Confirmation Modal
 
 ### Anatomy of a Modal
 
 The active modal should include the following elements:
 
-* Content container (Modal Window)
-* A Title
-* Close control "×" (ESC-key via keyboard)
-* Page content
-* Call to action(s), including "Cancel" (ESC-key is Cancel via keyboard)
-* "Shade" to disable lower level page
+*  Content container (Modal Window)
+*  A Title
+*  Close control "×" (ESC-key via keyboard)
+*  Page content
+*  Call to action(s), including "Cancel" (ESC-key is Cancel via keyboard)
+*  "Shade" to disable lower level page
 
 ### Cancel and Close controls
 
@@ -146,7 +145,7 @@ Every modal should include a close control ( × ) in the upper right corner as w
 
 ![](img/modal3.png)
 
-_Modal "Cancel" and "Close" controls_
+Modal "Cancel" and "Close" controls
 
 ### Modal Dimensions
 
@@ -158,20 +157,20 @@ The distance of the modal to the top of the browser should have a fixed distance
 
 ![Placement and Padding of Modal](img/modal5.png)
 
-_Placement and Padding of Modal_
+Placement and Padding of Modal
 
 ![Sample of progress bar in modal](img/modal6.png)
 
-_Sample of progress bar in modal_
+Sample of progress bar in modal
 
 ### Implementation
 
 Modal windows are implemented by the following Magento [jQuery](https://glossary.magento.com/jquery) widgets:
 
-* [modal]({{ page.baseurl }}/javascript-dev-guide/widgets/widget_modal.html)
-* [alert]({{ page.baseurl }}/javascript-dev-guide/widgets/widget_alert.html) (extends modal)
-* [confirm]({{ page.baseurl }}/javascript-dev-guide/widgets/widget_confirm.html) (extends modal)
-* [prompt]({{ page.baseurl }}/javascript-dev-guide/widgets/widget_prompt.html) (extends modal)
+*  [modal]({{ page.baseurl }}/javascript-dev-guide/widgets/widget_modal.html)
+*  [alert]({{ page.baseurl }}/javascript-dev-guide/widgets/widget_alert.html) (extends modal)
+*  [confirm]({{ page.baseurl }}/javascript-dev-guide/widgets/widget_confirm.html) (extends modal)
+*  [prompt]({{ page.baseurl }}/javascript-dev-guide/widgets/widget_prompt.html) (extends modal)
 
 ## Overlays
 
@@ -181,7 +180,7 @@ Drop down overlays behave just as drop down form elements do. A button or contro
 
 ![Examples of drop down overlays](img/overlay1.jpg)
 
-_Examples of drop down overlays_
+Examples of drop down overlays
 
 ### Flyouts
 
@@ -189,15 +188,15 @@ Flyouts are overlays that typically emerge from a link, menu heading, or other c
 
 ![Data-table Filtering Flyout](img/overlay2.jpg)
 
-_Data-table Filtering Flyout_
+Data-table Filtering Flyout
 
 ![Data-table In-line Editing Flyout](img/overlay3.jpg)
 
-_Data-table In-line Editing Flyout_
+Data-table In-line Editing Flyout
 
 ![Sub-menu Navigation Flyout](img/overlay4.jpg)
 
-_Sub-menu Navigation Flyout_
+Sub-menu Navigation Flyout
 
 ### Contextual Help
 
@@ -205,7 +204,7 @@ Contextual Help is similar to a "tooltip" element, except that it is revealed by
 
 ![Example of Contextual Help](img/overlay5.jpg)
 
-_Example of Contextual Help_
+Example of Contextual Help
 
 ### Alerts and Messages
 
@@ -213,18 +212,18 @@ Within the Magento application it is often necessary and helpful to provide feed
 
 ![Field Level Validation message](img/overlay6.jpg)
 
-_Field Level Validation message_
+Field Level Validation message
 
 When field level validation is triggered resulting message should appear and persist until the user has taken an action to correct the error (for example, clicks into the form field to re-type an incorrect password).
 
 ![Data-table with Confirmation Message](img/overlay7.jpg)
 
-_Data-table with Confirmation Message_
+Data-table with Confirmation Message
 
 ## Assets
 
-* [Download Slide-out Panels PSD source](src/Slide-out-Panels.psd)
-* [Download Modal PSD source](src/Modal.psd)
+*  [Download Slide-out Panels PSD source](src/Slide-out-Panels.psd)
+*  [Download Modal PSD source](src/Modal.psd)
 
 ## Technical Implementation
 

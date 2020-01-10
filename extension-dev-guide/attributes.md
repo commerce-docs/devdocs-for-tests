@@ -5,11 +5,11 @@ title: EAV and extension attributes
 
 There are two types of attributes you can use to extend Magento functionality:
 
-* Custom and Entity-Attribute-Value (EAV) attributes—Custom attributes are those added on behalf of a merchant. For example, a merchant might need to add attributes to describe products, such as shape or volume. A merchant can add these attributes in the [Magento Admin](https://glossary.magento.com/magento-admin) panel. See the [merchant documentation](http://docs.magento.com/m2/ce/user_guide/stores/attributes.html) for information about managing custom attributes.
+*  Custom and Entity-Attribute-Value (EAV) attributes—Custom attributes are those added on behalf of a merchant. For example, a merchant might need to add attributes to describe products, such as shape or volume. A merchant can add these attributes in the [Magento Admin](https://glossary.magento.com/magento-admin) panel. See the [merchant documentation](http://docs.magento.com/m2/ce/user_guide/stores/attributes.html) for information about managing custom attributes.
 
-	Custom attributes are a subset of EAV attributes. Objects that use EAV attributes typically store values in several MySQL tables. The `Customer` and `Catalog` modules are the primary models that use EAV attributes. Other modules, such as `ConfigurableProduct`, `GiftMessage`, and `Tax`, use the EAV functionality for `Catalog`.
+   Custom attributes are a subset of EAV attributes. Objects that use EAV attributes typically store values in several MySQL tables. The `Customer` and `Catalog` modules are the primary models that use EAV attributes. Other modules, such as `ConfigurableProduct`, `GiftMessage`, and `Tax`, use the EAV functionality for `Catalog`.
 
-* [Extension attributes](https://glossary.magento.com/extension-attributes). Extension attributes are new in Magento 2. They are used to extend functionality and often use more [complex data](https://glossary.magento.com/complex-data) types than custom attributes. These attributes do not appear in the Magento Admin.
+*  [Extension attributes](https://glossary.magento.com/extension-attribute). Extension attributes are new in Magento 2. They are used to extend functionality and often use more [complex data](https://glossary.magento.com/complex-data) types than custom attributes. These attributes do not appear in the Magento Admin.
 
 ## EAV and custom attributes {#custom}
 
@@ -17,20 +17,20 @@ There are two types of attributes you can use to extend Magento functionality:
 
 A [module](https://glossary.magento.com/module) has a set of built-in attributes that are always available. The `Catalog` module has several attributes that are defined as EAV attributes, but are treated as built-in attributes. These attributes include:
 
-* attribute_set_id
-* created_at
-* group_price
-* media_gallery
-* name
-* price
-* [sku](https://glossary.magento.com/sku)
-* status
-* store_id
-* tier_price
-* type_id
-* updated_at
-* visibility
-* weight
+*  attribute_set_id
+*  created_at
+*  group_price
+*  media_gallery
+*  name
+*  price
+*  [sku](https://glossary.magento.com/sku)
+*  status
+*  store_id
+*  tier_price
+*  type_id
+*  updated_at
+*  visibility
+*  weight
 
 In this case, when `getCustomAttributes()` is called, the system returns only custom attributes that are not in this list.
 
@@ -38,13 +38,13 @@ The `Customer` module does not treat its EAV attributes in a special manner. As 
 
 ### Adding Customer EAV attribute for backend only {#customer-eav-attribute}
 
-Customer attributes are created inside of `InstallData` and `UpgradeData` scripts. To add new attributes to the database, you must use the `\Magento\Eav\Setup\EavSetupFactory` class as a dependency injection. The `InstallData` script will be executed when the module is first installed and either the `bin/magento setup:upgrade` or `bin/magento setup:db-data:upgrade` command is run.  If the module is already existing, `UpgradeData` scripts should be used. During the development cycle, if there is a need to re-run the `InstallData` or `UpgradeData` scripts, the `setup_module` table row for the module can be manipulated.  
+Customer attributes are created inside of `InstallData` and `UpgradeData` scripts. To add new attributes to the database, you must use the `\Magento\Eav\Setup\EavSetupFactory` class as a dependency injection. The `InstallData` script will be executed when the module is first installed and either the `bin/magento setup:upgrade` or `bin/magento setup:db-data:upgrade` command is run.  If the module is already existing, `UpgradeData` scripts should be used. During the development cycle, if there is a need to re-run the `InstallData` or `UpgradeData` scripts, the `setup_module` table row for the module can be manipulated.
 
-{: .bs-callout .bs-callout-warning }
+{:.bs-callout-warning}
 Both the `save()` and `getResource()` methods for `Magento\Framework\Model\AbstractModel` have been marked as `@deprecated` since 2.1 and should no longer be used.
 
 ```php
-<?php 
+<?php
 namespace My\Module\Setup;
 
 use Magento\Customer\Model\Customer;
@@ -54,11 +54,11 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 class InstallData implements \Magento\Framework\Setup\InstallDataInterface
 {
     private $eavSetupFactory;
-    
+
     private $eavConfig;
-    
+
     private $attributeResource;
-    
+
     public function __construct(
         \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory,
         \Magento\Eav\Model\Config $eavConfig,
@@ -68,7 +68,7 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
         $this->eavConfig = $eavConfig;
         $this->attributeResource = $attributeResource;
     }
-    
+
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
         $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
@@ -76,7 +76,7 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
         $eavSetup->addAttribute(Customer::ENTITY, 'attribute_code', [
             // Attribute parameters
         ]);
-        
+
         $attribute = $this->eavConfig->getAttribute(Customer::ENTITY, 'attribute_code');
         $attribute->setData('used_in_forms', ['adminhtml_customer']);
         $this->attributeResource->save($attribute);
@@ -113,16 +113,60 @@ You must create a `<Module>/etc/extension_attributes.xml` file to define a modul
 
 where:
 
-|Keyword|Description|Example|
-|--- |--- |--- |
-| for | The fully-qualified type name with the [namespace](https://glossary.magento.com/namespace) that processes the extensions. The value must be a type that implements `ExtensibleDataInterface`. The interface can be in a different module. | `Magento\Quote\Api\Data\TotalsInterface` |
-| code | The name of the attribute. The attribute name should be in snake case (the first letter in each word should be in lowercase, with each word separated by an underscore). | `gift_cards_amount_used` |
-| type | The data type. This can be a simple data type, such as string or integer, or complex type, such as an interface. | `float`<br />`Magento\CatalogInventory\Api\Data\StockItemInterface` |
-| ref | Optional. Restricts access to the extension attribute to users with the specified permission. | `Magento_CatalogInventory::cataloginventory` |
-| reference_table | The table involved in a join operation. See [Searching extension attributes](#search) for details. | `admin_user` |
-| reference_field | Column in the `reference_table`. | `user_id` |
-| join_on_field | The column of the table associated with the interface specified in the `for` keyword that will be used in the join operation. | `store_id` |
-| field | One or more fields present in the interface specified in the `type` keyword.<br />You can specify the `column=""` keyword to define the column in the reference_table to use. The field value specifies the property on the `interface` which should be set. | `<field>firstname</field>`<br />`<field>lastname</field>`<br />`<field>email</field>`<br /><br />`<field column="customer_group_code">code</field>` |
+<table>
+<thead>
+<th>Keyword</th>
+<th>Description</th>
+<th>Example</th>
+</thead>
+<tbody>
+<tr>
+<td><p>for</p></td>
+<td><p>The fully-qualified type name with the [namespace](https://glossary.magento.com/namespace) that processes the extensions. The value must be a type that implements `ExtensibleDataInterface`. The interface can be in a different module.</p> </td>
+<td><code>Magento\Quote\Api\Data\TotalsInterface</code></td>
+</tr>
+<tr>
+<td><p>code</p></td>
+<td><p>The name of the attribute. The attribute name should be in snake case (the first letter in each word should be in lowercase, with each word separated by an underscore). </p></td>
+<td><code>gift_cards_amount_used</code></td>
+</tr>
+<tr>
+<td><p>type</p></td>
+<td><p>The data type. This can be a simple data type, such as string or integer, or complex type, such as an interface.</p></td>
+<td><code>float <br />Magento\CatalogInventory\Api\Data\StockItemInterface</code></td>
+</tr>
+<tr>
+<td><p>ref</p></td>
+<td><p>Optional. Restricts access to the [extension attribute](https://glossary.magento.com/extension-attribute) to users with the specified permission.</p></td>
+<td><code>Magento_CatalogInventory::cataloginventory</code></td>
+</tr>
+<tr>
+<td><p>reference_table</p></td>
+<td>
+<p>The table involved in a join operation. See <a href="#search">Searching extension attributes</a> for details.</p>
+</td>
+<td><code>admin_user</code></td>
+</tr>
+<tr>
+<td><p>reference_field</p></td>
+<td><p>Column in the reference_table</p></td>
+<td><code>user_id</code></td>
+</tr>
+<tr>
+<td><p>join_on_field</p></td>
+<td><p>The column of the table associated with the interface specified in the <code>for</code> [keyword](https://glossary.magento.com/keyword) that will be used in the join operation.</p></td>
+<td><code>store_id</code></td>
+</tr>
+<tr>
+<td><p>field</p></td>
+<td><p>One or more fields present in the interface specified in the <code>type</code> keyword.</p>
+<p>You can specify the <code>column=""</code> keyword to define the column in the reference_table to use. The field value specifies the property on the <code>interface</code> which should be set.</p></td>
+<td><code><field>firstname</field><br /><field>lastname</field><br /><field>email</field><br /><br />
+<field column="customer_group_code">code</field></code></td>
+</tr>
+</tbody>
+
+</table>
 
 ### Searching extension attributes {#search}
 
@@ -201,7 +245,6 @@ This only works for extension attributes (those attributes defined in an `extens
 ### Extension interfaces
 
 An `ExtensionInterface` will be empty if no extension attributes have been added. In the following example—in an unmodified installation—`CustomerExtensionInterface` will be generated, but will be empty:
-
 
 `interface CustomerExtensionInterface extends \Magento\Framework\Api\ExtensionAttributesInterface
 {

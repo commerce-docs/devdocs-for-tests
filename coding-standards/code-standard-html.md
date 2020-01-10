@@ -17,11 +17,12 @@ The guide is based on the [Google HTML/CSS Style Guide](https://google.github.io
 
 Use only spaces for indentation:
 
-* Tab size: 4 spaces
-* Indent size: 4 spaces
-* Continuation indent: 4 spaces
+*  Tab size: 4 spaces
+*  Indent size: 4 spaces
+*  Continuation indent: 4 spaces
 
-**Recommended**
+**Recommended:**
+
 ```html
 <ul>
     <li>One</li>
@@ -37,14 +38,16 @@ Add a blank line at the end of file.
 
 Always close self-closing tags.
 
-**Inappropriate**
+**Inappropriate:**
+
 ```html
 <br>
 <img src="image.png" alt="image">
 <input type="text" name="username">
 ```
 
-**Recommended**
+**Recommended:**
+
 ```html
 <br />
 <img src="image.png" alt="image" />
@@ -55,12 +58,14 @@ Always close self-closing tags.
 
 Avoid code lines longer than 120 characters. When using an editor, it is inconvenient to scroll right and left to read the HTML code. Align tag attributes one under another to increase code readability.
 
-**Inappropriate**
+**Inappropriate:**
+
 ```html
 <input data-bind="attr: { id: 'cart-item-'+item_id+'-qty', 'data-cart-item': item_id, 'data-item-qty': qty }, value: qty" type="number" size="4" class="item-qty cart-item-qty" maxlength="12"/>
 ```
 
-**Recommended**
+**Recommended:**
+
 ```html
 <input data-bind="attr: {
        id: 'cart-item-'+item_id+'-qty',
@@ -77,12 +82,14 @@ Avoid code lines longer than 120 characters. When using an editor, it is inconve
 
 Spaces around equals sign ("=") are acceptable, but not recommended. The code without spaces is easier to read.
 
-**Not recommended**
+**Not recommended:**
+
 ```html
 <link rel = "stylesheet" href = "styles.css">
 ```
 
-**Recommended**
+**Recommended:**
+
 ```html
 <link rel="stylesheet" href="styles.css">
 ```
@@ -91,13 +98,15 @@ Spaces around equals sign ("=") are acceptable, but not recommended. The code wi
 
 Use no space before the colon and one space after the colon for the sake of readability.
 
-**Not recommended**
+**Not recommended:**
+
 ```html
 <span data-bind="i18n : 'Update'"></span>
 <span data-bind="i18n:'Update'"></span>
 ```
 
-**Recommended**
+**Recommended:**
+
 ```html
 <span data-bind="i18n: 'Update'"></span>
 ```
@@ -112,12 +121,14 @@ Use appropriate HTML5 elements for blocks. The following diagram shows how to de
 
 Use semantic class names and IDs. Avoid presentational class names.
 
-**Inappropriate**
+**Inappropriate:**
+
 ```html
 <button type="submit" class="button-green">Submit</button>
 ```
 
-**Recommended**
+**Recommended:**
+
 ```html
 
 <button type="submit" class="action-primary">Submit</button>

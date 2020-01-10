@@ -5,38 +5,58 @@ functional_areas:
   - Frontend
   - Theme
 ---
-
 JavaScript bundling is an optimization technique you can use to reduce the number of server requests for JavaScript files.
 Bundling accomplishes this by merging multiple JavaScript files together into one file to reduce the number of page requests.
 
 ## Enable JavaScript bundling
 
-Magento must be set to [production mode] in order for bundling to work.
+ {:.bs-callout-info}
+JavaScript bundling does not work unless Magento is in [production mode][production-mode]. Once in production mode, JavaScript bundling can only be enabled using the CLI. Follow these steps to setup JavaScript bundling from the CLI.
 
-To activate JavaScript bundling:
+1. From the Magento root directory, switch to production mode:
 
-1. Log in to the Admin area 
-2. Navigate to `Stores -> Configuration -> Advanced -> Developer -> JavaScript Settings` 
-3. Set `Enable JavaScript Bundling` to `Yes`.
+    ```bash
+    bin/magento deploy:mode:set production
+    ```
 
-To optimize bundling, set the following settings to `Yes`:
+1. Enable JavaScript bundling:
 
-* `JavaScript Settings -> Minify JavaScript Files`
-* `Static Files Settings -> Sign Static Files`
+    ```bash
+    bin/magento config:set dev/js/enable_js_bundling 1
+    ```
+
+1. Optimize bundling by minifying JavaScript files:
+
+    ```bash
+    bin/magento config:set dev/js/minify_files 1
+    ```
+
+1. Enable cache busting on static file URLs. This ensures users get the latest version of the assets anytime they update:
+
+    ```bash
+    bin/magento config:set dev/static/sign 1
+    ```
+
+1. To configure JavaScript bundling, you must disable Javascript file merging. Bundling will not work as the merging of files excludes bundling:
+
+    ```bash
+    bin/magento config:set dev/js/merge_files 0
+    ```
+
+    For example, when `Sign Static Files` is disabled (which is the default: `config:set dev/static/sign 0`), the URL to a static file might look like this: `/static/frontend/Magento/luma/en_US/mage/dataPost.js`. But when you enable the setting (`config:set dev/static/sign 1`), the same URL might look something like this: `static/version40s2f9ef/frontend/Magento/luma/en_US/mage/dataPost.js`, with a version number added as shown. The next time this file is updated (with `bin/magento setup:static-content:deploy`), a new version will be generated, causing the browser to download a new file from the server, thus busting the browser's cache.
 
 ## How bundling works in Magento
 
-By default, Magento bundles all JavaScript files and loads them synchronously on every page load.
-This means that each bundle is loaded one after the other and causes delays for JavaScript behaviors on a page.
+When you enable bundling, Magento combines hundreds of JavaScript files into just a few JavaScript bundles and downloads those bundles for each page. Because the browser downloads the bundles synchronously, page rendering is blocked until all bundles finish downloading. But the time saved from reducing server requests from hundreds to just a few, usually offsets the cost of downloading the bundles synchronously.
 
 ### Excluding files
 
-The `<exclude>` entry in a theme's `etc/view.xml` file tells Magento which files it should not bundle.
+The `<exclude>` node in the `etc/view.xml` file for a theme specifies the files to exclude from the Magento JavaScript bundling process.
 JavaScript files excluded from bundling are loaded asynchronously by RequireJS as needed.
 
-Do not bundle JavaScript files used for testing or development because these will get loaded on every page.  
+As such, you should exclude the JavaScript files you use for testing or development so that they are not loaded on every page.
 
-The following code snippet from [Magento's Luma theme][luma-view-xml] shows the types of files you should exclude in your theme.
+The following code snippet from [Magento's Luma theme][luma-view-xml] shows the types of files you should exclude from the bundling process.
 
 {% collapsible Show example %}
 
@@ -100,25 +120,25 @@ The following code snippet from [Magento's Luma theme][luma-view-xml] shows the 
 
 ### Setting bundle file size
 
-The `bundle_size` entry controls the file size of the generated bundles.
-Setting this to a large number will reduce the number of bundles generated, but the file sizes will be big.
-A small number will increase the number of bundles generated, but the file sizes will be smaller.
+The `bundle_size` variable controls the file size of the generated bundles.
+Specifying a large `bundle_size` reduces the number of bundles generated, but generates larger file sizes.
+Specifying a smaller `bundle_size` generates more bundles with a smaller file sizes.
 
-You want to balance the number of files to download on a page with the size of the data.
-A single connection should be around 100kb.
+The goal is to balance the number of bundles to download with the size of each bundle.
+As a rule of thumb, each bundle should be at least 100 kB.
 
 ## Fine tuning your theme
 
-There are many ways to tune your theme's `etc/view.xml` file.  
+There are many ways to tune your theme using the `etc/view.xml` file.
 
-For example, Magento's Luma theme is configured to work well for all pages, but 
-by adding or removing items inside `exclude`, you can maximize browser performance for home, catalog, or product pages.
+For example, the Magento Luma theme is configured to work well for all pages, but you can maximize browser performance for home, catalog, or product pages by adding items to or removing items from the `<exclude>` node.
 
 Follow these steps to help you identify which JavaScript files to bundle for your theme:
 
 1. Create a blank page with the layouts you would like to tune.
-2. Compare the JavaScript files loaded in the pages with the JavaScript files in Magento.
-3. Use the results of that comparison to build your exclude list.
+1. Compare the JavaScript files loaded in the pages with the JavaScript files in Magento.
+1. Use the results of that comparison to build your exclude list.
 
 [production-mode]:{{ page.baseurl }}/config-guide/bootstrap/magento-modes.html#production-mode
-[luma-view-xml]:{{ site.mage2bloburl }}/2.2.3/app/design/frontend/Magento/luma/etc/view.xml#L270
+[Advanced-JavaScript-Bundling]:{{ page.baseurl }}/performance-best-practices/advanced-js-bundling.html
+[luma-view-xml]:{{ site.mage2bloburl }}/{{ page.guide_version }}/app/design/frontend/Magento/luma/etc/view.xml#L270

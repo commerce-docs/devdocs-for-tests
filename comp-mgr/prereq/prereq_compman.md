@@ -9,14 +9,16 @@ functional_areas:
   - Upgrade
 ---
 
-Before running the Component Manager or System Upgrade, complete the following tasks:
+## Prerequisites
 
-*	[Set up cron]({{ page.baseurl }}/comp-mgr/prereq/prereq_cron.html)
-*	[Enter your authentication keys in the Admin]({{ page.baseurl }}/comp-mgr/prereq/prereq_auth-token.html)
-*	[Set `ulimit` for the web server user]({{ page.baseurl }}/comp-mgr/prereq/prereq_compman-ulimit.html)
-*	[Checklist]({{ page.baseurl }}/comp-mgr/prereq/prereq_compman-checklist.html)
+Before running the [Module](https://glossary.magento.com/module) Manager, [Extension](https://glossary.magento.com/extension) Manager, or System Upgrade, complete the following tasks:
+
+*  [Set up cron]({{ page.baseurl }}/comp-mgr/prereq/prereq_cron.html)
+*  [Set `ulimit` for the web server user]({{ page.baseurl }}/comp-mgr/prereq/prereq_compman-ulimit.html)
+*  [Checklist]({{ page.baseurl }}/comp-mgr/prereq/prereq_compman-checklist.html)
 
 After you've completed all prerequisites, continue with:
 
-*	[Start the Component Manager]({{ page.baseurl }}/comp-mgr/module-man/compman-start.html)
-*	[Start System Upgrade]({{ page.baseurl }}/comp-mgr/upgrader/upgrade-start.html)
+*  [Module Manager]({{ page.baseurl }}/comp-mgr/module-man/compman-start.html)
+*  [Extension Manager]({{ page.baseurl }}/comp-mgr/extens-man/extensman-main-pg.html)
+*  [System Upgrade]({{ page.baseurl }}/comp-mgr/upgrader/upgrade-start.html)

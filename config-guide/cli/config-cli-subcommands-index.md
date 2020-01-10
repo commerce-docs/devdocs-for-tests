@@ -13,18 +13,24 @@ functional_areas:
 
 To view a list of all indexers:
 
-	bin/magento indexer:info
+```bash
+bin/magento indexer:info
+```
 
 The list displays as follows:
 
-	catalog_category_product                 Category Products
-	catalog_product_category                 Product Categories
-	catalog_product_price                    Product Price
-	catalog_product_attribute                Product EAV
-	cataloginventory_stock                   Stock
-	catalogrule_rule                         Catalog Rule Product
-	catalogrule_product                      Catalog Product Rule
-	catalogsearch_fulltext                   Catalog Search
+```terminal
+design_config_grid                       Design Config Grid
+customer_grid                            Customer Grid
+catalog_category_product                 Category Products
+catalog_product_category                 Product Categories
+catalog_product_price                    Product Price
+catalog_product_attribute                Product EAV
+catalogrule_rule                         Catalog Rule Product
+catalogrule_product                      Catalog Product Rule
+cataloginventory_stock                   Stock
+catalogsearch_fulltext                   Catalog Search
+```
 
 ## View indexer status
 
@@ -32,21 +38,27 @@ Use this command to view the status of all indexers or specific indexers. For ex
 
 Command options:
 
-	bin/magento indexer:status [indexer]
+```bash
+bin/magento indexer:status [indexer]
+```
 
-Where `[indexer]` is a space-separated list of indexers. Omit `[indexer]` to view the status of all indexers.
+`[indexer]` is a space-separated list of indexers. Omit `[indexer]` to view the status of all indexers.
 
 To list all indexers:
 
-	bin/magento indexer:info
+```bash
+bin/magento indexer:info
+```
 
 A sample follows:
 
-	bin/magento indexer:status
+```bash
+bin/magento indexer:status
+```
 
 Sample result:
 
-```
+```terminal
 +----------------------+------------------+-----------+---------------------+---------------------+
 | Title                | Status           | Update On | Schedule Status     | Schedule Updated    |
 +----------------------+------------------+-----------+---------------------+---------------------+
@@ -65,90 +77,147 @@ Sample result:
 
 ## Reindex {#config-cli-subcommands-index-reindex}
 
-Use this command to reindex all or selected indexers one time only.
+Use this command to reindex all, or selected indexers, one time only.
 
-{:.bs-callout .bs-callout-info}
-This command reindexes one time only. To keep indexers up-to-date, you must set up a [cron job]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-cron.html).
+{:.bs-callout-info}
+This command reindexes one time only. To keep indexers up-to-date, set up a [cron job]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-cron.html).
 
 Command options:
 
-	bin/magento indexer:reindex [indexer]
+```bash
+bin/magento indexer:reindex [indexer]
+```
 
-Where `[indexer]` is a space-separated list of indexers. Omit `[indexer]` to reindex all indexers.
+```[indexer]``` is a space-separated list of indexers. Omit ```[indexer]``` to reindex all indexers.
 
 To view a list of all indexers:
 
-	bin/magento indexer:info
+```bash
+bin/magento indexer:info
+```
 
 A sample follows:
 
-	bin/magento indexer:reindex
+```bash
+bin/magento indexer:reindex
+```
 
 Sample result:
 
-	Category Products index has been rebuilt successfully in <time>
-	Product Categories index has been rebuilt successfully in <time>
-	Product Price index has been rebuilt successfully in <time>
-	Product EAV index has been rebuilt successfully in <time>
-	Stock index has been rebuilt successfully in <time>
-	Catalog Rule Product index has been rebuilt successfully in <time>
-	Catalog Product Rule index has been rebuilt successfully in <time>
-	Catalog Search index has been rebuilt successfully in <time>
+```terminal
+Category Products index has been rebuilt successfully in <time>
+Product Categories index has been rebuilt successfully in <time>
+Product Price index has been rebuilt successfully in <time>
+Product EAV index has been rebuilt successfully in <time>
+Stock index has been rebuilt successfully in <time>
+Catalog Rule Product index has been rebuilt successfully in <time>
+Catalog Product Rule index has been rebuilt successfully in <time>
+Catalog Search index has been rebuilt successfully in <time>
+```
 
-{:.bs-callout .bs-callout-info}
-Reindexing all indexers can take a long time for stores with large numbers of products, customers, categories, and promotional rules.
+{:.bs-callout-info}
+Reindexing all indexers can take a long time for stores with large numbers of products, customers, categories, and promotional rules. To reduce processing time, see the next section for reindexing in parallel mode.
+
+### Reindex in parallel mode {#config-cli-subcommands-index-reindex-parallel}
+
+As of Magento 2.2.6, indexers are scoped and multi-threaded to support reindexing in parallel mode. This feature reduces processing time. It parallelizes by the indexer's dimension and executes across multiple threads.
+
+These indexes can be run in parallel mode:
+- Catalog Search Fulltext can be paralleled by store views.
+- Category Product can be paralleled by store views.
+- Catalog Price can be paralleled by website and customer groups.
+
+By default, Catalog Price does not use a partitioning into dimension.
+
+If you want to use parallelization you need to set one of available modes of dimensions for product price indexer:
+- `none` (default)
+- `website`
+- `customer_group`
+- `website_and_customer_group`
+
+For example, to set the mode by website run:
+
+```bash
+bin/magento indexer:set-dimensions-mode catalog_product_price website
+```
+To check the current mode you can use next command:
+```bash
+bin/magento indexer:show-dimensions-mode
+```
+
+To reindex in parallel mode, run the reindex command using the environment variable `MAGE_INDEXER_THREADS_COUNT`, or add an environment variable to `env.php`. This variable sets the number of threads for the reindex processing.
+
+For example, the following command runs the Catalog Search Fulltext indexer across three threads:
+
+```bash
+MAGE_INDEXER_THREADS_COUNT=3 php -f bin/magento indexer:reindex catalogsearch_fulltext
+```
 
 ## Configure indexers
 
 Use this command to set the following indexer options:
 
--   **Update on save (`realtime`):** Indexed data is updated as soon as a change is made in the [Admin](https://glossary.magento.com/admin). (For example, the [category](https://glossary.magento.com/category) products index is reindex after products are added to a category in the Admin.) This is the default.
--   **Update by schedule (`schedule`):** Data is indexed according to the schedule set by your Magento cron job.
+*  **Update on save (`realtime`)** - Indexed data is updated as soon as a change is made in the [Admin](https://glossary.magento.com/admin). (For example, the [category](https://glossary.magento.com/category) products index is reindex after products are added to a category in the Admin.) This is the default.
+*  **Update by schedule (`schedule`)** - Data is indexed according to the schedule set by your Magento cron job.
 
-[Learn more about indexing]({{ page.baseurl }}/extension-dev-guide/indexing.html)
+[Learn more about indexing]({{ page.baseurl }}/extension-dev-guide/indexing.html).
 
 ### Display the current configuration
 
 To view the current indexer configuration:
 
-	bin/magento indexer:show-mode [indexer]
+```bash
+bin/magento indexer:show-mode [indexer]
+```
 
-Where `[indexer]` is a space-separated list of indexers. Omit `[indexer]` to show all indexers' modes. For example, to show the mode of all indexers:
+`[indexer]` is a space-separated list of indexers. Omit `[indexer]` to show all indexers' modes. For example, to show the mode of all indexers:
 
-	bin/magento indexer:show-mode
+```bash
+bin/magento indexer:show-mode
+```
 
 Sample result:
 
-	Category Products:                                 Update on Save
-	Product Categories:                                Update on Save
-	Product Price:                                     Update on Save
-	Product EAV:                                       Update on Save
-	Stock:                                             Update on Save
-	Catalog Rule Product:                              Update on Save
-	Catalog Product Rule:                              Update on Save
-	Catalog Search:                                    Update on Save
+```terminal
+Category Products:                                 Update on Save
+Product Categories:                                Update on Save
+Product Price:                                     Update on Save
+Product EAV:                                       Update on Save
+Stock:                                             Update on Save
+Catalog Rule Product:                              Update on Save
+Catalog Product Rule:                              Update on Save
+Catalog Search:                                    Update on Save
+```
 
 ### Configure indexers
 
 To specify the indexer configuration:
 
-	bin/magento indexer:set-mode {realtime|schedule} [indexer]
+```bash
+bin/magento indexer:set-mode {realtime|schedule} [indexer]
+```
 
-Where:
+**`realtime`** sets the selected indexers to update on save.
 
--   **`realtime`** - Sets the selected indexers to update on save.
--   **`schedule`** - Sets the specified indexers to save according to the cron schedule.
--   **`indexer`** - Is a space-separated list of indexers. Omit `indexer` to configure all indexers the same way.
+**`schedule`** sets the specified indexers to save according to the cron schedule.
+
+**`indexer`** is a space-separated list of indexers. Omit `indexer` to configure all indexers the same way.
 
 To view the list of indexers:
 
-	bin/magento indexer:info
+```bash
+bin/magento indexer:info
+```
 
-For example, to change only the category products and product categories indexers to update on schedule, enter
+For example, to change only the category products and product categories indexers to update on schedule, enter:
 
-	bin/magento indexer:set-mode schedule catalog_category_product catalog_product_category
+```bash
+bin/magento indexer:set-mode schedule catalog_category_product catalog_product_category
+```
 
 Sample result:
 
-	Index mode for Indexer Category Products was changed from 'Update on Save' to 'Update by Schedule'
-	Index mode for Indexer Product Categories was changed from 'Update on Save' to 'Update by Schedule'
+```terminal
+Index mode for Indexer Category Products was changed from 'Update on Save' to 'Update by Schedule'
+Index mode for Indexer Product Categories was changed from 'Update on Save' to 'Update by Schedule'
+```

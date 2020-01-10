@@ -11,8 +11,8 @@ A fixture is represented as an [XML](https://glossary.magento.com/xml) file loca
 
 You will need fixture:
 
-- as test data for particular set
-- as precondition for the test
+-  as test data for particular set
+-  as precondition for the test
 
 In this chapter, we will create a new fixture and modify it, considering different use cases.
 
@@ -44,10 +44,10 @@ cd <magento2_root_dir>/dev/tests/functional/utils
 php -f generateFixtureXml.php -- --name widget --entity_type widget_instance --collection Magento\\Widget\\Model\\Resource\\Widget\\Instance\\Collection
 ```
 
-{: .bs-callout .bs-callout-info }
+ {:.bs-callout-info}
 Please note that the generateFixtureXml tool does not replace an existing XML fixture. For example, if you already have `Widget.xml` fixture, you cannot create new one with the same name.
 
-{: .bs-callout .bs-callout-warning}
+{:.bs-callout-warning}
 To work with generateFixtureXml tool, [Magento must be installed.]({{ page.baseurl }}/install-gde/bk-install-guide.html)
 
 In the following table see `generateFixtureXml` arguments.
@@ -106,10 +106,10 @@ For a detailed description of XML structure, see next section.
 
 Let's look closer at fixture structure.
 
-  - `<config>` is a root node that defines path to `fixture.xsd` schema.
-  - `<fixture>` defines fixture configuration.
-  - `<data_config>` defines additional fixture configuration for the fixture.
-  - `<field>` defines field in fixture.
+-  `<config>` is a root node that defines path to `fixture.xsd` schema.
+-  `<fixture>` defines fixture configuration.
+-  `<data_config>` defines additional fixture configuration for the fixture.
+-  `<field>` defines field in fixture.
 
 Following table describes `<fixture>` attributes.
 
@@ -262,7 +262,7 @@ Let's see our data source file `<magento2_root_dir>/dev/tests/functional/tests/a
 
 ```php
 <?php
- 
+
 namespace Magento\Widget\Test\Fixture\Widget;
 
 use Magento\Mtf\Fixture\FixtureFactory;

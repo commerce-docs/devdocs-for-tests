@@ -7,18 +7,18 @@ functional_areas:
 
 This extension adds the Google reCAPTCHA module to your Magento installation. Google reCAPTCHA provides a greater level of security for both the storefront and Admin UI than is available with standard CAPTCHA, and gives you the ability to:
 
-- Verify when customers create accounts, retrieve passwords, log in to their accounts, or contact your company.
-- Enhance security when Admin users log in.
+-  Verify when customers create accounts, retrieve passwords, log in to their accounts, or contact your company.
+-  Enhance security when Admin users log in.
 
 Google reCAPTCHA reduces potential user error when entering a Captcha code and encourages cart conversion without adding hurdles during checkout.
 
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 **Magento Community Contribution** - Magento thanks [Riccardo Tempesta](https://twitter.com/rictempesta) of [MageSpecialist](https://partners.magento.com/portal/details/partner/id/129) for contributing these features as part of the Magento Community Engineering program.
 
 ## Install Module
 
-{:.bs-callout .bs-callout-info}
-The Google reCAPTCHA extension is bundled and installed with {{site.data.var.ce}} and {{site.data.var.ee}} 2.1.18 and 2.2.9 and later. 
+{:.bs-callout-info}
+The Google reCAPTCHA extension is bundled and installed with {{site.data.var.ce}} and {{site.data.var.ee}} 2.1.18 and 2.2.9 and later.
 
 Install the extension using the following Composer command:
 

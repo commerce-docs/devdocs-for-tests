@@ -1,20 +1,11 @@
 ---
 group: php-developer-guide
-subgroup: 09_Full page caching
 title: Private content
-menu_title: Private content
-menu_order: 18
-menu_node:
 redirect_from:
-  - /guides/v2.1/config-guide/cache/cache-priv-priv.html
   - /guides/v2.2/config-guide/cache/cache-priv-priv.html
-  - /guides/v2.1/config-guide/cache/cache-priv-context.html
   - /guides/v2.2/config-guide/cache/cache-priv-context.html
-  - /guides/v2.1/config-guide/cache/cache-priv-inval.html
   - /guides/v2.2/config-guide/cache/cache-priv-inval.html
 ---
-
-{::options syntax_highlighter="rouge" /}
 
 Since private content is specific to individual users, it's reasonable to handle it on the client (i.e., web browser).
 
@@ -28,7 +19,7 @@ The section source class is responsible for retrieving data for the section. As 
 
 The public method `getSectionData` must return an array with data for private block.
 
-[Example]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/CustomerData/CompareProducts.php#L36-L45){:target="_blank"}
+[Example]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/CustomerData/CompareProducts.php#L45-L54){:target="_blank"}
 
 Add the following to your component's [dependency injection](https://glossary.magento.com/dependency-injection) configuration (`di.xml`):
 
@@ -46,7 +37,7 @@ Add the following to your component's [dependency injection](https://glossary.ma
 
 To render private content, create a block and a template to display user-agnostic data; this data is replaced with user-specific data by the [UI component](https://glossary.magento.com/ui-component).
 
-{: .bs-callout .bs-callout-info }
+ {:.bs-callout-info}
 Do _not_ use the `$_isScopePrivate` property in your blocks. This property is obsolete and won't work properly.
 
 Replace private data in blocks with placeholders (using [Knockout](http://knockoutjs.com/documentation/introduction.html){:target="_blank"} syntax). The init scope on the root element is `data-bind="scope: 'compareProducts'"`, where you define the scope name (`compareProducts` in this example) in your [layout](https://glossary.magento.com/layout).
@@ -59,7 +50,7 @@ Initialize the component as follows:
 </script>
 ```
 
-[Example]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/view/frontend/templates/product/compare/sidebar.phtml#L46-L48){:target="_blank"}
+[Example]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/view/frontend/templates/product/compare/sidebar.phtml#L50-L52){:target="_blank"}
 
 ## Configure a UI component {#config-cache-priv-how-ui}
 
@@ -69,7 +60,7 @@ The UI component renders block data on the Magento [storefront](https://glossary
 
 All properties are available in the template.
 
-[Example of defining a UI component in a layout]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/view/frontend/layout/default.xml#L11-L22){:target="_blank"}
+[Example of defining a UI component in a layout]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/view/frontend/layout/default.xml#L11-L32){:target="_blank"}
 
 ## Invalidate private content
 
@@ -103,14 +94,14 @@ The following example adds comments to [app/code/Magento/Catalog/etc/frontend/se
 </config>
 ```
 
-{: .bs-callout .bs-callout-warning }
+{:.bs-callout-warning}
 Use only HTTP POST or PUT methods to change state (e.g., adding to a shopping cart, adding to a wishlist, etc.) and don't expect to see caching on these methods. Using GET or HEAD methods might trigger caching and prevent updates to private content. For more information about caching, see [RFC-2616 section 13](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html){:target="_blank"}
 
 Other examples:
 
-- [Checkout]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Checkout/etc/frontend/sections.xml){:target="_blank"}
+-  [Checkout]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Checkout/etc/frontend/sections.xml){:target="_blank"}
 
-- [Customer]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Customer/etc/frontend/sections.xml){:target="_blank"}
+-  [Customer]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Customer/etc/frontend/sections.xml){:target="_blank"}
 
 ## Version private content {#config-priv-vers}
 
@@ -119,11 +110,12 @@ Private content, which is stored in the browser local storage, uses the `private
 Versioning works as follows:
 
 1. The user performs some action, such as adding to a cart, that results in an POST or PUT request to the Magento application.
-2. The server generates the `private_content_version` cookie for this user and returns the response to the browser.
-3. [JavaScript](https://glossary.magento.com/javascript) interprets the presence of the `private_content_version` cookie to mean that private content is present on the page, so it sends an AJAX request to the Magento server to get the current private content.
-4. The server's reply is cached in the browser's local storage.
+1. The server generates the `private_content_version` cookie for this user and returns the response to the browser.
+1. [JavaScript](https://glossary.magento.com/javascript) interprets the presence of the `private_content_version` cookie to mean that private content is present on the page, so it sends an AJAX request to the Magento server to get the current private content.
+1. The server's reply is cached in the browser's local storage.
 
-    Subsequent requests with the same data version are retrieved from local storage.
-5. Any future HTTP POST or PUT request changes the value of `private_content_version` and results in the updated content being cached by the browser.
+   Subsequent requests with the same data version are retrieved from local storage.
+
+1. Any future HTTP POST or PUT request changes the value of `private_content_version` and results in the updated content being cached by the browser.
 
 {% include cache/page-cache-checklists.md%}

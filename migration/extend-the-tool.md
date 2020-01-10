@@ -9,15 +9,15 @@ If the data format and structure created by [Magento extensions](https://marketp
 
 During migration, the [Map Step]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#map-step) scans and compares all Magento 1 and Magento 2 tables, including those created by extensions. If the tables do not differ, the tool automatically migrates the data. If the tables differ, the tool terminates and notifies the user.
 
-{: .bs-callout .bs-callout-info }
+ {:.bs-callout-info}
 Read the [Technical Specification]({{ page.baseurl }}/migration/migration-tool-internal-spec.html) first before attempting to extend the Data Migration Tool. You should also review the [Migration Guide]({{ page.baseurl }}/migration/bk-migration-guide.html) for general information about using the tool.
 
 ## Minor data format and structure changes
 
 In most cases, the [Map Step]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#map-step) sufficiently resolves minor data format and structure changes using the following methods in the `map.xml` file:
 
-- Change table or field names with mapping rules
-- Transform data formats with existing handlers or create a custom handler
+-  Change table or field names with mapping rules
+-  Transform data formats with existing handlers or create a custom handler
 
 The following shows an example of using both mapping rules and a handler. This example uses a hypothetical Magento 1 extension called "GreatBlog" that has been improved for Magento 2.
 
@@ -64,14 +64,14 @@ The following shows an example of using both mapping rules and a handler. This e
 
 Refer to the following for an explanation of the changes in the previous example:
 
-- Unnecessary data from the index table `great_blog_index` should not be migrated
-- The table `great_blog_publication` was renamed to `great_blog_post` in Magento 2, so data should be migrated to the new table
-    - The `summary` field was renamed `title`, so data should be migrated to the new field
-    - The `priority` field was removed and no longer exists in Magento 2
-    - The data in the `body` field has changed format and should be processed by the custom handler: `\Migration\Handler\GreatBlog\NewFormat`
-- A new ratings feature was developed for the "GreatBlog" extension in Magento 2
-    - A new `great_blog_rating` table was created
-    - A new `great_blog_post.rating` field was created
+-  Unnecessary data from the index table `great_blog_index` should not be migrated
+-  The table `great_blog_publication` was renamed to `great_blog_post` in Magento 2, so data should be migrated to the new table
+   -  The `summary` field was renamed `title`, so data should be migrated to the new field
+   -  The `priority` field was removed and no longer exists in Magento 2
+   -  The data in the `body` field has changed format and should be processed by the custom handler: `\Migration\Handler\GreatBlog\NewFormat`
+-  A new ratings feature was developed for the "GreatBlog" extension in Magento 2
+   -  A new `great_blog_rating` table was created
+   -  A new `great_blog_post.rating` field was created
 
 ### Extend mapping in other steps
 
@@ -81,9 +81,9 @@ Other steps support mapping, such as the [EAV Step]({{ page.baseurl }}/migration
 
 In addition to the Map Step, there are other steps in the `config.xml` file which migrate data with major format and structure changes, including:
 
-- [Url Rewrite Step]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#url-rewrite-step)
-- OrderGrids Step
-- [EAV Step]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#eav)
+-  [Url Rewrite Step]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#url-rewrite-step)
+-  OrderGrids Step
+-  [EAV Step]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#eav)
 
 Unlike the [Map Step]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#map-step), these steps scan a predefined list of tables instead of all tables.
 
@@ -113,13 +113,13 @@ The tool runs steps according to their position in the `config.xml` file; from t
 
 Steps can include four types of classes:
 
-- Integrity checking
-- Data delivering
-- Volume checking
-- Delta delivering
+-  Integrity checking
+-  Data delivering
+-  Volume checking
+-  Delta delivering
 
-{: .bs-callout .bs-callout-info }
-Refer to [Configuration]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#configuration), [Step internals]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#step-internals), [Stages]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#stages) and [Running modes]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#running-modes) for more information.
+ {:.bs-callout-info}
+Refer to [Configuration]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#configuration), [Step internals]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#step-internals), [Stages]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#step-stages) and [Running modes]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#running-modes) for more information.
 
 Complex SQL queries can be assembled inside these classes to fetch data from the three tables and migrate into a single table. Also, note that these tables should be "ignored" in the [Map Step]({{ page.baseurl }}/migration/migration-tool-internal-spec.html#map-step) because it scans all existing tables and tries to migrate the data unless it is in the `<ignore>` tag of the `map.xml` file.
 

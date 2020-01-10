@@ -1,6 +1,10 @@
 ---
 group: module-reference-guide
+subgroup: 20_Enterprise Edition
+ee_only: true
 title: Magento_BundleStaging module
+menu_title: BundleStaging
+menu_order: 2
 ee_only: true
 ---
 
@@ -20,13 +24,13 @@ You can find the list of modules that have dependencies on the Magento_BundleSta
 
 ## Extension points
 
-[Extension](https://glossary.magento.com/extension) points enable extension developers to interact with the Magento_BundleStaging module. You can interact with the Magento_BundleStaging module using the Magento extension mechanism, see [Magento plug-ins]({{ site.baseurl }}/guides/v2.1/extension-dev-guide/plugins.html).
+[Extension](https://glossary.magento.com/extension) points enable extension developers to interact with the Magento_BundleStaging module. You can interact with the Magento_BundleStaging module using the Magento extension mechanism, see [Magento plug-ins]({{ site.baseurl }}/guides/v2.2/extension-dev-guide/plugins.html).
 
-[The Magento dependency injection mechanism]({{ site.baseurl }}/guides/v2.1/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Magento_BundleStaging module.
+[The Magento dependency injection mechanism]({{ site.baseurl }}/guides/v2.2/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Magento_BundleStaging module.
 
 ### UI components
 
-You can extend Bundle updates product listing using  the grid [UI component](https://glossary.magento.com/ui-component) located in the `Magento/BundleStaging/view/adminhtml/ui_component/bundle_update_product_listing.xml`. For more information, see [UI Listing/Grid Component]({{ site.baseurl }}/guides/v2.1/ui_comp_guide/components/ui-listing-grid.html).
+You can extend Bundle updates product listing using  the grid [UI component](https://glossary.magento.com/ui-component) located in the `Magento/BundleStaging/view/adminhtml/ui_component/bundle_update_product_listing.xml`. For more information, see [UI Listing/Grid Component]({{ site.baseurl }}/guides/v2.2/ui_comp_guide/components/ui-listing-grid.html).
 
 ## Additional information
 

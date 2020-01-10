@@ -8,7 +8,7 @@ menu_order: 1
 
 ## Overview
 
-The `di.xml` file configures which [dependencies]({{ page.baseurl }}/extension-dev-guide/depend-inj.html) are injected by the [object manager]({{ page.baseurl }}/extension-dev-guide/object-manager.html).
+The `di.xml` file configures which [dependencies]({{ page.baseurl }}/extension-dev-guide/depend-inj.html) are injected by the [object manager]({{ page.baseurl }}/extension-dev-guide/object-manager.html). You can also specify [sensitive configuration settings](#ext-di-sens) using `di.xml`.
 
 ## Areas and application entry points
 
@@ -20,18 +20,18 @@ As a general rule, the area specific `di.xml` files should configure dependencie
 Magento loads the configuration in the following stages:
 
 1. Initial (`app/etc/di.xml`)
-2. Global (`<moduleDir>/etc/di.xml`)
-3. Area-specific (`<moduleDir>/etc/<area>/di.xml`)
+1. Global (`<moduleDir>/etc/di.xml`)
+1. Area-specific (`<moduleDir>/etc/<area>/di.xml`)
 
 During [bootstrapping]({{ page.baseurl }}/config-guide/bootstrap/magento-bootstrap.html), each application entry point loads the appropriate `di.xml` files for the requested [area]({{ page.baseurl }}/architecture/archi_perspectives/components/modules/mod_and_areas.html).
 
 **Examples:**
 
-* In `index.php`, the [`\Magento\Framework\App\Http`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/App/Http.php#L130-L132){:target="_blank"} class loads the area based on the front-name provided in the [URL](https://glossary.magento.com/url).
+*  In `index.php`, the [`\Magento\Framework\App\Http`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/App/Http.php#L130-L132){:target="_blank"} class loads the area based on the front-name provided in the [URL](https://glossary.magento.com/url).
 
-* In `static.php`, the [`\Magento\Framework\App\StaticResource`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/App/StaticResource.php#L101-L104){:target="_blank"} class also loads the area based on the URL in the request.
+*  In `static.php`, the [`\Magento\Framework\App\StaticResource`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/App/StaticResource.php#L101-L104){:target="_blank"} class also loads the area based on the URL in the request.
 
-* In `cron.php`, the [`\Magento\Framework\App\Cron`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/App/Cron.php#L68-L70){:target="_blank"} class always loads the `crontab` area.
+*  In `cron.php`, the [`\Magento\Framework\App\Cron`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/App/Cron.php#L68-L70){:target="_blank"} class always loads the `crontab` area.
 
 ## Type configuration
 
@@ -56,8 +56,8 @@ You can configure the type in your `di.xml` configuration node in the following 
 
 The preceding example declares the following types:
 
-*	`moduleConfig`: A virtual type that extends the type `Magento\Core\Model\Config`.
-*	`Magento\Core\Model\App`: All instances of this type receive an instance of `moduleConfig` as a dependency.
+*  `moduleConfig`: A virtual type that extends the type `Magento\Core\Model\Config`.
+*  `Magento\Core\Model\App`: All instances of this type receive an instance of `moduleConfig` as a dependency.
 
 ### Virtual types
 
@@ -122,7 +122,7 @@ Magento converts any value for this argument node into a boolean value.
 See table below:
 
 | Input Type | Data     | Boolean Value |
-| ---------- | -------- | ------------- |
+| --- | --- | --- |
 | Boolean    | true     | true          |
 | Boolean    | false    | false         |
 | String     | "true"*  | true          |
@@ -180,18 +180,20 @@ This indicates a null value.
 
 Node Format:
 
-: ~~~
+: The node format is as follows:
+
+  ```xml
   <argument xsi:type="array">
     <item name="someKey" xsi:type="<type>">someVal</item>
   </argument>
-  ~~~
+  ```
 
-Magento builds an array with elements corresponding to the items and passes it as the argument.
-The array can contain an infinite number of items, and each array item can be of any object type including an array itself.
+  Magento builds an array with elements corresponding to the items and passes it as the argument.
+  The array can contain an infinite number of items, and each array item can be of any object type including an array itself.
 
-When Magento merges the configuration files for a given scope, array arguments with the same name get merged into a new array.
+  When Magento merges the configuration files for a given scope, array arguments with the same name get merged into a new array.
 
-When Magento loads a new configuration at a later time, either by a more specific scope or through code, then any array definitions in the new configuration will replace the loaded config instead of merging.
+  When Magento loads a new configuration at a later time, either by a more specific scope or through code, then any array definitions in the new configuration will replace the loaded config instead of merging.
 
 ---
 
@@ -234,16 +236,15 @@ When Magento loads a new configuration at a later time, either by a more specifi
 </config>
 ```
 
-<div class="bs-callout bs-callout-info" id="merging-info" markdown="1">
+{:.bs-callout-info}
 **Merging and Arguments**
-
+<br/>
 During merging, arguments replace other arguments with the same name if their type is different.
 If the argument type is the same, then the newer argument replaces the old one.
-</div>
 
 ### Abstraction-implementation mappings
 
-The object managers uses the abstraction-implementation mappings when the constructor signature of a class requests an object by its interface.
+The object manager uses abstraction-implementation mappings when the constructor signature of a class requests an object by its interface.
 The object manager uses these mappings to determine what the default implementation is for that class for a particular scope.
 
 The `preference` node specifies the default implementation:
@@ -258,13 +259,13 @@ The `preference` node specifies the default implementation:
 This mapping is in `app/etc/di.xml`, so the object manager injects the `Magento\Core\Model\Url` implementation class wherever there is a request for the `Magento\Core\Model\UrlInterface` in the global scope.
 
 ```xml
-<!-- File: app/code/core/Magento/Backend/etc/adminhtml/di.xml -->
+<!-- File: app/code/Magento/Backend/etc/adminhtml/di.xml -->
 <config>
     <preference for="Magento\Core\Model\UrlInterface" type="Magento\Backend\Model\Url" />
 </config>
 ```
 
-This mapping is in `app/code/core/Magento/Backend/etc/adminhtml/di.xml`, so the object manager injects the `Magento\Backend\Model\Url` implementation class wherever there is a request for the `Magento\Core\Model\UrlInterface` in the [admin](https://glossary.magento.com/admin) area.
+This mapping is in `app/code/Magento/Backend/etc/adminhtml/di.xml`, so the object manager injects the `Magento\Backend\Model\Url` implementation class wherever there is a request for the `Magento\Core\Model\UrlInterface` in the [admin](https://glossary.magento.com/admin) area.
 
 ### Parameter configuration inheritance
 
@@ -298,10 +299,8 @@ The lifestyle of an object determines the number of instances that can exist of 
 
 You can configure dependencies in Magento to have the following lifestyles:
 
-*	**Singleton**(default) - One instance of this class exists. The object manager creates it at the first request.
-Requesting the class again returns the same instance.
-Disposing or ending the container registered to it releases the instance.
-*	**Transient** - The object manager creates a new instance of the class for every request.
+*  **Singleton**(default) - One instance of this class exists. The object manager creates it at the first request. Requesting the class again returns the same instance. Disposing or ending the container registered to it releases the instance.
+*  **Transient** - The object manager creates a new instance of the class for every request.
 
 The `shared` property determines the lifestyle of both `argument` and `type` configurations.
 
@@ -316,9 +315,88 @@ The `shared` property determines the lifestyle of both `argument` and `type` con
 ```
 
 In this example `Magento\Filesystem` is not shared, so all clients will retrieve separate instances of `Magento\Filesystem`.
-Also, every instance of `Magento\Filesystem` will get separate instance of `$adapter`, because it too is non-shared.
+Also, every instance of `Magento\Filesystem` will get separate instance of `$adapter`, because it is non-shared too.
 
-**Related topics**
+## Sensitive and system-specific configuration settings {#ext-di-sens}
 
-* [ObjectManager]({{ page.baseurl }}/extension-dev-guide/object-manager.html)
-* [Dependency injection]({{ page.baseurl }}/extension-dev-guide/depend-inj.html)
+For multi-system deployments, such as the [pipeline deployment model]({{ page.baseurl }}/config-guide/deployment/pipeline/), you can specify the following types of configuration settings:
+
+| shared          | Settings that are shared between systems using `app/etc/config.php` |
+| sensitive       | Settings that are restricted or confidential                        |
+| system-specific | Settings that are unique to a particular system or environment      |
+
+The following code sample is a template for specifying values as sensitive or system-specific:
+
+```php
+<type name="Magento\Config\Model\Config\TypePool">
+   <arguments>
+      <argument name="VALUE_TYPE" xsi:type="array">
+         <item name="CONFIG_PATH" xsi:type="string">ARGUMENT_VALUE</item>
+      </argument>
+   </arguments>
+</type>
+```
+
+| `VALUE_TYPE`     | Specifies the type of value: either `sensitive` or `environment`.                                                                                              |
+| `CONFIG_PATH`    | A unique, `/`-delimited string that identifies this configuration setting.                                                                                     |
+| `ARGUMENT_VALUE` | A value of `1` indicates the `CONFIG_PATH` value is sensitive or system-specific. The default `0` value indicates it is neither sensitive nor system specific. |
+
+Do not share sensitive or system-specific settings stored in `app/etc/env.php` between development and production systems.
+
+See [sensitive and environment settings]({{ page.baseurl }}/extension-dev-guide/configuration/sensitive-and-environment-settings.html) for more information and examples.
+
+### Information related to pipeline deployment
+
+*  [Guidelines for specifying system-specific and sensitive configuration values]({{ page.baseurl }}/extension-dev-guide/configuration/sensitive-and-environment-settings.html)
+*  [Sensitive and system-specific configuration paths reference]({{ page.baseurl }}/config-guide/prod/config-reference-sens.html)
+*  [Magento Enterprise B2B Extension configuration paths reference]({{ page.baseurl }}/config-guide/prod/config-reference-b2b.html)
+
+## Get dependency injection configuration information for a class
+
+Use the [dev:di:info]({{ page.baseurl }}/reference/cli/magento.html#devdiinfo) command to retrieve information about dependency injection configuration for a class. The following example retrieves the dependency injection configuration information for the `Magento\Quote\Model\Quote\Item\ToOrderItem` class:
+
+```bash
+bin/magento dev:di:info "Magento\Quote\Model\Quote\Item\ToOrderItem"
+```
+
+```terminal
+DI configuration for the class Magento\Quote\Model\Quote\Item\ToOrderItem in the GLOBAL area
+
+Preference: Magento\Quote\Model\Quote\Item\ToOrderItem
+
+Constructor Parameters:
++-------------------+--------------------------------------------------+------------------+
+| Name              | Requested Type                                   | Configured Value |
++-------------------+--------------------------------------------------+------------------+
+| orderItemFactory  | Magento\Sales\Api\Data\OrderItemInterfaceFactory |                  |
+| objectCopyService | Magento\Framework\DataObject\Copy                |                  |
+| dataObjectHelper  | Magento\Framework\Api\DataObjectHelper           |                  |
++-------------------+--------------------------------------------------+------------------+
+
+
+Plugins:
++-----------------------------------------------------+---------+--------+
+| Plugin                                              | Method  | Type   |
++-----------------------------------------------------+---------+--------+
+| Magento\Catalog\Model\Plugin\QuoteItemProductOption | convert | before |
+| Magento\GiftMessage\Model\Plugin\QuoteItem          | convert | after  |
+| Magento\Bundle\Model\Plugin\QuoteItem               | convert | after  |
++-----------------------------------------------------+---------+--------+
+
+
+Plugins for the Preference:
++-----------------------------------------------------+---------+--------+
+| Plugin                                              | Method  | Type   |
++-----------------------------------------------------+---------+--------+
+| Magento\Catalog\Model\Plugin\QuoteItemProductOption | convert | before |
+| Magento\GiftMessage\Model\Plugin\QuoteItem          | convert | after  |
+| Magento\Bundle\Model\Plugin\QuoteItem               | convert | after  |
++-----------------------------------------------------+---------+--------+
+```
+
+{:.ref-header}
+Related topics
+
+*  [ObjectManager]({{ page.baseurl }}/extension-dev-guide/object-manager.html)
+*  [Dependency injection]({{ page.baseurl }}/extension-dev-guide/depend-inj.html)
+*  [Sensitive and environment settings]({{ page.baseurl }}/extension-dev-guide/configuration/sensitive-and-environment-settings.html)

@@ -1,8 +1,6 @@
 ---
 group: ui-components-guide
-subgroup: components
 title: Nav component
-menu_title: Nav component
 ---
 
 The Nav component implements tabs navigation.

@@ -3,10 +3,6 @@ group: testing
 title: Running Integration Tests
 contributor_name: Vinai Kopp
 contributor_link: http://vinaikopp.com/
-redirect_from:
- - /guides/v2.1/test/integration/integration_test_setup.html	
- - /guides/v2.1/test/integration/integration_test_execution_cli.html	
- - /guides/v2.1/test/integration/integration_test_execution_phpstorm.html	
 functional_areas:
   - Testing
   - test
@@ -41,15 +37,15 @@ Refer to [Running Integration Tests in PhpStorm][phpstorm run] for further infor
 Before the Magento integration test framework can be used, the test environment must be prepared.
 These prerequisites are required:
 
-- A dedicated integration test database
-- The test framework database configuration
-- The PHPUnit configuration matches the purpose of the integration test execution
+-  A dedicated integration test database
+-  The test framework database configuration
+-  The PHPUnit configuration matches the purpose of the integration test execution
 
 ## Integration test database
 
 By default, for every integration test run, the test framework installs a fresh Magento test database.
 
-{: .bs-callout .bs-callout-warning }
+{:.bs-callout-warning}
 Do not use the same database as the real Magento instance. Any data (products, customers, orders, and everything else) will be lost!
 
 For safety reasons it is recommended to use a dedicated database user for running the tests. That database user should not have access to any other databases.
@@ -90,7 +86,7 @@ return [
 ];
 ```
 
-{: .bs-callout .bs-callout-info }
+ {:.bs-callout-info}
 Leave all the settings that do not start with `db-` at their default values.
 
 ## Adjust the PHPUnit configuration file
@@ -304,7 +300,7 @@ Then configure the integration test configuration file to be used.
 
 The only difference in the run configuration is that the integration test `phpunit.xml.dist` or `phpunit.xml` configuration file from the directory `dev/tests/integration` has to be selected.
 
-![Integration Test Class run configuration]({{ site.baseurl }}/common/images/phpstorm_run_config_class_integration_tests.png){: width="600px"}
+![Integration Test Class run configuration]({{ site.baseurl }}/common/images/phpstorm_run_config_class_integration_tests.png){:width="600px"}
 
 ## Integration tests file structure
 
@@ -312,14 +308,14 @@ The root folder for the Magento integration tests suite —`<magento_root>/dev/t
 
 This folder contains the following sub-folders and files:
 
-- `framework/` – Integration testing framework scripts, configuration files and classes.
-- `Magento/` – A set of classes that implement the Magento integration tests framework.
-- `bootstrap.php` – The PHPUnit bootstrap script.
-- `etc/install-config-<db_vendor>.php` – A configuration file that provides values for installing the Magento application.
-- `testsuite/` – The test suite.
-- `tmp/` – A writable directory for storing temporary data during test execution.
-- `sandbox-<hash>/` – The folder where each Magento instance stores temporary and configuration data.
-- `phpunit.xml.dist` – A PHPUnit configuration file.
+-  `framework/` – Integration testing framework scripts, configuration files and classes.
+-  `Magento/` – A set of classes that implement the Magento integration tests framework.
+-  `bootstrap.php` – The PHPUnit bootstrap script.
+-  `etc/install-config-<db_vendor>.php` – A configuration file that provides values for installing the Magento application.
+-  `testsuite/` – The test suite.
+-  `tmp/` – A writable directory for storing temporary data during test execution.
+-  `sandbox-<hash>/` – The folder where each Magento instance stores temporary and configuration data.
+-  `phpunit.xml.dist` – A PHPUnit configuration file.
 
 <!-- LINK DEFINITIONS -->
 

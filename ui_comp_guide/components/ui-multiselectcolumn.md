@@ -9,56 +9,16 @@ MultiselectColumn is a child of the [Listing component]({{ page.baseurl }}/ui_co
 
 ## Configuration options
 
-<table>
-  <tr>
-    <th>Option</th>
-    <th>Description</th>
-    <th>Type</th>
-    <th>Default Value</th>
-  </tr>
-  <tr>
-    <td><code>bodyTmpl</code></td>
-    <td>Path to the template that is used to render a column's field in the table's body.</td>
-    <td>String</td>
-    <td><code>ui/grid/cells/multiselect</code></td>
-  </tr>
-  <tr>
-    <td><code>controlVisibility</code></td>
-    <td>Whether a user can control column's visibility handled by the <a href="{{ page.baseurl }}/ui_comp_guide/components/ui-columnscontrols.html">ColumnsControls component</a>.</td>
-    <td>String</td>
-    <td><code>false</code></td>
-  </tr>
-  <tr>
-    <td><code>draggable</code></td>
-    <td>Defines if a user can change column's position in the table by grabbing column's header and dragging it across the table.</td>
-    <td>Boolean</td>
-    <td><code>false</code></td>
-  </tr>
-  <tr>
-    <td><code>fieldClass</code></td>
-    <td>Additional CSS classes added to the column's field elements.</td>
-    <td>{<br />[name: string]: Boolean<br />}</td>
-    <td>{<br /><code>'data-grid-checkbox-cell': true</code><br />}</td>
-  </tr>
-  <tr>
-    <td><code>headerTmpl</code></td>
-    <td>Path to the <code>.html</code> template for the column's header.</td>
-    <td>String</td>
-    <td><code>ui/grid/columns/multiselect</code></td>
-  </tr>
-  <tr>
-    <td><code>preserveSelectionsOnFilter</code></td>
-    <td>Whether to preserve selected items when a new filter value is applied.</td>
-    <td>Boolean</td>
-    <td><code>false</code></td>
-  </tr>
-  <tr>
-    <td><code>sortable</code></td>
-    <td>Whether a column's fields can be used to sort records in the table.</td>
-    <td>Boolean</td>
-    <td><code>false</code></td>
-  </tr>
-</table>
+| Option | Description | Type | Default Value |
+| --- | --- | --- | --- |
+| `bodyTmpl` | Path to the template that is used to render a column's field in the table's body. | String | `ui/grid/cells/multiselect` |
+| `controlVisibility` | Whether a user can control column's visibility handled by the [ColumnsControls component]({{ page.baseurl }}/ui_comp_guide/components/ui-columnscontrols.html). | String | `false` |
+| `draggable` | Defines if a user can change column's position in the table by grabbing column's header and dragging it across the table. | Boolean | `false` |
+| `fieldClass` | Additional CSS classes added to the column's field elements. | {[name: string]: boolean} | `{'data-grid-checkbox-cell': true}` |
+| `headerTmpl` | Path to the `.html` template for the column's header. | String | `ui/grid/columns/multiselect` |
+| `indexField` | The name of the field that should be associated with the unique value of the listing row. The name of a ID field is commonly used for this option. | String | `-` |
+| `preserveSelectionsOnFilter` | Whether to preserve selected items when a new filter value is applied. | Boolean | `false` |
+| `sortable` | Whether a column's fields can be used to sort records in the table. | Boolean | `false` |
 
 ## Examples
 
@@ -82,9 +42,9 @@ Current implementation:
 </column>
 ```
 
-Example of configuration modifications:
+Example configuration modifications:
 
-* Redefining the link to the template
+*  Redefining the link to the template
 
 ```xml
 <column name="ids" class="Magento\Ui\Component\MassAction\Columns\Column">
@@ -97,7 +57,7 @@ Example of configuration modifications:
 </column>
 ```
 
-* Redefining the name of the property which represents record identifier
+*  Redefining the name of the property which represents record identifier
 
 ```xml
 <column name="ids" class="Magento\Ui\Component\MassAction\Columns\Column">
@@ -110,7 +70,7 @@ Example of configuration modifications:
 </column>
 ```
 
-* Redefining a property data source
+*  Redefining a property data source
 
 ```xml
 <column name="ids" class="Magento\Ui\Component\MassAction\Columns\Column">
@@ -129,7 +89,7 @@ Example of configuration modifications:
 
 Instance Replacement: One Instance of a Component
 
-* Redefine the link to constructor:
+*  Redefine the link to constructor:
 
 ```xml
 <column name="ids" class="Magento\Ui\Component\MassAction\Columns\Column">
@@ -141,13 +101,33 @@ Instance Replacement: One Instance of a Component
 </column>
 ```
 
+### Integrate the MultiselectColumn component with the Listing component
+
+This example integrates the MultiselectColumn component with the [Listing]({{ page.baseurl }}/ui_comp_guide/components/ui-listing-grid.html) component:
+
+```xml
+<listing>
+    <columns>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>id</indexField>
+            </settings>
+        </selectionsColumn>
+    </columns>
+</listing>
+```
+
+#### Result
+
+![MultiselectColumn Component Example]({{ site.baseurl }}/common/images/ui_comps/ui-multiselectcolumn-result.png)
+
 ## Source files
 
 Extends [`Column`]({{ page.baseurl }}/ui_comp_guide/components/ui-column.html):
 
-- [app\code\Magento\Ui\view\base\web\js\grid\columns\multiselect.js]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/web/js/grid/columns/multiselect.js)
-- [app\code\Magento\Ui\view\base\web\templates\grid\cells\multiselect.html]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/web/templates/grid/cells/multiselect.html) - defines each field in the grid; provides the Multiselect component with the checkbox interface for selecting item(s) in the grid and performing actions over them.
-- [app\code\Magento\Ui\view\base\web\templates\grid\columns\multiselect.html]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/web/templates/grid/columns/multiselect.html) - defines the grid header with dropdown lists and Select All, Deselect All, and other options.
+*  [app\code\Magento\Ui\view\base\web\js\grid\columns\multiselect.js]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/web/js/grid/columns/multiselect.js)
+*  [app\code\Magento\Ui\view\base\web\templates\grid\cells\multiselect.html]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/web/templates/grid/cells/multiselect.html) - defines each field in the grid; provides the Multiselect component with the checkbox interface for selecting item(s) in the grid and performing actions over them.
+*  [app\code\Magento\Ui\view\base\web\templates\grid\columns\multiselect.html]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/web/templates/grid/columns/multiselect.html) - defines the grid header with dropdown lists and Select All, Deselect All, and other options.
 
 ### Methods and Events
 

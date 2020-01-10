@@ -19,7 +19,7 @@ open(..) failed: No such file or directory (2) ../magento2/lib/internal/Magento/
 in ../magento2/lib/internal/Magento/Framework/App/ErrorHandler.php:67
 ```
 
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 This error occurs only in code versions earlier than September 28, 2015. If you installed code dated September 29 or later, this error should not occur. For more information about configuration options for Redis, see [Configure Redis]({{ page.baseurl }}/config-guide/redis/config-redis.html). For more information about specifying Redis using the command-line installer, see the [installation topic]({{ page.baseurl }}/install-gde/install/cli/install-cli-install.html) or the [deployment configuration]({{ page.baseurl }}/install-gde/install/cli/install-cli-subcommands-deployment.html#instgde-cli-subcommands-configphp) topic.
 
 ### Solution:
@@ -28,30 +28,36 @@ This happens when your `session.save_handler` PHP parameter is set to some anoth
 
 Solutions:
 
-*	[Upgrade your Magento 2 code]({{ page.baseurl }}/install-gde/install/cli/install-cli-uninstall.html#instgde-install-magento-update)
-*	Use the following workaround with existing code.
+*  [Upgrade your Magento 2 code]({{ page.baseurl }}/install-gde/install/cli/install-cli-uninstall.html#instgde-install-magento-update)
+*  Use the following workaround with existing code.
 
 ### Locate `php.ini`
 
 Locate `php.ini` by entering the following command:
 
-	php -i | grep "Loaded Configuration File"
+```bash
+php -i | grep "Loaded Configuration File"
+```
 
 Typical locations follow:
 
-*	Ubuntu: `/etc/php5/cli/php.ini`
-*	CentOS: `/etc/php.ini`
+*  Ubuntu: `/etc/php5/cli/php.ini`
+*  CentOS: `/etc/php.ini`
 
 ### Workaround
 
-1.	As a user with `root` privileges, open `php.ini` in a text editor.
-2.	Locate `session.save_handler`
-3.	Set it in any of the following ways:
+1. As a user with `root` privileges, open `php.ini` in a text editor.
+1. Locate `session.save_handler`
+1. Set it in any of the following ways:
 
-	*	To comment it out:
+   *  To comment it out:
 
-			;session.save_path = <path>
+        ```conf
+        ;session.save_path = <path>
+        ```
 
-	*	To set it to a file system path:
+   *  To set it to a file system path:
 
-			session.save_handler = files
+        ```conf
+        session.save_handler = files
+        ```

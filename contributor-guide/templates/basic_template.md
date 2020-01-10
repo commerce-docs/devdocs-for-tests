@@ -1,9 +1,6 @@
 ---
 group: contributor-guide
 title: Basic template
-redirect_from:
-   - /guides/v2.1/contributor-guide/basic_template.html
-   - /guides/v2.1/howdoi/howdoi_template.html
 ---
 
 Introductory text that gives an overview of the topic you will be writing about.
@@ -23,9 +20,10 @@ Parameter | Description
 `functional_areas:`  |  Optional. Adds facets for search results. Available facets include: Sales, Products, Carts, Customers, Marketing, Account, Content, Reports, Stores, System, Catalog, Orders, Frontend, Theme, Staging, Search, Configurations, Integration, Services, Tools, Setup, Testing, test, Standards, Install, Upgrade, B2B, Cloud, and Bundled extensions. These facets are case sensitive and support multiple facets separated by commas. For example: `functional_areas: Install`.
 `redirect_from`  | Optional. Add a list of other pages in DevDocs that should redirect to this page. The link should start with the `/guides` directory. For an example, see the source code for this template page.
 `ee_only:` | Optional. If set to `true`, graphics/cues display on the page indicating it applies to {{site.data.var.ee}}.
+`contributor_name`  | Optional. Add a contributor's name to the metadata to add a "Thanks for contributing to this topic!" attribution in the top right corner of a topic.
+`contributor_link:` | Optional. Add a link to the contributor's GitHub profile or website. The attribution will include this link.
 
-{% include note.html type='info' content='If you need help with metadata, we can help in your submitted pull requests.'
-%}
+If you need help with metadata, we can assist!
 
 ## Basic Markdown Syntax {#basic}
 
@@ -60,23 +58,23 @@ Lists are useful for organizing and displaying related items. Below are examples
 
 *Output:*
 
-* List Item 1
-* List Item 2
-* List Item 3
+*  List Item 1
+*  List Item 2
+*  List Item 3
 
 **Ordered List:**
 
 ```markdown
 1. First Step
-2. Second Step
-3. Third Step
+1. Second Step
+1. Third Step
 ```
 
 *Output:*
 
 1. First Step
-2. Second Step
-3. Third Step
+1. Second Step
+1. Third Step
 
 ### Images {#images}
 
@@ -92,11 +90,11 @@ Once the image is added, you can use it in your documentation:
 
 You can even scale the image if it is too large:
 
-*Example:* `![Scaled Image]({{ site.baseurl }}/common/images/install_cygwin.png){:width="446" height="246"}`
+*Example:* `![Scaled Image]({{ site.baseurl }}/common/images/install_cygwin.png){:width="446"}`
 
 *Output:*
 
-![Scaled Image Example]({{ site.baseurl }}/common/images/install_cygwin.png){:width="446" height="246"}
+![Scaled Image Example]({{ site.baseurl }}/common/images/install_cygwin.png){:width="446"}
 
 ### Tables {#tables}
 
@@ -131,19 +129,17 @@ Code blocks can also be defined using [Rouge formatting](http://rouge.jneen.net/
 
 For inline code, surround the content with single backticks: `` `example` ``.
 
-For blocks of code, surround content with 3 backticks and an optional [supported language](https://GitHub.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers){:target="_blank"}.
+For blocks of code, surround content with 3 backticks and a [supported language](https://GitHub.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers){:target="_blank"}.
 
 *Example:*
 
-```markdown
-```html
+```text
 <div class="container">
   <h4 class="title">Title</h4>
   <div class="content">
     <p>Paragraph content.</p>
   </div>
 </div>
-```
 ```
 
 *Output:*
@@ -225,7 +221,7 @@ content='This is a tip callout. These can be used to provide useful tips or inte
 
 You can use the collapsible content tag for large code samples in your content. Any content in a collapse is blocked from searching on page.
 
-{: .bs-callout .bs-callout-info }
+ {:.bs-callout-info}
 The `{%raw%}{% collapsible %}{%endraw%}` tag must be preceded by a blank line.
 
 *Example:*

@@ -10,8 +10,8 @@ Parallel execution is applicable for [test suites] only. It decreases the time o
 A general mechanism is:
 
 1. The FTF creates the list of all test cases in a test suite.
-2. The FTF creates the required quantity of sessions corresponding to the quantity of threads defined in `<magento2_root_dir>/dev/tests/functional/phpunit.xml`.
-3. The FTF distributes test cases between sessions. When a sessions is free, a new test case from the queue runs.
+1. The FTF creates the required quantity of sessions corresponding to the quantity of threads defined in `<magento2_root_dir>/dev/tests/functional/phpunit.xml`.
+1. The FTF distributes test cases between sessions. When a sessions is free, a new test case from the queue runs.
 
 Comparatively to the common testing flow
 
@@ -39,14 +39,14 @@ To set up a parallel execution flow, add Magento instances to `<magento2_root_di
 </php>
 ```
 
-{: .bs-callout .bs-callout-warning }
+{:.bs-callout-warning}
 The default elements `"app_frontend_url"` and `"app_backend_url"` must be added obligatory. Otherwise FTF returns an error. The default instances are ignored if `"app_instances"` element is present.
 
 ### Parallel execution flow with one Magento instance
 
 Parallel execution flow with one Magento instance should be used with a caution. In this mode, test cases are executed simultaneously and can conflict with each other (for example, when different tests set the same parameter in different states).
 
-{: .bs-callout .bs-callout-warning }
+{:.bs-callout-warning}
 Parallel execution flow with one Magento instance can cause conflict between tests running at the same time.
 
 The following example shows a setup configuration of the flow with one Magento instance.

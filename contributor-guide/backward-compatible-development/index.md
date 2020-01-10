@@ -11,25 +11,25 @@ See the [versioning][versioning] documentation for the definitions of MAJOR an
 The core Magento team and contributing developers work in two release types
 
 1. New and significant release (product's MINOR release)
-   - Necessary MAJOR and MINOR changes are allowed, but the Magento architecture team ultimately decides what is allowed.
+   -  Necessary MAJOR and MINOR changes are allowed, but the Magento architecture team ultimately decides what is allowed.
 1. New patch release (product's PATCH release)
-   - PATCH changes are allowed, but MAJOR and MINOR changes are not allowed.
+   -  PATCH changes are allowed, but MAJOR and MINOR changes are not allowed.
 
-{: .bs-callout .bs-callout-info }
+ {:.bs-callout-info}
 Backward Compatibility Policy is not applied to Plugins, Observers and Setup Scripts.
 
 ## Prohibited code changes
 
 The following modifications are forbidden for `@api` code without the approval of the **Magento architect**, **Product Manager** and **Engineering Manager** assigned to the component.
 
-{: .bs-callout .bs-callout-info }
+ {:.bs-callout-info}
 The rules listed do not apply to customization code (e.g. Plugins, Observers, JS Mixins, etc.).
 
 ### Composer
 
-#### Introducing a new dependency between modules
+#### Introducing a new dependency from an existing module
 
-Introducing a new dependency on another Magento module from an existing module is a backward incompatible change because we cannot guarantee whether an existing instance of Magento will have the target module enabled.
+Introducing a new dependency from an existing module is a backward incompatible change because we cannot guarantee when Magento will enable the required module. As a result, we cannot satisfy the dependency in this way.
 
 ### PHP
 
@@ -56,8 +56,8 @@ The old methods should proxy the calls to the new interface instead of duplicati
 For an example of an interface with an extracted method see the `Magento\Catalog\Api\CategoryListInterface`.
 This interface is responsible for the `getList()` method, but `Magento\Catalog\Api\CategoryRepositoryInterface` does not have that method.
 
-- For a **PATCH** product release, do NOT mark the new interface with `@api`.
-- For a **MINOR** product release, an architect marks, or approves, the new interface with `@api` if applicable.
+-  For a **PATCH** product release, do NOT mark the new interface with `@api`.
+-  For a **MINOR** product release, an architect marks, or approves, the new interface with `@api` if applicable.
 
 #### Removing static functions
 
@@ -122,6 +122,8 @@ Add a new optional parameter to the constructor at the end of the arguments list
 
 In the constructor body, if the new dependency is not provided (i.e. the value of the introduced argument is `null`), fetch the dependency using `Magento\Framework\App\ObjectManager::getInstance()`.
 
+Prefix the type name with a question mark when declaring a parameter with a `null` default value.
+
 {% collapsible Example Code %}
 
 ```php
@@ -134,7 +136,7 @@ class ExistingClass
         \Old\Dependency\Interface $oldDependency,
         $oldRequiredConstructorParameter,
         $oldOptionalConstructorParameter = null,
-        \New\Dependency\Interface $newDependency = null
+        ?\New\Dependency\Interface $newDependency = null
     ) {
         ...
         $this->newDependency = $newDependency ?: \Magento\Framework\App\ObjectManager::getInstance()->get(\New\Dependency\Interface::class);
@@ -218,64 +220,64 @@ $this->eventManager->dispatch(
 
 The following is a list of prohibited JS code changes:
 
-- Removing or renaming an interface or class
-- Removing or renaming public or protected methods
-- Introducing a method to an interface
-- Introducing an abstract method to a class
-- Removing or renaming static functions
-- Adding non-optional arguments in public and protected methods
-- Modifying the default value for optional arguments in public and protected methods
-- Removing or renaming public or protected properties
-- Removing or renaming constants
+-  Removing or renaming an interface or class
+-  Removing or renaming public or protected methods
+-  Introducing a method to an interface
+-  Introducing an abstract method to a class
+-  Removing or renaming static functions
+-  Adding non-optional arguments in public and protected methods
+-  Modifying the default value for optional arguments in public and protected methods
+-  Removing or renaming public or protected properties
+-  Removing or renaming constants
 
 ### XML Schema
 
 The following is a list of prohibited [XML](https://glossary.magento.com/xml) Schema changes:
 
-- Adding an obligatory node
-- Adding an obligatory attribute
-- Removing or renaming an attribute or node type
-- Removing or renaming a configuration file
+-  Adding an obligatory node
+-  Adding an obligatory attribute
+-  Removing or renaming an attribute or node type
+-  Removing or renaming a configuration file
 
 ### DB Schema
 
 The following is a list of prohibited DB Schema changes:
 
-- Modifying field type, default value, or property
-- Removing or renaming a table
-- Introducing a required field
+-  Modifying field type, default value, or property
+-  Removing or renaming a table
+-  Introducing a required field
 
 ### CSS/Less
 
 The following is a list of prohibited CSS/Less changes:
 
-- Removing or renaming a class
-- Removing or renaming a mix-in
-- Removing or renaming a variable
+-  Removing or renaming a class
+-  Removing or renaming a mix-in
+-  Removing or renaming a variable
 
 ### Magento APIs
 
 The following is a list of prohibited Magento API changes:
 
-- Removing or renaming an event
-- Removing or renaming a [layout](https://glossary.magento.com/layout) handle
-- Removing or renaming a store configuration path
-- Modifying the directory structure
-- Removing an @api annotation
-- Modifying the Magento tool command argument list
-- Modifying or removing the Magento tool command
-- [Topic names for message queue]({{ page.baseurl }}/extension-dev-guide/message-queues/config-mq.html), except automatically generated names (e.g. topic names generated by [Asynchronous Web API](https://devdocs.magento.com/guides/v2.3/rest/asynchronous-web-endpoints.html). Automatically generated topic names should be treated as private implementation and may be changed at any time if needed.
+-  Removing or renaming an event
+-  Removing or renaming a [layout](https://glossary.magento.com/layout) handle
+-  Removing or renaming a store configuration path
+-  Modifying the directory structure
+-  Removing an @api annotation
+-  Modifying the Magento tool command argument list
+-  Modifying or removing the Magento tool command
+-  [Topic names for message queue]({{ page.baseurl }}/extension-dev-guide/message-queues/config-mq.html), except automatically generated names (e.g. topic names generated by [Asynchronous Web API]({{ page.baseurl }}/rest/asynchronous-web-endpoints.html). Automatically generated topic names should be treated as private implementation and may be changed at any time if needed.
 
 ### Translatable phrases
 
-Do not modify any translatable phrase.
+Do not modify or add any translatable phrase.
 
 ### Magento functional and integration tests
 
 The following is a list of prohibited changes to Magento functional and integration tests:
 
-- Changing a fixture format
-- Changing a fixture content (except changes forced by new functionality)
+-  Changing a fixture format
+-  Changing a fixture content (except changes forced by new functionality)
 
 ## Allowed Code Changes
 
@@ -322,9 +324,9 @@ Backward compatibility is more important than niceness and implementation effort
 
 Potential drawbacks:
 
-- It is double the work when it is necessary to implement different solutions for the `develop` branch (upcoming minor release) and patch release branches.
-- Inability to refactor code in patch releases
-- Effort for implementing fixes in patch releases may be higher due to necessary implementation workarounds.
+-  It is double the work when it is necessary to implement different solutions for the `develop` branch (upcoming minor release) and patch release branches.
+-  Inability to refactor code in patch releases
+-  Effort for implementing fixes in patch releases may be higher due to necessary implementation workarounds.
 
 ## Refactoring classes that reach limit of coupling between objects
 
@@ -333,14 +335,13 @@ Poorly designed classes with too many responsibilities and dependencies should b
 Preserve public and protected class interfaces to maintain backward compatibility.
 Review and refactor the class such that parts of the logic go into smaller specialized classes without breaking backward compatibility.
 
-- Turn the existing class into a facade to prevent existing usages of the refactored methods from breaking.
-- The old public/protected methods should be marked as deprecated with the `@see` tag to suggest the new implementation for new usages.
-- Remove all unused private properties/methods.
-- Mark as deprecated unused protected properties.
-  Remove the variable type indicated in the DocBlock to remove the dependency.
-- To preserve the constructor signature:
-  - Remove type hinting for unused parameters to remove dependency on their type.
-  - Add `@SuppressWarnings(PHPMD.UnusedFormalParameter)` for unused parameters.
+-  Turn the existing class into a facade to prevent existing usages of the refactored methods from breaking.
+-  The old public/protected methods should be marked as deprecated with the `@see` tag to suggest the new implementation for new usages.
+-  Remove all unused private properties/methods.
+-  Mark as deprecated unused protected properties. Remove the variable type indicated in the DocBlock to remove the dependency.
+-  To preserve the constructor signature:
+   -  Remove type hinting for unused parameters to remove dependency on their type.
+   -  Add `@SuppressWarnings(PHPMD.UnusedFormalParameter)` for unused parameters.
 
 ## Deprecation
 
@@ -401,8 +402,8 @@ Every piece of code that is deprecated MUST be covered by a static test that wil
 
 Deprecated code is preserved for the following time frames:
 
-- `@api` code: Until the next major version of the component
-- non-`@api` code: The next 2 minor releases or until a major release
+-  `@api` code: Until the next major version of the component
+-  non-`@api` code: The next 2 minor releases or until a major release
 
 ## Documentation of Backward Incompatible Changes
 
@@ -410,18 +411,18 @@ Backward incompatible changes must be approved by an architect and documented in
 
 Examples of these tasks include:
 
-- Changing the input/output values format of a method
-- Changing a value format in the DB
-- Changing XML files (layouts, configuration files, etc.)
+-  Changing the input/output values format of a method
+-  Changing a value format in the DB
+-  Changing XML files (layouts, configuration files, etc.)
 
 Some changes are detected and documented by an automated tool.
 These backward incompatible changes do not need manual documentation:
 
-- Adding/removing a class/interface
-- Adding/removing a method
-- Modifying a method signature
-- Adding/removing a class/interface constant
-- Adding removing a class property
+-  Adding/removing a class/interface
+-  Adding/removing a method
+-  Modifying a method signature
+-  Adding/removing a class/interface constant
+-  Adding removing a class property
 
 Auto-generated [{{site.data.var.ce}} changes]({{ page.baseurl }}/release-notes/backward-incompatible-changes/open-source.html)
 

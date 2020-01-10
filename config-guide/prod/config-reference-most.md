@@ -7,12 +7,12 @@ functional_areas:
   - Setup
 ---
 
-This topic lists all configuration paths _except_ payment variables, sensitive values, and system-specific values. The [`magento app:config:dump` command]({{ site.baseurl }}/guides/v2.2/config-guide/cli/config-cli-subcommands-config-mgmt-export.html) writes these values to the shared configuration file, `app/etc/config.php`, which should be in source control.
+This topic lists all configuration paths _except_ payment variables, sensitive values, and system-specific values. The [`magento app:config:dump` command]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-config-mgmt-export.html) writes these values to the shared configuration file, `app/etc/config.php`, which should be in source control.
 
 For those configuration paths, see:
 
-*	[Payment configuration paths]({{ page.baseurl }}/config-guide/prod/config-reference-payment.html)
-*	[Sensitive and system-specific configuration paths reference]({{ page.baseurl }}/config-guide/prod/config-reference-sens.html)
+*  [Payment configuration paths]({{ page.baseurl }}/config-guide/prod/config-reference-payment.html)
+*  [Sensitive and system-specific configuration paths reference]({{ page.baseurl }}/config-guide/prod/config-reference-sens.html)
 
 To optionally override any configuration settings or to set sensitive settings, see [Use environment variables to override configuration settings]({{ page.baseurl }}/config-guide/prod/config-reference-var-name.html).
 
@@ -1093,10 +1093,11 @@ Name  | Config path | EE only? |
 Workflow type | `dev/front_end_development_workflow/type` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |
 Allow Symlinks | `dev/template/allow_symlink` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |
 Minify Html | `dev/template/minify_html` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |
-Enabled Template Path Hints for Storefront | `dev/debug/template_hints_storefront` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |
-Enabled Template Path Hints for Admin | `dev/debug/template_hints_admin` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |
+Enable Template Path Hints for Storefront | `dev/debug/template_hints_storefront` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |
+Enable Template Path Hints for Admin | `dev/debug/template_hints_admin` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |
 Add Block Names to Hints | `dev/debug/template_hints_blocks` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |
 Log to File | `dev/debug/debug_logging` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |
+Log to syslog | `dev/syslog/syslog_logging` |  |
 Enabled for Storefront | `dev/translate_inline/active` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |
 Enabled for Admin | `dev/translate_inline/active_admin` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |
 Merge JavaScript Files | `dev/js/merge_files` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> |

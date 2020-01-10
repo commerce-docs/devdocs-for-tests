@@ -1,6 +1,10 @@
 ---
 group: module-reference-guide
+subgroup: 20_Enterprise Edition
+ee_only: true
 title: Magento_DownloadableStaging module
+menu_title: DownloadableStaging
+menu_order: 2
 ee_only: true
 ---
 
@@ -23,18 +27,18 @@ You can find the list of modules that have dependencies on the Magento_Downloada
 ## Extension points
 
 [Extension](https://glossary.magento.com/extension) points enable extension developers to interact with the Magento_DownloadableStaging module.
-For more information about the Magento extension mechanism, see [Magento plug-ins]({{ site.baseurl }}/guides/v2.1/extension-dev-guide/plugins.html).
+For more information about the Magento extension mechanism, see [Magento plug-ins]({{ site.baseurl }}/guides/v2.2/extension-dev-guide/plugins.html).
 
-[The Magento dependency injection mechanism]({{ site.baseurl }}/guides/v2.1/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Magento_DownloadableStaging module.
+[The Magento dependency injection mechanism]({{ site.baseurl }}/guides/v2.2/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Magento_DownloadableStaging module.
 
 ### UI components
 
-You can extend product and [category](https://glossary.magento.com/category) updates using the UI components located in the `Magento\DownloadableStaging\view\adminhtml\ui_component` directory. For more information, see [UI Listing/Grid Component]({{ site.baseurl }}/guides/v2.1/ui_comp_guide/components/ui-listing-grid.html).
+You can extend product and [category](https://glossary.magento.com/category) updates using the UI components located in the `Magento\DownloadableStaging\view\adminhtml\ui_component` directory. For more information, see [UI Listing/Grid Component]({{ site.baseurl }}/guides/v2.2/ui_comp_guide/components/ui-listing-grid.html).
 
 ### Layouts
 
 You can extend and override layouts in the `Magento\DownloadableStaging\view\adminhtml\layout` directory.
-For more information about layouts, see the [Layout documentation]({{ site.baseurl }}/guides/v2.1/frontend-dev-guide/layouts/layout-overview.html).
+For more information about layouts, see the [Layout documentation]({{ site.baseurl }}/guides/v2.2/frontend-dev-guide/layouts/layout-overview.html).
 
 ## Additional information
 

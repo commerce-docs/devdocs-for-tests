@@ -1,13 +1,12 @@
 ---
 group: testing
 title: JavaScript unit testing with Jasmine
-redirect_from: /guides/v2.1/extension-dev-guide/test/test_js-unit.html
 functional_areas:
   - Testing
   - test
 ---
 
-Magento uses a custom [Grunt] task named `spec` to run Jasmine tests. The task collects the tests from `<magento_root_dir>dev/tests/js/jasmine/tests` and can be run for a [theme](https://glossary.magento.com/theme).
+Magento uses a custom [Grunt] task named `spec` to run Jasmine tests. The task collects the tests from `<magento_root_dir>dev/tests/js/jasmine/tests` and can be run for all tests, a theme, or a single test.
 
 ## Prepare environment
 
@@ -38,18 +37,25 @@ Note that normally you don't have permissions to `<magento_root_dir>/app/code/`,
 type="tip"
 content="**For CentOS and Ubuntu users**<br/>
 If the command fails with the error message:
+
 ```terminal
 /var/www/html/magento2ce/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs: error while loading shared libraries: libfontconfig.so.1: cannot open shared object file: No such file or directory
 ```
-install [fontconfig library]:<br/>
-* CentOS:
-  ```bash
-  yum install fontconfig
-  ```
-* Ubuntu:
-  ```bash
-  apt-get install fontconfig
-  ```
+
+Install [fontconfig library]:<br/>
+
+*  CentOS:
+
+   ```bash
+   yum install fontconfig
+   ```
+
+*  Ubuntu:
+
+   ```bash
+   apt-get install fontconfig
+   ```
+
 "
 %}
 
@@ -57,7 +63,7 @@ Learn more in [Deploy static view files].
 
 ## Run tests
 
-`Gruntfile.js` contains the test run task, so you can run tests for a theme using the following command in the Magento root directory:
+`Gruntfile.js` contains the test run task, so you can run **all tests** using the following command in the Magento root directory:
 
 ```bash
 grunt spec:<THEME>
@@ -67,6 +73,12 @@ Example:
 
 ```bash
 grunt spec:backend
+```
+
+You can also run a single test:
+
+```bash
+grunt spec:backend --file="/path/to/the/test.js"
 ```
 
 ## Write a test {#write-test}
@@ -112,13 +124,13 @@ define([
 
 A Jasmine test consists of main two parts:
 
-- `describe` blocks
-- `it` blocks
+*  `describe` blocks
+*  `it` blocks
 
 Both the `describe` and `it` functions contains two parameters:
 
- - a text string with description of what is going to be done
- - a function with block of code implementing described action
+*  a text string with description of what is going to be done
+*  a function with block of code implementing described action
 
 In `describe` you can use `beforeEach` and `afterEach` functions performing a preparation of what must be done before and after every `it` test followed.
 
@@ -233,15 +245,15 @@ Warning: Task "spec" not found. Use --force to continue.
 #### Solution:
 
 1. Make sure your Node.js version is up-to-date.
-2. Remove `package.json`, `Gruntfile.js`.
-3. Copy `package.json`, `Gruntfile.js` from `package.json.sample`, `Gruntfile.js.sample`.
-4. Delete the `node_modules` directory.
-5. Run `npm install` in your terminal.
+1. Remove `package.json`, `Gruntfile.js`.
+1. Copy `package.json`, `Gruntfile.js` from `package.json.sample`, `Gruntfile.js.sample`.
+1. Delete the `node_modules` directory.
+1. Run `npm install` in your terminal.
 
 ### Warning: Cannot read property 'pid' of undefined {#cannot-read-property-pid-warning}
 
 #### Issue:
- 
+
 An error message appears:
 
 ```terminal
@@ -257,6 +269,7 @@ Run in your terminal:
 ```bash
 cd <magento_root>/node_modules/grunt-contrib-jasmine
 ```
+
 ```bash
 npm install
 ```
@@ -283,7 +296,6 @@ npm install
 
 <!-- Internal -->
 [Step 6]: #prepare-step6
-
 
 <!-- Abbreviations -->
 

@@ -34,8 +34,6 @@ Any [service contract]({{ page.baseurl }}/extension-dev-guide/service-contracts/
 
 If the target module is called `MyModule`, then create the resolvers and configuration files in a new module called `MyModuleGraphQl`.
 
-See the [GraphQL documentation]({{ site.baseurl }}/guides/v2.3/graphql/index.html) for more information.
-
 #### Add a custom authentication mechanism
 
 1. Provide a custom implementation of `\Magento\Authorization\Model\UserContextInterface`, that verifies a user's identity using a  custom authentication mechanism.
@@ -64,21 +62,21 @@ To extend an interface, use [extension attributes]({{ page.baseurl }}/extension-
 
 1. Add a `schema.graphqls` file to the `<ModuleName>GraphQl` module. Magento merges this file with configurations from other modules using the same merge rules as other types of configuration.
 
-2. Write any necessary plugins for existing resolvers related to the query, or create a custom resolver and enable it via override in `schema.graphqls`
+1. Write any necessary plugins for existing resolvers related to the query, or create a custom resolver and enable it via override in `schema.graphqls`
 
 ### Model Consistency Constraints
 
 Any new design related to Web API must satisfy the following constraints to keep the model consistency.
 
-**General**
+**General:**
 
 1. REST and SOAP must be designed for Admin Panel integrations and be equal in terms of coverage. GraphQL should be designed for storefront scenarios.
 1. Any identifier exposed in guest APIs (for example, cart ID) must be masked to prevent the possibility of unauthorized access to the data of other guest users.
 1. Authentication must be done via `\Magento\Authorization\Model\UserContextInterface`.
 1. Customer-specific identifiers (such as customer ID or cart ID) must be deducted from the record of the successfully authenticated customer. They must not be accepted via request parameters.
 1. All new web API endpoints must be covered with web API functional tests.
-    * For REST and SOAP, by default, the same test will be executed in the scope of different continuous integration jobs. The base class for REST and SOAP tests is `\Magento\TestFramework\TestCase\WebapiAbstract`
-    * The base class for GraphQL tests is: `\Magento\TestFramework\TestCase\GraphQlAbstract`
+    *  For REST and SOAP, by default, the same test will be executed in the scope of different continuous integration jobs. The base class for REST and SOAP tests is `\Magento\TestFramework\TestCase\WebapiAbstract`
+    *  The base class for GraphQL tests is: `\Magento\TestFramework\TestCase\GraphQlAbstract`
 1. Web API requests must be processed by custom front controllers with optimized routing to prevent the admin and storefront areas from executing routers.
 1. Web API schema should be strictly typed. (All complex types should eventually be resolved to scalar types.)
 1. Authentication parameters must be passed via headers.
@@ -86,7 +84,7 @@ Any new design related to Web API must satisfy the following constraints to keep
 1. Internal server errors must be masked and never shown to the user in production mode. In developer mode, original exceptions must never be masked and should be displayed along with the related stacktrace.
 1. Pagination must be supported by all list operations.
 
-**GraphQL**
+**GraphQL:**
 
 1. Unlimited nesting should be supported during requests for related entities. (For example, get Order => Order Items => Products => Related Products)
 1. Field filtration must be performed with SQL queries. Do not filter on the application layer after you've fetched all possible fields.
@@ -96,7 +94,7 @@ Any new design related to Web API must satisfy the following constraints to keep
 1. All queries must return the 200 HTTP status code. If an error occurs, return the error in the response body. A 500 status code is allowed when an exception occurs when generating a schema, but not during requests.
 1. The Store code should be passed via headers.
 
-**REST**
+**REST:**
 
 1. The resource URL should be versioned (for example: V1). The version must be specified in the following format: `V\d.+`
 1. Resource names in a URL should be in plural form (for example: products, carts)
@@ -108,8 +106,8 @@ Any new design related to Web API must satisfy the following constraints to keep
 1. Responses must return responses with standard [HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
 1. The store code must be passed via URL. For example `GET /rest/frenchStoreView/V1/products`. Persistence operations that should be performed for all stores at once, should have 'all' store code in the URL.
 
-**SOAP**
+**SOAP:**
 
 1. SOAP is designed for systems integration. It supports token authentication for customers and admins, as well as no authentication for anonymous service methods. Cookie authentication and OAuth 1.0 are not supported.
 1. The schema is available in the form of a WSDL for all exposed services.
-1. All requests must return the 200 HTTP status code. If an error occurs, return the error in the response. 
+1. All requests must return the 200 HTTP status code. If an error occurs, return the error in the response.

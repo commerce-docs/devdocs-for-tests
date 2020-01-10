@@ -26,12 +26,12 @@ In the `config.xml` file in your `%Vendor_Module%/etc` directory, configure the 
 | `model`                | [payment method facade]({{ page.baseurl }}/payments-integrations/base-integration/facade-configuration.html) used for integration with Sales and Checkout modules                                                                 | string                                |
 | `order_status`         | default [order status](https://glossary.magento.com/order-status)                                                                                                                         |                                       |
 | `paymentInfoKeys`      | transaction request/response fields displayed on payment information block (can be any fields from payment additional information)                                                                                             | list of comma separated values        |
-| `privateInfoKeys`      | `paymentInfoKeys` fields which should not be displayed in customer payment information block (can be any fields from payment additional information)                                                                           |                                       |
+| `privateInfoKeys`      | `privateInfoKeys` fields which should not be displayed in customer payment information block (can be any fields from payment additional information)                                                                           |                                       |
 | `payment_action`       | default action of payment for the payment method (authorize, sale)                                                                                                                                                             | `authorize`,`authorize_capture`       |
 | `sort_order`           | payment method order position on checkout/system configuration pages                                                                                                                                                           | integer                               |
 | `title`                | default title for a payment method                                                                                                                                                                                             | string                                |
 
-Additionally to the default option, a payment method configuration can contain any other custom options. 
+Additionally to the default option, a payment method configuration can contain any other custom options.
 
 ## Example
 
@@ -67,12 +67,15 @@ Following is the illustration of such configuration (`config.xml` of the Braintr
                 <order_status>processing</order_status>
                 <environment>sandbox</environment>
                 <allowspecific>0</allowspecific>
-                <sdk_url><![CDATA[https://js.braintreegateway.com/js/braintree-2.25.0.min.js]]></sdk_url>
+                <sdk_url><![CDATA[https://js.braintreegateway.com/js/braintree-2.32.0.min.js]]></sdk_url>
                 <public_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
                 <private_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
                 <masked_fields>cvv,number</masked_fields>
                 <privateInfoKeys>avsPostalCodeResponseCode,avsStreetAddressResponseCode,cvvResponseCode,processorAuthorizationCode,processorResponseCode,processorResponseText,liabilityShifted,liabilityShiftPossible,riskDataId,riskDataDecision</privateInfoKeys>
                 <paymentInfoKeys>cc_type,cc_number,avsPostalCodeResponseCode,avsStreetAddressResponseCode,cvvResponseCode,processorAuthorizationCode,processorResponseCode,processorResponseText,liabilityShifted,liabilityShiftPossible,riskDataId,riskDataDecision</paymentInfoKeys>
+                <avs_ems_adapter>Magento\Braintree\Model\AvsEmsCodeMapper</avs_ems_adapter>
+                <cvv_ems_adapter>Magento\Braintree\Model\CvvEmsCodeMapper</cvv_ems_adapter>
+                <group>braintree_group</group>
             </braintree>
         </payment>
     </default>
@@ -81,5 +84,5 @@ Following is the illustration of such configuration (`config.xml` of the Braintr
 
 ## What's next
 
-- [Payment  method facade]({{ page.baseurl }}/payments-integrations/base-integration/facade-configuration.html)
-- [Payment info rendering in Admin checkout]({{ page.baseurl }}/payments-integrations/base-integration/formblocktype.html)
+-  [Payment  method facade]({{ page.baseurl }}/payments-integrations/base-integration/facade-configuration.html)
+-  [Payment info rendering in Admin checkout]({{ page.baseurl }}/payments-integrations/base-integration/formblocktype.html)

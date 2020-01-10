@@ -13,43 +13,57 @@ functional_areas:
 
 This section provides instructions to install memcached on CentOS and Ubuntu. For additional information, consult the [memcached wiki](https://github.com/memcached/old-wiki).
 
-{:.bs-callout .bs-callout-info}
-We recommend using the latest stable memcache or memcached version (currently, 3.0.8 for memcache and 2.2.0 for memcached).
+{:.bs-callout-info}
+We recommend using the latest stable memcached version (currently 3.1.3 for memcached).
 
 To install memcached on CentOS, perform the following tasks as a user with `root` privileges:
 
-1.  Install memcached and its dependencies:
+1. Install memcached and its dependencies:
 
-        yum -y update
-        yum install -y libevent libevent-devel
-        yum install -y memcached
-        yum install -y php-pecl-memcache
+   ```bash
+   yum -y update
+   ```
 
-    {:.bs-callout .bs-callout-info}
-    The syntax of the preceding commands might depend on what package repositories you use. For example, if you use webtatic and PHP 5.6, enter <code>yum install -y php56w-pecl-memcache</code>. Use `yum search memcache|grep php` to find the appropriate package name.
+   ```bash
+   yum install -y libevent libevent-devel
+   ```
 
-3.  Change the memcached configuration setting for `CACHESIZE` and `OPTIONS`:
+   ```bash
+   yum install -y memcached
+   ```
 
-    1.  Open `/etc/sysconfig/memcached` in a text editor.
-    2.  Locate the value for `CACHESIZE` and change it to at least 1GB.
+   ```bash
+   yum install -y php-pecl-memcached
+   ```
 
-        For example,
+   {:.bs-callout-info}
+   The syntax of the preceding commands might depend on what package repositories you use. For example, if you use webtatic and PHP 5.6, enter <code>yum install -y php56w-pecl-memcache</code>. Use `yum search memcache|grep php` to find the appropriate package name.
 
-            CACHESIZE="1GB"
-    3.  Locate the value for `OPTIONS` and change it to `localhost` or `127.0.0.1`
+1. Change the memcached configuration setting for `CACHESIZE` and `OPTIONS`:
 
-    For more information about configuring memcached, see [the memcached wiki](https://code.google.com/p/memcached/wiki/NewConfiguringServer).
+   1. Open `/etc/sysconfig/memcached` in a text editor.
+   1. Locate the value for `CACHESIZE` and change it to at least 1GB. For example
 
-4.  Save your changes to `memcached` and exit the text editor.
-5.  Restart memcached.
+      ```conf
+      CACHESIZE="1GB"
+      ```
 
-        service memcached restart
+   1. Locate the value for `OPTIONS` and change it to `localhost` or `127.0.0.1`
 
-2.  Restart your web server.
+   For more information about configuring memcached, see [the memcached wiki](https://code.google.com/p/memcached/wiki/NewConfiguringServer).
 
-    For Apache, `service httpd restart`
+1. Save your changes to `memcached` and exit the text editor.
+1. Restart memcached.
 
-6.  Continue with the next section.
+   ```bash
+   service memcached restart
+   ```
+
+1. Restart your web server.
+
+   For Apache, `service httpd restart`
+
+1. Continue with the next section.
 
 ## Verify memcached works before installing Magento {#config-memcache-verify-its-cent}
 
@@ -59,24 +73,25 @@ We recommend testing memcached to make sure it works before you install Magento.
 
 To verify memcached is recognized by the web server:
 
-1.  Create a `phpinfo.php` file in the web server's docroot:
+1. Create a `phpinfo.php` file in the web server's docroot:
 
-        <?php
+   ```php
+   <?php
+   // Show all information, defaults to INFO_ALL
+   phpinfo();
+   ```
 
-        // Show all information, defaults to INFO_ALL
-        phpinfo();
+1. Go to that page in your web browser.
 
-2.  Go to that page in your web browser.
+   For example, `http://192.0.2.1/phpinfo.php`
 
-    For example, `http://192.0.2.1/phpinfo.php`
+1. Make sure memcache displays as follows:
 
-2.  Make sure memcache displays as follows:
+   ![Confirm memcache is recognized by the web server]({{ site.baseurl }}/common/images/config_memcache.png)
 
-    ![Confirm memcache is recognized by the web server]({{ site.baseurl }}/common/images/config_memcache.png)
+   Verify you're using memcached version 3.0.5 or later.
 
-    Verify you're using memcached version 3.0.5 or later.
-
-    If memcache does not display, restart the web server and refresh the browser page. If it still does not display, verify you installed the `php-pecl-memcache` extension.
+   If memcache does not display, restart the web server and refresh the browser page. If it still does not display, verify you installed the `php-pecl-memcache` extension.
 
 ### Create a memcache test consisting of a MySQL database and PHP script
 
@@ -86,27 +101,27 @@ The test uses a MySQL database, table, and data to verify you can retrieve the d
 
 Create the MySQL database:
 
-    mysql -u root -p
+```bash
+mysql -u root -p
+```
 
 At the `mysql` prompt, enter the following commands:
 
-    create database memcache_test;
-    GRANT ALL ON memcache_test.* TO memcache_test@localhost IDENTIFIED BY 'memcache_test';
-    use memcache_test;
-    create table example (id int, name varchar(30));
-    insert into example values (1, "new_data");
-    exit
+```sql
+create database memcache_test;
+GRANT ALL ON memcache_test.* TO memcache_test@localhost IDENTIFIED BY 'memcache_test';
+use memcache_test;
+create table example (id int, name varchar(30));
+insert into example values (1, "new_data");
+exit
+```
 
 Create `cache-test.php` in your web server's docroot:
 
-```php?start_inline=1
-if (class_exists('Memcache')) {
-    $meminstance = new Memcache();
-} else {
-    $meminstance = new Memcached();
-}
+```php
+$meminstance = new Memcached();
 
-$meminstance->addServer('<memcache hostname or ip>', <memcache port>);
+$meminstance->addServer('<memcached hostname or ip>', <memcached port>);
 
 $query = "select id from example where name = 'new_data'";
 $querykey = "KEY" . md5($query);
@@ -129,42 +144,58 @@ print "got result from memcached\n";
 return 0;
 ```
 
-where `<memcache hostname or ip>` is either `localhost`, `127.0.0.1`, or the memcache hostname or IP address. `<memcache port>` is its listen port; by default, `11211`.
+where `<memcached hostname or ip>` is either `localhost`, `127.0.0.1`, or the memcache hostname or IP address. `<memcached port>` is its listen port; by default, `11211`.
 
 Run the script from the command line.
 
-    cd <web server docroot>
-    php cache-test.php
+```bash
+cd <web server docroot>
+```
 
-The first result is `got result from mysql`. This means that the key didn't exist in memcache but it was retrieved from MySQL.
+```bash
+php cache-test.php
+```
 
-The second result is `got result from memcached`, which verifies that the value is stored successfully in memcache.
+The first result is `got result from mysql`. This means that the key did not exist in memcached but it was retrieved from MySQL.
+
+The second result is `got result from memcached`, which verifies that the value is stored successfully in memcached.
 
 Finally, you can view the memcache keys using Telnet:
 
-    telnet localhost <memcache port>
+```bash
+telnet localhost <memcache port>
+```
 
 At the prompt, enter
 
-    stats items
+```shell
+stats items
+```
 
 The result is similar to the following:
 
-    STAT items:3:number 1
-    STAT items:3:age 1075
-    STAT items:3:evicted 0
-    STAT items:3:evicted_nonzero 0
-    STAT items:3:evicted_time 0
-    STAT items:3:outofmemory 0
-    STAT items:3:tailrepairs 0
+```terminal
+STAT items:3:number 1
+STAT items:3:age 1075
+STAT items:3:evicted 0
+STAT items:3:evicted_nonzero 0
+STAT items:3:evicted_time 0
+STAT items:3:outofmemory 0
+STAT items:3:tailrepairs 0
 
 Flush the memcache storage and quit Telnet:
 
-    flush_all
-    quit
+```shell
+flush_all
+```
+
+```shell
+quit
+```
 
 [Additional information about the Telnet test](http://www.darkcoding.net/software/memcached-list-all-keys/)
 
-#### Next step
+{:.ref-header}
+Related topics
 
 [Configure Magento to use memcached]({{ page.baseurl }}/config-guide/memcache/memcache_magento.html)

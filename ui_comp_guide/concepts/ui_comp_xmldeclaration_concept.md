@@ -1,9 +1,6 @@
 ---
 group: ui-components-guide
-subgroup: concepts
 title: About XML configuration of UI components
-menu_title: About XML configuration of UI components
-menu_order: 13
 ---
 
 ## Overview
@@ -14,13 +11,13 @@ This topic discusses the [XML](https://glossary.magento.com/xml) declaration of 
 
 Every [module](https://glossary.magento.com/module) that has view representation contains the directory named `layout`. In this directory, the `.xml` declarations of the pages are stored. These `.xml` declarations are, in fact, the pages' [markup](https://glossary.magento.com/markup).
 
-In a typical Magento `.xml` layout file we see a `<head/>` node, `<title/>` node with the name of the page, and sometimes [links to CSS and JS files]({{ page.baseurl }}/frontend-dev-guide/layouts/xml-manage.html#layout_markup_css). There are other nodes as well, the most important for us now is the [`<referenceContainer/>` node]({{ page.baseurl }}/frontend-dev-guide/layouts/xml-instructions.html#fedg_layout_xml-instruc_ex_ref). (The `name` attribute in this node is responsible for the position of the container on the page.). [Basic]({{ page.baseurl }}/ui_comp_guide/bk-ui_comps.html#general-structure) UI components are declared in this node. All nested components are declared in the basic component instances configuration files (not in the page layouts).
+In a typical Magento `.xml` layout file we see a `<head/>` node, `<title/>` node with the name of the page, and sometimes [links to CSS and JS files]({{ page.baseurl }}/frontend-dev-guide/layouts/xml-manage.html#layout_markup_css). There are other nodes as well, the most important for us now is the [`<referenceContainer/>` node]({{ page.baseurl }}/frontend-dev-guide/layouts/xml-instructions.html#fedg_layout_xml-instruc_ex_ref). (The `name` attribute in this node is responsible for the position of the container on the page.). [Basic]({{ page.baseurl }}/ui_comp_guide/bk-ui_comps.html#general-structure) UI components are declared in this node. All nested components are declared in the basic components' instances configuration files (not in the page layouts).
 
 Example of a basic [UI component](https://glossary.magento.com/ui-component) declaration:
 
 ```xml
 <referenceContainer name="page-container">
-	<uiComponent name="%instance_name%"/>
+    <uiComponent name="%instance_name%"/>
 </referenceContainer>
 ```
 
@@ -32,8 +29,8 @@ The instance configuration file name is the name of instance (`%instance_name%`)
 
 Following are the rules for the instance configuration files:
 
-* The top node must have the name of one of the basic UI components. <!-- need to mention or link what components -->
-* The top node must contain a link to the XSD schema.
+*  The top node must have the name of one of the basic UI components. <!-- need to mention or link what components -->
+*  The top node must contain a link to the XSD schema.
 
 In the top node, there can be an `<argument/>` node. The `<argument/>` node contains the configuration for that basic UI component. The `<argument/>` node's `name` attribute value must be `data`. The child nodes of the `<argument>` node will be the argument properties that will be passed in to the component.
 
@@ -54,52 +51,56 @@ The top node can have nested nodes. Every nested node is regarded as a separate 
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">category_form.category_form_data_source</item>
-            <item name="deps" xsi:type="string">category_form.category_form_data_source</item>
         </item>
         <item name="label" xsi:type="string" translate="true">Category Information</item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
-        <item name="buttons" xsi:type="array">
-            <item name="delete" xsi:type="string">Magento\Catalog\Block\Adminhtml\Category\Edit\DeleteButton</item>
-            <item name="save" xsi:type="string">Magento\Catalog\Block\Adminhtml\Category\Edit\SaveButton</item>
-        </item>
-        <item name="config" xsi:type="array">
-            <item name="dataScope" xsi:type="string">data</item>
-            <item name="namespace" xsi:type="string">category_form</item>
-        </item>
         <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
     </argument>
+    <settings>
+        <buttons>
+            <button name="save" class="Magento\Catalog\Block\Adminhtml\Category\Edit\SaveButton"/>
+            <button name="delete" class="Magento\Catalog\Block\Adminhtml\Category\Edit\DeleteButton"/>
+        </buttons>
+        <namespace>category_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>category_form.category_form_data_source</dep>
+        </deps>
+    </settings>
     <dataSource name="category_form_data_source">
-        <argument name="dataProvider" xsi:type="configurableObject">
-            <argument name="class" xsi:type="string">Magento\Catalog\Model\Category\DataProvider</argument>
-            <argument name="name" xsi:type="string">category_form_data_source</argument>
-            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
-            <argument name="requestFieldName" xsi:type="string">id</argument>
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="submit_url" xsi:type="url" path="catalog/category/save"/>
-                    <item name="validate_url" xsi:type="url" path="catalog/category/validate"/>
-                </item>
-            </argument>
-        </argument>
         <argument name="data" xsi:type="array">
             <item name="js_config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
             </item>
         </argument>
+        <settings>
+            <validateUrl path="catalog/category/validate"/>
+            <submitUrl path="catalog/category/save"/>
+        </settings>
+        <dataProvider class="Magento\Catalog\Model\Category\DataProvider" name="category_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
     </dataSource>
-    <fieldset name="general">
-        <field name="id">
+    <fieldset name="general" sortOrder="5">
+        <settings>
+            <collapsible>false</collapsible>
+            <label/>
+        </settings>
+        <field name="id" formElement="hidden">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">hidden</item>
                     <item name="source" xsi:type="string">category</item>
                 </item>
             </argument>
+            <settings>
+                <dataType>text</dataType>
+            </settings>
         </field>
     </fieldset>
 </form>
-
 ```
 
 In the above example, within the top-level `<form>` node the `<fieldset>` node is nested. It declares the Fieldset UI component.
@@ -114,9 +115,9 @@ In this example we showed only a small part of the possible configuration.
 
 The default configuration of a UI component is declared in one of the following ways:
 
-- inside the UI component itself, in the `.js` file
-- in the [`definition.xml` file]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/ui_component/etc/definition.xml)
-- in both places, in which case the configurations merge (the UI component `.js` file has priority).
+*  inside the UI component itself, in the `.js` file
+*  in the [`definition.xml` file]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/ui_component/etc/definition.xml)
+*  in both places, in which case the configurations merge (the UI component `.js` file has priority).
 
 In the above example, the Fieldset UI component uses a merged configuration from both the `definition.xml` file and from the UI component's `.js` file.
 

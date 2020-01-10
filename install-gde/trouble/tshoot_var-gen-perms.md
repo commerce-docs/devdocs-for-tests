@@ -1,8 +1,8 @@
 ---
 group: installation-guide
 subgroup: 02_access
-title: Cannot write to the var/generation directory
-menu_title: Cannot write to the var/generation directory
+title: Cannot write to the generated/code directory
+menu_title: Cannot write to the generated/code directory
 menu_node:
 menu_order: 9
 functional_areas:
@@ -13,7 +13,8 @@ functional_areas:
 
 ### Symptom
 
-After you successfully install Magento, exceptions display when you try to access the [storefront](https://glossary.magento.com/storefront) or [Admin](https://glossary.magento.com/admin). You might have to [enable developer mode]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-mode.html#change-to-developer-mode) to see the exceptions.
+After you successfully install Magento, exceptions display when you try to access the [storefront](https://glossary.magento.com/storefront) or [Admin](https://glossary.magento.com/admin). You might have to
+[enable developer mode]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-mode.html#change-to-developer-mode) to see the exceptions.
 
 Sample exceptions follow:
 
@@ -22,7 +23,7 @@ Directory "/var/www/html/magento2/pub/static/_requirejs/adminhtml/Magento/backen
 
 Error filtering template: Unable to write file into directory /var/www/html/magento2/pub/media/catalog/product/cache/1/small_image/240x300/beff4985b56e3afdbeabfc89641a4582/m/b. Access forbidden.
 
-exception 'Magento\Framework\Exception\LocalizedException' with message 'Can't create directory /var/www/html/magento2/var/generation/Magento/Framework/App/ResourceConnection/.' in /var/www/html/magento2/vendor/magento/framework/Code/Generator.php:103 Stack trace:
+exception 'Magento\Framework\Exception\LocalizedException' with message 'Can't create directory /var/www/html/magento2/generated/code/Magento/Framework/App/ResourceConnection/.' in /var/www/html/magento2/vendor/magento/framework/Code/Generator.php:103 Stack trace:
 #0 /var/www/html/magento2/vendor/magento/framework/Code/Generator/Autoloader.php(35): Magento\Framework\Code\Generator->generateClass('Magento\\Framewo...')
 #1 [internal function]: Magento\Framework\Code\Generator\Autoloader->load('Magento\\Framewo...')
 #2 [internal function]: spl_autoload_call('Magento\\Framewo...')

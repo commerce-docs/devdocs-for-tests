@@ -9,34 +9,26 @@ functional_areas:
 
 ## Purpose of the deployment configuration {#config-php-overview}
 
-Magento's deployment configuration consists of the shared and system-specific configuration for your installation. Magento's deployment configuration is divided between:
+Magento's deployment configuration consists of the shared and system-specific configuration for your installation. Magento's deployment configuration is divided between [`app/etc/config.php`][config-php] and [`app/etc/env.php`][env-php].
 
-*	`<Magento base dir>/app/etc/config.php`, referred to as the _shared_ configuration file, because you can check it in to source control and use it in your development, staging, and production systems
+*  `app/etc/config.php` is the _shared_ configuration file.
+  This file contains the list of installed modules, themes, and language packages; and shared configuration settings.
 
-	`config.php` contains the list of installed modules, themes, and language packages; and shared configuration settings
-*	`<Magento base dir>/app/etc/env.php`, which contains system-specific settings, such as:
+  Check this file in to source control and use it in your development, staging, and production systems.
 
-	*	Database credentials and connection settings
-	*	i18n TBD
-	*	Cache storage settings
-	*	Session storage settings
-	*	[x-frame-options]({{ page.baseurl }}/config-guide/secy/secy-xframe.html) setting
-	*	Enabled cache types
-	*	Your encryption key
-	*	Web routing parameters (base URLs, Magento Admin URI)
-	*	[Magento mode]({{ page.baseurl }}/config-guide/bootstrap/magento-modes.html)
-	*	Magento installation date
-	*	System-specific and sensitive configuration settings TBD
+  As of the 2.2 release, the `app/etc/config.php` file is no longer an entry in the `.gitignore` file.
+  This was done to facilitate [pipeline deployment][pipeline-deployment].
+
+*  `app/etc/env.php` contains settings that are specific to the installation environment.
 
 Together, `config.php` and `env.php` are referred to as Magento's _deployment configuration_ because they are created during installation and are required to start Magento.
 
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 The Magento 2 deployment configuration replaces `local.xml` in Magento 1.x.
 
 Unlike other [module configuration files]({{ page.baseurl }}/config-guide/config/config-files.html), Magento's deployment configuration is loaded into memory when Magento initializes, is not merged with any other files, and cannot be extended. (`config.php` and `env.php` are merged with each other, however.)
 
 ## Details about the deployment configuration {#config-php-contents}
-
 `config.php` and `env.php` are [PHP](https://glossary.magento.com/php) files that return a [multi-dimensional associative array](http://www.w3schools.com/php/php_arrays.asp), which is basically a hierarchical arrangement of configuration parameters and values.
 
 On the top level of this array are *configuration segments*. A segment has arbitrary content (a scalar value or a nested array) distinguished by an arbitrary key&mdash;where both the key and its value are defined by the Magento framework.
@@ -47,18 +39,18 @@ On the next hierarchy level, items in each segment are ordered according to the 
 
 The following sections discusses the structure and contents of the deployment configuration&mdash;`config.php` and `env.php`.
 
-* [Manage installed modules](#config-php-contents-config-php)
-* [Environmental configuration](#config-php-contents-env-php)
+*  [Manage installed modules](#config-php-contents-config-php)
+*  [System-specific configuration]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-config-mgmt-export.html#app-etc-env-php)
 
 ## Manage installed modules {#config-php-contents-config-php}
-`config.php` lists your installed components (modules, themes, and language packages). Magento provides both command-line and web-based utilities to manage components (install, uninstall, enable, disable, or upgrade).
+`config.php` lists your installed modules. Magento provides both command-line and web-based utilities to manage modules (install, uninstall, enable, disable, or upgrade).
 
 Examples:
 
-* Uninstall components: [`bin/magento setup:uninstall`]({{ page.baseurl }}/install-gde/install/cli/install-cli-uninstall.html)
-* Enable or disable components: [`bin/magento module:enable`]({{ page.baseurl }}/install-gde/install/cli/install-cli-subcommands-enable.html#instgde-cli-subcommands-enable-disable), [`bin/magento module:disable`]({{ page.baseurl }}/install-gde/install/cli/install-cli-subcommands-enable.html#instgde-cli-subcommands-enable-disable).
-* Component Manager: coming soon
-* System Upgrade: coming soon
+*  Uninstall components: [`bin/magento setup:uninstall`]({{ page.baseurl }}/install-gde/install/cli/install-cli-uninstall.html)
+*  Enable or disable components: [`bin/magento module:disable`]({{ page.baseurl }}/install-gde/install/cli/install-cli-subcommands-enable.html#instgde-cli-subcommands-enable-disable), [`bin/magento module:enable`]({{ page.baseurl }}/install-gde/install/cli/install-cli-subcommands-enable.html#instgde-cli-subcommands-enable-disable).
+*  [Component Manager]({{ page.baseurl }}/comp-mgr/module-man/compman-start.html)
+*  [System Upgrade]({{ page.baseurl }}/comp-mgr/upgrader/upgrade-start.html)
 
 `config.php` snippet:
 
@@ -86,93 +78,10 @@ Disabled modules are not recognized by the Magento application; in other words, 
 
 The only practical difference of a module being disabled and being completely absent in the code base is that a disabled module is found by the autoloader, enabling its classes and constants to be reused in other code.
 
-## Environmental configuration {#config-php-contents-env-php}
-
-The following table provides details about each `env.php` segment and its structure.
-
-<table>
-  <tbody>
-    <tr>
-      <th>Segment</th>
-      <th>Key</th>
-      <th>Structure</th>
-    </tr>
-    <tr>
-      <td>Database</td>
-      <td><code>db</code></td>
-      <td><pre>__/db
-|__/connection
-| |__/[default]
-|   |-- host
-|   |-- dbname
-|   |-- username
-|   |-- password
-|   |-- model [mysql4]
-|   |-- initStatements [SET NAMES utf8;]
-|   |-- active [1]
-|-- table_prefix</pre></td>
-    </tr>
-    <tr>
-      <td>Resources</td>
-      <td><code>resource</code></td>
-      <td><pre>__/resource
- |__/default_setup
-   |-- connection [default]</pre></td>
-    </tr>
-    <tr>
-      <td>Session storage</td>
-      <td><code>session</code></td>
-      <td><pre>__/session
- |__/save
-   |-- &lt;files|db></pre></td>
-    </tr>
-    <tr>
-      <td>Admin URL path</td>
-      <td><code>backend</code></td>
-      <td><pre>__/backend
- |-- frontName</pre></td>
-    </tr>
-    <tr>
-      <td>Cache storage</td>
-      <td><code>cache</code></td>
-      <td><pre>__/cache
- |__/frontend
-   |__/See <a href="{{ page.baseurl }}/config-guide/cache/cache-types.html">frontend options</a></pre></td>
-    </tr>
-    <tr>
-      <td>Installation date</td>
-      <td><code>install</code></td>
-      <td><pre>__/install
- |-- date</pre></td>
-    </tr>
-    <tr>
-      <td>Encryption key</td>
-      <td><code>encrypt</code></td>
-      <td><pre>__/crypt
- |-- key</pre></td>
-    </tr>
-    <tr>
-      <td>Cache types</td>
-      <td><code>cache_types</code></td>
-      <td><pre>__/cache_types
- |-- &lt;enumerated [cache](https://glossary.magento.com/cache) types></pre></td>
-    </tr>
-    <tr>
-            <td>Message queues</td>
-            <td><code>queue</code></td>
-            <td><pre>__/queue
-        |__/amqp
-        |-- host
-        |-- port
-        |-- user
-        |-- password
-        |-- virtualhost
-        |-- ssl
-        </pre></td>
-          </tr>
-  </tbody>
-</table>
-
 ## Related topic
 
 [Module configuration files]({{ page.baseurl }}/config-guide/config/config-files.html)
+
+[config-php]: {{ page.baseurl }}/config-guide/prod/config-reference-configphp.html
+[env-php]: {{ page.baseurl }}/config-guide/prod/config-reference-envphp.html
+[pipeline-deployment]: {{ page.baseurl }}/config-guide/deployment/

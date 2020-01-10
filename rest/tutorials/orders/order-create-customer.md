@@ -9,9 +9,7 @@ return_to:
 menu_order: 3
 level3_subgroup: order-tutorial
 redirect_from:
-  - /guides/v2.1/get-started/order-tutorial/order-create-customer.html
   - /guides/v2.2/get-started/order-tutorial/order-create-customer.html
-  - /guides/v2.3/get-started/order-tutorial/order-create-customer.html
 functional_areas:
   - Integration
   - Orders
@@ -20,67 +18,66 @@ functional_areas:
 
 Customers can make purchases in three ways:
 
-* As a logged-in user
-* As a guest user who logs in or creates an account when the order is placed
-* As a guest user who does not create an account
+*  As a logged-in user
+*  As a guest user who logs in or creates an account when the order is placed
+*  As a guest user who does not create an account
 
 This tutorial creates an order by a logged-in user. Magento provides additional REST endpoints for handling guest users.
 
 ### Create a customer account
 
-Creating a customer account requires [admin](https://glossary.magento.com/admin) permissions.
-
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 This example shows a simplified way of creating a customer account. Typically, you would not define a customer password using plain text. Instead, you would specify the payload without the `password` parameter. By default if the call is successful, Magento sends a "Welcome" email to the customer that includes a request to set the password. You could also initiate a password reset email by calling `PUT /V1/customers/password`.
 
-**Endpoint**
+**Endpoint:**
 
 `POST <host>/rest/<store_code>/V1/customers`
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
-`Authorization` `Bearer <admin token>`
-
-**Payload**
+**Payload:**
 
 It is recommended that you substitute the value of the `email` parameter with a real email address so that you receive all notifications.
 
 {% collapsible Show code sample %}
+
 ```json
 {
-	"customer": {
-		"email": "jdoe@example.com",
-		"firstname": "Jane",
-		"lastname": "Doe",
-		"addresses": [{
-			"defaultShipping": true,
-			"defaultBilling": true,
-			"firstname": "Jane",
-			"lastname": "Doe",
-			"region": {
-				"regionCode": "NY",
-				"region": "New York",
-        "regionId":43
-			},
-			"postcode": "10755",
-			"street": ["123 Oak Ave"],
-			"city": "Purchase",
-			"telephone": "512-555-1111",
-			"countryId": "US"
-		}]
-	},
+  "customer": {
+    "email": "jdoe@example.com",
+    "firstname": "Jane",
+    "lastname": "Doe",
+    "addresses": [{
+      "defaultShipping": true,
+      "defaultBilling": true,
+      "firstname": "Jane",
+      "lastname": "Doe",
+      "region": {
+        "regionCode": "NY",
+        "region": "New York",
+                                "regionId":43
+      },
+      "postcode": "10755",
+      "street": ["123 Oak Ave"],
+      "city": "Purchase",
+      "telephone": "512-555-1111",
+      "countryId": "US"
+    }]
+  },
   "password": "Password1"
 }
 ```
+
 {% endcollapsible %}
 
-**Response**
+**Response:**
 
 Magento assigned this user `id` value of `2`.
 
 {% collapsible Show code sample %}
+
 ```json
 {
   "id": 2,
@@ -121,6 +118,7 @@ Magento assigned this user `id` value of `2`.
   "disable_auto_group_change": 0
 }
 ```
+
 {% endcollapsible %}
 
 You can log in to the Luma store using the username `jdoe@example.com` and password `Password1`.
@@ -131,16 +129,15 @@ To get a customer's access token, you must specify the customer's username and p
 
 By default, a customer token is valid for 1 hour. To change this value, log in to Admin and go to **Stores** > Settings > **Configuration** > **Services** > **OAuth** > **Access Token Expiration**.
 
-
-**Endpoint**
+**Endpoint:**
 
 `POST <host>/rest/<store_code>/V1/integration/customer/token`
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
-**Payload**
+**Payload:**
 
 ```json
 {
@@ -149,7 +146,7 @@ By default, a customer token is valid for 1 hour. To change this value, log in t
 }
 ```
 
-**Response**
+**Response:**
 
 Magento returns the customer's access token. This token must be specified in the authorization header of every call the customer makes on his or her own behalf.
 
@@ -158,5 +155,5 @@ Magento returns the customer's access token. This token must be specified in the
 ### Verify this step {#verify-step}
 
 1. Log in to the Luma [website](https://glossary.magento.com/website) using the email `jdoe@example.com` and password `Password1`.
-2. Click the account name (Jane) in the upper right corner and select **My Account**.
-3. Click **Address Book** to view the default billing and shipping addresses.
+1. Click the account name (Jane) in the upper right corner and select **My Account**.
+1. Click **Address Book** to view the default billing and shipping addresses.

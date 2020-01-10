@@ -9,9 +9,7 @@ return_to:
 menu_order: 9
 level3_subgroup: order-tutorial
 redirect_from:
-  - /guides/v2.1/get-started/order-tutorial/order-create-shipment.html
   - /guides/v2.2/get-started/order-tutorial/order-create-shipment.html
-  - /guides/v2.3/get-started/order-tutorial/order-create-shipment.html
 functional_areas:
   - Integration
   - Orders
@@ -25,19 +23,19 @@ To create a partial shipment, specify only those `order_item_id`s that are to be
 
 If the call is successful on a full shipment, Magento changes the status of an order to Complete.
 
-**Endpoint**
+**Endpoint:**
 
 `POST <host>/rest/<store_code>/V1/order/3/ship`
 
 where `3` is the order id.
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
 `Authorization` `Bearer <administrator token>`
 
-**Payload**
+**Payload:**
 
 The `tracks` array optionally allows you to include one or more tracking numbers for the [shipment](https://glossary.magento.com/shipment).
 
@@ -71,7 +69,7 @@ The `tracks` array optionally allows you to include one or more tracking numbers
 
 {% endcollapsible %}
 
-**Response**
+**Response:**
 
 A shipment ID, such as `3`.
 

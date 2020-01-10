@@ -5,15 +5,15 @@ title: Retrieve filtered responses for REST endpoints
 
 Some REST calls return dozens or even hundreds of parameters, and parsing through all this data can be unwieldy. In addition, mobile app developers might find the bandwidth needed to process a request to be excessive. To resolve these problems, Magento provides a query parameter-based syntax for REST requests that return partial responses.
 
-{:.bs-callout .bs-callout-tip}
+{:.bs-callout-tip}
 This feature is not available for SOAP, because SOAP does not allow partial responses.
 
 You can append `?fields=<field_or_object1>,<field_or_object2>,...` to any GET, POST, or PUT operation to filter unimportant information from the response. `<field_or_object>` can be any of the following:
 
-* Simple top-level field
-* Top-level object that includes all fields
-* Top-level object with selected fields
-* Nested objects
+*  Simple top-level field
+*  Top-level object that includes all fields
+*  Top-level object with selected fields
+*  Nested objects
 
 Separate each field or object with a comma.
 
@@ -46,26 +46,26 @@ The following example returns only the customer first name, last name, and the e
 
 ```json
 {
-  "customer_firstname": "Veronica"
-  "customer_lastname": "Costello"
-  "billing_address": {
-    "address_type": "billing"
-    "city": "Calder"
-    "country_id": "US"
-    "customer_address_id": 1
-    "email": "roni_cost@example.com"
-    "entity_id": 4
-    "firstname": "Veronica"
-    "lastname": "Costello"
-    "parent_id": 2
-    "postcode": "49628-7978"
-    "region": "Michigan"
-    "region_code": "MI"
-    "region_id": 33
-    "street": "6146 Honey Bluff Parkway"
-    "telephone": "(555) 229-3326"
-    }
+"customer_firstname": "Veronica"
+"customer_lastname": "Costello"
+"billing_address": {
+  "address_type": "billing"
+  "city": "Calder"
+  "country_id": "US"
+  "customer_address_id": 1
+  "email": "roni_cost@example.com"
+  "entity_id": 4
+  "firstname": "Veronica"
+  "lastname": "Costello"
+  "parent_id": 2
+  "postcode": "49628-7978"
+  "region": "Michigan"
+  "region_code": "MI"
+  "region_id": 33
+  "street": "6146 Honey Bluff Parkway"
+  "telephone": "(555) 229-3326"
   }
+}
 ```
 
 ## Top-level object with selected fields
@@ -88,9 +88,9 @@ The following example returns only the `name`, `qty`, and `sku` fields defined i
 
 This example returns only the following:
 
-* The product's `sku` and `name`
-* The entire `category_links` object, which is defined in `extension_attributes`
-* The `item_id` and `qty` fields of the `stock_item` object, which is also defined in `extension_attributes`
+*  The product's `sku` and `name`
+*  The entire `category_links` object, which is defined in `extension_attributes`
+*  The `item_id` and `qty` fields of the `stock_item` object, which is also defined in `extension_attributes`
 
 `GET <host>/rest/<store_code>/V1/products/MT12?fields=name,sku,extension_attributes[category_links,stock_item[item_id,qty]]`
 
@@ -117,7 +117,7 @@ The following POST operation and payload creates a [catalog](https://glossary.ma
 
 `POST <host>/rest/<store_code>/V1/categories?fields=id,parent_id,name`
 
-**Payload**
+**Payload:**
 
 ```json
 {
@@ -128,13 +128,13 @@ The following POST operation and payload creates a [catalog](https://glossary.ma
 }
 ```
 
-**Response**
+**Response:**
 
 ```json
 {
-  "id": 43,
-  "parent_id": 2,
-  "name": "New Category"
+"id": 43
+"parent_id": 2
+"name": "New Category"
 }
 ```
 
@@ -188,6 +188,7 @@ The following query returns only the `sku` and `name` parameters for product ite
 }
 ```
 
-## Related topics
-{:.no_toc}
-* [Search using REST APIs]({{ page.baseurl }}/rest/performing-searches.html)
+{:.ref-header}
+Related topics
+
+*  [Search using REST APIs]({{ page.baseurl }}/rest/performing-searches.html)

@@ -1,20 +1,7 @@
 ---
 group: php-developer-guide
-subgroup: 09_Full page caching
 title: Public content
-menu_title: Public content
-menu_order: 17
-menu_node:
-redirect_from:
-  - /guides/v2.1/config-guide/cache/cache-priv-priv.html
-  - /guides/v2.2/config-guide/cache/cache-priv-priv.html
-  - /guides/v2.1/config-guide/cache/cache-priv-context.html
-  - /guides/v2.2/config-guide/cache/cache-priv-context.html
-  - /guides/v2.1/config-guide/cache/cache-priv-inval.html
-  - /guides/v2.2/config-guide/cache/cache-priv-inval.html
 ---
-
-{::options syntax_highlighter="rouge" /}
 
 By default, all pages in Magento are cacheable, but you can disable caching if necessary (e.g., payment method return page, debug page, or AJAX data source).
 
@@ -35,7 +22,7 @@ Add a `cacheable="false"` attribute to any block in your layout to disable cachi
 
 Magento disables page caching if at least one non-cacheable block is present in the layout.
 
-{: .bs-callout .bs-callout-warning }
+{:.bs-callout-warning}
 Using `cacheable="false"` inside the `default.xml` file disables caching for all pages on the site.
 
 You can also disable caching with HTTP headers.
@@ -78,16 +65,16 @@ class DynamicController extends \Magento\Framework\App\Action\Action
 
 Most caching servers and proxies use a [URL](https://glossary.magento.com/url) as a key for cache records. However, Magento URLs are not unique *enough* to allow caching by URL only. Cookie and session data in the URL can also lead to undesirable side effects,  including:
 
--   Collisions in cache storage
--   Unwanted information leaks (e.g., French language website partially visible on an English language website, prices for customer group visible in public, etc.)
+-  Collisions in cache storage
+-  Unwanted information leaks (e.g., French language website partially visible on an English language website, prices for customer group visible in public, etc.)
 
 To make each cached URL totally unique, we use *HTTP context variables*. Context variables enable the Magento application to serve different content on the same URL based on:
 
--   Customer group
--   Selected language
--   Selected store
--   Selected currency
--   Whether a customer is logged in or not
+-  Customer group
+-  Selected language
+-  Selected store
+-  Selected currency
+-  Whether a customer is logged in or not
 
 Context variables should not be specific to individual users because variables are used in cache keys for public content. In other words, a context variable per user results in a separate copy of content cached on the server for each user.
 
@@ -128,7 +115,7 @@ For another example of a context class, see [Magento/Framework/App/Http/Context]
 
 Use the `X-Magento-Vary` cookie to transfer context on the HTTP layer. HTTP proxies can be configured to calculate a unique identifier for cache based on the cookie and URL. For example, [our sample Varnish 4 configuration]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/PageCache/etc/varnish4.vcl#L63-L68){:target="_blank"} uses the following:
 
-```
+```conf
 sub vcl_hash {
     if (req.http.cookie ~ "X-Magento-Vary=") {
         hash_data(regsub(req.http.cookie, "^.*?X-Magento-Vary=([^;]+);*.*$", "\1"));
@@ -184,7 +171,7 @@ class View extends AbstractProduct implements \Magento\Framework\DataObject\Iden
 
 Magento uses cache tags for link creation. The performance of cache storage has a direct dependency on the number of tags per cache record, so try to minimize the number of tags and use them only for entities that are used in production mode. In other words, don't use invalidation for actions related to store setup.
 
-{: .bs-callout .bs-callout-warning }
+{:.bs-callout-warning}
 Use only HTTP POST or PUT methods to change state (e.g., adding to a shopping cart, adding to a wishlist, etc.) and don't expect to see caching on these methods. Using GET or HEAD methods might trigger caching and prevent updates to private content. For more information about caching, see [RFC-2616 section 13](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html){:target="_blank"}
 
 {% include cache/page-cache-checklists.md%}

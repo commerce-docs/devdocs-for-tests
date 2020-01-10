@@ -1,6 +1,10 @@
 ---
 group: module-reference-guide
+subgroup: 20_Enterprise Edition
+ee_only: true
 title: Magento_CatalogUrlRewriteStaging module
+menu_title: CatalogUrlRewriteStaging
+menu_order: 2
 ee_only: true
 ---
 

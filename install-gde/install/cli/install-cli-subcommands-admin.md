@@ -16,18 +16,18 @@ In addition to the command arguments discussed here, see [Common arguments]({{ p
 
 Before you can use this command, you must do all of the following:
 
--   [Create the deployment configuration]({{ page.baseurl }}/install-gde/install/cli/install-cli-subcommands-deployment.html)
--   [Enable at minimum the Magento_Authorization and Magento_User modules]({{ page.baseurl }}/install-gde/install/cli/install-cli-subcommands-enable.html)
--   Create the Magento [database schema](https://glossary.magento.com/database-schema)
+-  [Create the deployment configuration]({{ page.baseurl }}/install-gde/install/cli/install-cli-subcommands-deployment.html)
+-  [Enable at minimum the Magento_Authorization and Magento_User modules]({{ page.baseurl }}/install-gde/install/cli/install-cli-subcommands-enable.html)
+-  Create the Magento [database schema](https://glossary.magento.com/database-schema)
 
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 The simplest way to create the database is to use the command `magento setup:upgrade`.
 
 ## Create or edit an administrator
 
-Use this command to create a new administrator or to edit an existing administrator. 
+Use this command to create a new administrator or to edit an existing administrator.
 
-{:.bs-callout .bs-callout-tip}
+{:.bs-callout-tip}
 If you're editing an administrator, only the `first name`, `last name`, and `password` can be edited.
 
 Command usage:
@@ -55,6 +55,24 @@ bin/magento admin:user:create --admin-firstname=John --admin-lastname=Doe --admi
 
 ```terminal
 Created Magento administrator user named j.doe
+```
+
+If you do not specify any of required params Magento will ask about them in the CLI:
+
+```bash
+bin/magento admin:user:create
+```
+
+```terminal
+Admin user: John
+Admin password:
+Admin email: j.doe.young@example.com
+Admin first name: John
+Admin last name: Doe Young
+```
+
+```terminal
+Created Magento administrator user named John
 ```
 
 The following example updates `first name`, `last name`, and `password` of `j.doe` admin user:

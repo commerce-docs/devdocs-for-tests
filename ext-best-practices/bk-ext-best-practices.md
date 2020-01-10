@@ -5,7 +5,7 @@ functional_areas:
   - Standards
 ---
 
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 DRAFT/PROPOSAL: This Best Practices Guide is a first draft! The guide combines Best Practices that we have heard the community ask for, along with guidelines that our Magento UX, Engineering, and Product teams are working on.
 We want your feedback; please do a pull request on [feedback-placement-and-design.md]({{ page.baseurl }}/ext-best-practices/admin/feedback-placement-and-design.html) and let us know what your best practices are, your challenges, and how you would like Magento to help standardize (where needed).
 
@@ -24,6 +24,6 @@ This guide provides best practices, guidelines, and tips for creating Magento ex
 
 ### Related Content
 
-* [Admin Design Pattern Library]({{ page.baseurl }}/pattern-library/bk-pattern.html) - An in depth guide to the design patterns used in the Admin.
-* [PHP Developer Guide]({{ page.baseurl }}/extension-dev-guide/bk-extension-dev-guide.html) - An in depth guide to creating Magento components.
-* [Frontend Developer Guide]({{ page.baseurl }}/frontend-dev-guide/bk-frontend-dev-guide.html) - An in depth guide to creating a Magento storefront theme.
+*  [Admin Design Pattern Library]({{ page.baseurl }}/pattern-library/bk-pattern.html) - An in depth guide to the design patterns used in the Admin.
+*  [PHP Developer Guide]({{ page.baseurl }}/extension-dev-guide/bk-extension-dev-guide.html) - An in depth guide to creating Magento components.
+*  [Frontend Developer Guide]({{ page.baseurl }}/frontend-dev-guide/bk-frontend-dev-guide.html) - An in depth guide to creating a Magento storefront theme.

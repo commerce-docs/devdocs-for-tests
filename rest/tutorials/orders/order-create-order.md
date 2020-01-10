@@ -9,9 +9,7 @@ return_to:
 menu_order: 7
 level3_subgroup: order-tutorial
 redirect_from:
-  - /guides/v2.1/get-started/order-tutorial/order-create-order.html
   - /guides/v2.2/get-started/order-tutorial/order-create-order.html
-  - /guides/v2.3/get-started/order-tutorial/order-create-order.html
 functional_areas:
   - Integration
   - Orders
@@ -24,44 +22,47 @@ The [shopping cart](https://glossary.magento.com/shopping-cart) contains three i
 
 When you submit payment information, Magento creates an order and sends an order confirmation to the customer. Since we are using an offline [payment method](https://glossary.magento.com/payment-method) in this tutorial, we do not need to provide detailed payment information. The endpoint used in this example requires only the payment method and billing address information.
 
-**Endpoint**
+{:.bs-callout-info}
+Use the `V1/guest-carts/<cartId>/payment-information` endpoint to set the payment information on behalf of a guest. Do not include an authorization token.
+
+**Endpoint:**
 
 `POST <host>/rest/<store_code>/V1/carts/mine/payment-information`
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
 `Authorization` `Bearer <customer token>`
 
-**Payload**
+**Payload:**
 
 {% collapsible Show code sample %}
 
 ```json
 {
-	"paymentMethod": {
-    	    	"method": "banktransfer"
-	 },
-	"billing_address": {
-    	    	"email": "jdoe@example.com",
-  	      	"region": "New York",
-          	"region_id": 43,
-          	"region_code": "NY",
-    	    	"country_id": "US",
-    	    	"street": ["123 Oak Ave"],
-    	    	"postcode": "10577",
-    	    	"city": "Purchase",
-    	    	"telephone": "512-555-1111",
-    	    	"firstname": "Jane",
-    	    	"lastname": "Doe"
-	 }
+    "paymentMethod": {
+                "method": "banktransfer"
+    },
+    "billing_address": {
+                "email": "jdoe@example.com",
+            "region": "New York",
+            "region_id": 43,
+            "region_code": "NY",
+                "country_id": "US",
+                "street": ["123 Oak Ave"],
+                "postcode": "10577",
+                "city": "Purchase",
+                "telephone": "512-555-1111",
+                "firstname": "Jane",
+                "lastname": "Doe"
+    }
 }
 ```
 
 {% endcollapsible %}
 
-**Response**
+**Response:**
 
 An `orderID`, such as `3`.
 
@@ -69,23 +70,23 @@ An `orderID`, such as `3`.
 
 When you request an order object, the response contains full details about the order, including customer information, payment details, as well as totals and subtotals for the order and each individual item.
 
-**Endpoint**
+**Endpoint:**
 
 `GET <host>/rest/<store_code>/V1/orders/3`
 
 where `3` is the `orderid`
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
 `Authorization` `Bearer <administrator token>`
 
-**Payload**
+**Payload:**
 
 Not applicable
 
-**Response**
+**Response:**
 
 {% collapsible Show code sample %}
 
@@ -1577,4 +1578,4 @@ Not applicable
 ### Verify this step {#verify-step}
 
 1. Log in to the Luma store as the customer. The dashboard shows the order.
-2. Log in to [Admin](https://glossary.magento.com/admin). Click **Sales** > **Orders**. The order is displayed in the grid. Its status is Pending.
+1. Log in to [Admin](https://glossary.magento.com/admin). Click **Sales** > **Orders**. The order is displayed in the grid. Its status is Pending.

@@ -11,10 +11,10 @@ functional_areas:
   - Setup
 ---
 
-{:.bs-callout .bs-callout-tip}
+{:.bs-callout-tip}
 Totally lost? Need a helping hand? Try our [installation quick reference (tutorial)]({{ page.baseurl }}/install-gde/install-quick-ref.html) or [installation roadmap (reference)]({{ page.baseurl }}/install-gde/install-roadmap_part1.html).
 
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 If you chose to enable SELinux, see [SELinux and iptables]({{ page.baseurl }}/install-gde/prereq/security.html).
 
 ## Introducing the Magento command-line interface (CLI) {#new-cli-intro}
@@ -25,13 +25,14 @@ This topic discusses installing the Magento software using the CLI. For informat
 ## Before you start your installation {#instgde-install-cli-prereq}
 {% include install/before-you-begin-cli.md %}
 
-{:.bs-callout .bs-callout-tip}
+{:.bs-callout-tip}
 If you chose to enable SELinux, see [SELinux and iptables]({{ page.baseurl }}/install-gde/prereq/security.html).
 
 ## First steps {#instgde-install-cli-first}
 {% include install/first-steps-cli.md %}
 
-#### Next steps
+{:.ref-header}
+Related topics
 
-*	[Get started with the command-line installation]({{ page.baseurl }}/install-gde/install/cli/install-cli-subcommands.html)
-*	[Install the Magento software]({{ page.baseurl }}/install-gde/install/cli/install-cli-install.html)
+*  [Get started with the command-line installation]({{ page.baseurl }}/install-gde/install/cli/install-cli-subcommands.html)
+*  [Install the Magento software]({{ page.baseurl }}/install-gde/install/cli/install-cli-install.html)

@@ -12,7 +12,7 @@ In the Magento application, CSS files are included in [layout files].
 
 Technically there is an option to include them in template files, but we strongly recommend avoiding this.
 
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 The CSS class names can be assigned in both templates and layouts.
 
 This topic describes how stylesheets are located by default in the Magento application file system, and the recommended way to include CSS files in layouts.
@@ -31,25 +31,25 @@ In a [theme directory][], stylesheets are stored in the following locations:
 <tr>
 <td> <code>/&lt;Namespace&gt;_&lt;Module&gt;/web/css</code>
 </td>
-<td> Module-specific styles
+<td> Module-specific styles.
 </td>
 </tr>
 <tr>
 <td> <code>/web/css</code>
    </td>
-   <td> 
+   <td>
 Contains the following:
 <ul>
 <li>
 <code>print.less</code>: used to generate styles for the printed version of store pages.
 </li>
-<li><code>_styles.less</code> - a composite file, which includes all Less files used in the [theme](https://glossary.magento.com/theme). The underscore sign ("_") in a file name conventionally means that a file is not used independently, but is included in other files.
+<li><code>_styles.less</code> - a composite file, which includes all Less files used in the <a href="https://glossary.magento.com/theme">theme</a>. The underscore sign ("_") in a file name conventionally means that a file is not used independently, but is included in other files.
 </li>
-<li><code>styles-m.less</code>: used to generate mobile-specific styles, includes <code>_styles.less</code>
+<li><code>styles-m.less</code>: used to generate mobile-specific styles, includes <code>_styles.less</code>.
 </li>
 <li><code>styles-l.less</code>: used to generate desktop-specific styles, includes <code>_styles.less</code>.
 </li>
-<li><code>/source</code>: this subdirectory contains Less configuration files that invoke mixins from the Magento UI [library](https://glossary.magento.com/library)
+<li><code>/source</code>: this subdirectory contains Less configuration files that invoke mixins from the Magento UI <a href="https://glossary.magento.com/library">library</a>.
 </li>
 <li>
 <code>/source/_theme.less</code>: overrides the default Magento UI library variables values.
@@ -63,9 +63,9 @@ Contains the following:
 
 ## Include CSS {#fedg_css-in-themes_xml}
 
-In the Magento application, the recommended way to include stylesheets is to specify them in [layout](https://glossary.magento.com/layout) files. 
+In the Magento application, the recommended way to include stylesheets is to specify them in [layout](https://glossary.magento.com/layout) files.
 
-Usually, the stylesheets you include should be available for all store pages. To achieve this, include your CSS in `default_head_blocks.xml` of the `Magento_Theme` module, which defines the default `<head>` page section for all Magento pages. 
+Usually, the stylesheets you include should be available for all store pages. To achieve this, include your CSS in `default_head_blocks.xml` of the `Magento_Theme` module, which defines the default `<head>` page section for all Magento pages.
 The recommended way to do this is adding an [extending]({{ page.baseurl }}/frontend-dev-guide/layouts/layout-extend.html) `default_head_blocks.xml` in your theme, and including the required stylesheets in this file.
 
 Your custom `default_head_blocks.xml` should be located as follows:
@@ -74,10 +74,9 @@ Your custom `default_head_blocks.xml` should be located as follows:
 
 To include a CSS file, add the `<css src="<path>/<file>" media="print|<option>"/>` block in `<head>` section in a layout file. `<path>` is specified relative to the theme web directory (`<theme_dir>/web`)
 
-For example, the following illustrates how stylesheets are included in the default Blank theme: 
+For example, the following illustrates how stylesheets are included in the default Blank theme:
 
 [`/Magento_Theme/layout/default_head_blocks.xml`]
-
 
 ```xml
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
@@ -102,16 +101,8 @@ To include an external CSS file, add `<css src="URL to External Source" src_type
 </page>
 ```
 
-The `<link/>` tag can be used to insert `CSS` file in layout XML.
-
-```xml
-<link src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" src_type="url" rel="stylesheet" type="text/css"/>
-```
-
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 If the system does not find the included CSS files, it searches for the same file names with a `.less` extension. This is part of the built-in preprocessing mechanism. You can find more information about it in the [CSS Preprocessing] topic.
-
-
 
 [layout files]: {{page.baseurl}}/frontend-dev-guide/layouts/layout-overview.html
 [theme directory]: {{page.baseurl}}/frontend-dev-guide/themes/theme-structure.html

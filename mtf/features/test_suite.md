@@ -11,10 +11,10 @@ You can group the [test cases][test case], [variations][variation] or [constrain
 
 There are two rule types available:
 
-- **allow**, specifying what must be included during the test run
-- **deny**, specifying what must be excluded during the test run
+-  **allow**, specifying what must be included during the test run
+-  **deny**, specifying what must be excluded during the test run
 
-The rules for a test case are defined in a separate `.xml` file. (Recommended naming: use lowercase letters and underscore as a separator). One file contains rules for one test suite. All files are stored in the `<magento2_root_dir>/dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests` directory by default. Only one test suite can be run at a time.
+The rules for a test case are defined in a separate `.xml` file. (Recommended naming: use lowercase letters and underscore as a separator). One file contains rules for one test suite. All files are stored in the `<magento2>/dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests` directory by default. Only one test suite can be run at a time.
 
 The example of the default test suite:
 
@@ -51,26 +51,26 @@ The example of the default test suite:
 
 This set of rules selects functional tests that accepts the following criteria:
 
- - WITH the tag `const test_type = 'acceptance_test'`  
- - EXCEPT test cases with the tag `const stable = 'no'`
+-  WITH the tag `const test_type = 'acceptance_test'`
+-  EXCEPT test cases with the tag `const stable = 'no'`
 
- AND runs variations
+AND runs variations
 
- - WITH the tag `test_type:acceptance_test`
- - EXCEPT variations with the tag `stable:no`".
+-  WITH the tag `test_type:acceptance_test`
+-  EXCEPT variations with the tag `stable:no`".
 
 Learn more details in next topics.
 
 ## Configure `phpunit.xml` {#configure}
 
-Define the test suite to be run in the `<magento2_root_dir>dev/tests/functional/phpunit.xml`:
+Define the test suite to be run in the `<magento2>dev/tests/functional/phpunit.xml`:
 
 ```xml
 <env name = "testsuite_rule" value = <test_suite_name> />
 <env name = "testsuite_rule_path" value = <test_suite_directory> />
 ```
 
-The default test suite is `<magento2_root_dir>/dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests/basic.xml`.
+The default test suite is `<magento2>/dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests/basic.xml`.
 
 In `phpunit.xml`:
 
@@ -84,7 +84,7 @@ In `phpunit.xml`:
 To run a test suite enter the following commands from your terminal:
 
 ```bash
-cd <magento2_root_dir>/dev/tests/functional
+cd <magento2>/dev/tests/functional
 ```
 
 ```bash
@@ -97,10 +97,10 @@ Each test suite can be defined by the rules that **allow** or **deny** running o
 
 The only attribute of a rule node is the `scope`, which enables you to use the following options:
 
- - [`scope = "testsuite"`][]. Enables you to filter the test cases by a namespace, a module, a class.
- - [`scope = "testcase"`][]. Enables you to select the test cases with a specified tag.
- - [`scope = "variation"`][]. Enables you to use in a test run only variations with a specified tag.
- - [`scope = "constraint"`][]. Enables you to run only assertions with a specified tag.
+-  [`scope = "testsuite"`][]. Enables you to filter the test cases by a namespace, a module, a class.
+-  [`scope = "testcase"`][]. Enables you to select the test cases with a specified tag.
+-  [`scope = "variation"`][]. Enables you to use in a test run only variations with a specified tag.
+-  [`scope = "constraint"`][]. Enables you to run only assertions with a specified tag.
 
 ### `scope = "testsuite"` {#scope-testsuite}
 
@@ -177,14 +177,13 @@ The class filter example:
 
 ```
 
-
 ### `scope = "testcase"` {#scope-testcase}
 
 In this scope, you can group test cases using tags.
 
 You can use `group` and `value` parameters in the test case scope. In a test case, they are provided as a constant name and its value respectively. See the following example:
 
-- Any tags that are used in the test case should be added to the beginning of a class definition:
+-  Any tags that are used in the test case should be added to the beginning of a class definition:
 
 ```php
 
@@ -194,7 +193,7 @@ const TEST_TYPE = '3rd_party_test_deprecated';
 
 ```
 
-- The tag in the rule:
+-  The tag in the rule:
 
 ```xml
 
@@ -220,13 +219,60 @@ const TEST_TYPE = 'extended_acceptance_test, 3rd_party_test_deprecated';
 
 ### `scope = "variation"` {#scope-variation}
 
-You can assign a `tag` node to a [data set][] variation. This enables you to use customized sets of variations during the test run. You can **allow** to use in the test run only that variations which are specified with tag, or **deny** to use them.  
+You can use a variation `name` or assign a `tag` node to a [data set][] variation. This enables you to use customized sets of variations during the test run. You can **allow** the variation to use in test run those variations which are specified with tag, or **deny** the variations to omit them.
 
-You can use `group` and `value` parameters in the variation scope. In a variation, they are provided in the following format:
+#### Variation name filter
+
+You can filter tests by variation name using the `<name value="{name_of_variation}">` rule.
+
+**Example of a variation:**
 
 ```xml
 
-<variation ...>
+<variation name="ExampleTestCaseVariation1"...>
+    <data ...>
+</variation>
+<variation name="ExampleTestCaseVariation2"...>
+    <data ...>
+</variation>
+<variation name="ExampleTestCaseVariation3"...>
+    <data ...>
+</variation>
+```
+
+**Example of the `<allow>` rule:**
+
+Allow a variation `ExampleTestCaseVariation1` only:
+
+```xml
+<rule scope="variation">
+    <allow>
+        <name value="ExampleTestCaseVariation1" />
+    </allow>
+</rule>
+```
+
+**Example of the `<deny>` rule:**
+
+Allow all variations except the `ExampleTestCaseVariation1`:
+
+```xml
+<rule scope="variation">
+    <deny>
+        <name value="ExampleTestCaseVariation1" />
+    </deny>
+</rule>
+```
+
+#### Variation tag filter
+
+You can use `group` and `value` parameters in the variation scope.
+
+Example variation
+
+```xml
+
+<variation name="ExampleTestCaseVariation1"...>
     <data name="tag" xsi:type="string">group_1:value, group_2:value</data>
     <data ...>
 </variation>
@@ -271,7 +317,7 @@ You can select constraints from the variation that will be run after a test flow
 
 A tag has two parameters: `group` and `value`. In a constraint, they are provided as a constant name and its value respectively. See the following example:
 
-- Any tags that are used in the constraint should be added to the beginning of a class definition:
+-  Any tags that are used in the constraint should be added to the beginning of a class definition:
 
 ```php
 
@@ -286,7 +332,7 @@ class AssertProductView extends AbstractConstraint
 
 ```
 
-- The rule that allows constraints with this tag only:
+-  The rule that allows constraints with this tag only:
 
 ```xml
 <rule scope="testcase">
@@ -296,7 +342,7 @@ class AssertProductView extends AbstractConstraint
 </rule>
 ```
 
-- The rule that allows all constraints except those having this tag:
+-  The rule that allows all constraints except those having this tag:
 
 ```xml
 <rule scope="testcase">

@@ -9,8 +9,6 @@ return_to:
   url: rest/tutorials/index.html
 menu_order: 6
 level3_subgroup: order-tutorial
-redirect_from:
-  - /guides/v2.1/get-started/order-tutorial/order-prepare-checkout.html
 functional_areas:
   - Integration
   - Orders
@@ -20,24 +18,27 @@ functional_areas:
 
 Now that all the items have been added to the cart, we can prepare the order for [checkout](https://glossary.magento.com/checkout). This process includes the following steps:
 
-* Estimate shipping costs
-* Set shipping and billing information
+*  Estimate shipping costs
+*  Set shipping and billing information
 
 ### Estimate shipping costs {#estimate-shipping}
 
 Magento calculates shipping costs for each shipping method that can be applied to the order. In this tutorial, the `flatrate` ($5 per item) and `tablerate` shipping methods are active.
 
-**Endpoint**
+{:.bs-callout-info}
+Use the `V1/guest-carts/<cartId>/estimate-shipping-methods` endpoint to estimate shipping costs on behalf of a guest. Do not include an authorization token.
+
+**Endpoint:**
 
 `POST <host>/rest/<store_code>/V1/carts/mine/estimate-shipping-methods`
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
 `Authorization` `Bearer <customer token>`
 
-**Payload**
+**Payload:**
 
 The payload contains the shipping address.
 
@@ -64,7 +65,7 @@ The payload contains the shipping address.
 ```
 {% endcollapsible %}
 
-**Response**
+**Response:**
 
 Note that the cost for the `flatrate` shipping method is $15. The Sprite Yoga Companion Kit bundled product counts as one item. The Advanced Pilates & Yoga item does not have a shipping charge because the customer downloads this item.
 
@@ -106,23 +107,27 @@ In this call, you specify the shipping and billing addresses, as well as the sel
 
 Magento returns a list of payment options and calculates the order totals.
 
-**Endpoint**
+{:.bs-callout-info}
+Use the `V1/guest-carts/<cartId>/shipping-information` endpoint to set the billing and shipping information on behalf of a guest. Do not include an authorization token.
+
+**Endpoint:**
 
 `POST <host>/rest/<store_code>/V1/carts/mine/shipping-information`
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
 `Authorization` `Bearer <customer token>`
 
-**Payload**
+**Payload:**
 
 {% collapsible Show code sample %}
+
 ```json
 
 {  "addressInformation": {
-	  "shipping_address": {
+       "shipping_address": {
        "region": "New York",
        "region_id": 43,
        "region_code": "NY",
@@ -138,7 +143,7 @@ Magento returns a list of payment options and calculates the order totals.
     "telephone": "512-555-1111"
   },
   "billing_address": {
-  	"region": "New York",
+    "region": "New York",
     "region_id": 43,
     "region_code": "NY",
     "country_id": "US",
@@ -157,15 +162,17 @@ Magento returns a list of payment options and calculates the order totals.
   }
 }
 ```
+
 {% endcollapsible %}
 
-**Response**
+**Response:**
 
 The subtotal of the order is $160, and shipping charges are $5. The grand total is $165.
 
 The available payment methods are `banktransfer` and `checkmo`. The customer will specify a [payment method](https://glossary.magento.com/payment-method) in the next step.
 
 {% collapsible Show code sample %}
+
 ```json
 
 {
@@ -334,13 +341,14 @@ The available payment methods are `banktransfer` and `checkmo`. The customer wil
 }
 
 ```
+
 {% endcollapsible %}
 
-{:.bs-callout .bs-callout-info}
+{:.bs-callout-info}
 If you tried this call on your own, and the value of the `shipping_amount` parameter is `0`, then you did not deactivate the "Spend $50 or more - shipping is free!" cart price rule. See [Deactivate a cart price rule](order-config-store.html#price-rule) for details.
 
 ### Verify this step {#verify-step}
 
-[Sign in](https://glossary.magento.com/sign-in) as the customer and go to the checkout page.
+[Sign in](https://glossary.magento.com/sign-in-sign-out) as the customer and go to the checkout page.
 
 The payment method is Bank Transfer, the billing and shipping addresses are displayed, and the shipping charges have been calculated.

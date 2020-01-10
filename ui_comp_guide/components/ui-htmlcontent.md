@@ -1,8 +1,6 @@
 ---
 group: ui-components-guide
-subgroup: components
 title: HtmlContent component
-menu_title: HtmlContent component
 ---
 
 The HtmlContent [UI component](https://glossary.magento.com/ui-component) provides the ability to process and render a [layout](https://glossary.magento.com/layout) structure or a Magento block directly inside a UI component configuration. Processing and rendering is executed on the [server side](https://glossary.magento.com/server-side).
@@ -85,5 +83,5 @@ All blocks inside HtmlContent are integrated into the layout, so external blocks
 
 Extends `uiComponent`:
 
-- [app/code/Magento/Ui/view/base/web/js/form/components/html.js]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/web/js/form/components/html.js)
-- [app/code/Magento/Ui/view/base/web/templates/content/content.html]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/web/templates/content/content.html)
+-  [app/code/Magento/Ui/view/base/web/js/form/components/html.js]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/web/js/form/components/html.js)
+-  [app/code/Magento/Ui/view/base/web/templates/content/content.html]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/web/templates/content/content.html)

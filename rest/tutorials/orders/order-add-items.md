@@ -8,17 +8,18 @@ return_to:
   url: rest/tutorials/index.html
 menu_order: 5
 level3_subgroup: order-tutorial
-redirect_from:
-  - /guides/v2.1/get-started/order-tutorial/order-add-items.html
 functional_areas:
   - Integration
   - Orders
   - Catalog
 ---
 
-This article shows how to add a simple product, a downloadable product, and a [bundle product](https://glossary.magento.com/bundle-product) to the cart.
+This step shows how to add a simple product, a downloadable product, and a [bundle product](https://glossary.magento.com/bundle-product) to the cart.
 
-All calls are performed on behalf of a customer, and the customer's token is specified in the [authorization](https://glossary.magento.com/authorization) header.
+These calls are performed on behalf of a customer, and the customer's token is specified in the [authorization](https://glossary.magento.com/authorization) header.
+
+{:.bs-callout-info}
+Use the `V1/guest-carts/<cartId>/items` endpoint to add items to the cart on behalf of a guest. Do not include an authorization token. The payload and response is same as the logged-in customer for all product types, except for from quote ID in the payload.
 
 ### Add a simple product to a cart {#add-simple}
 
@@ -26,17 +27,17 @@ To add a [simple product](https://glossary.magento.com/simple-product) to a cart
 
 The following example adds an orange medium-sized Radiant women's t-shirt (`sku`: `WS12-M-Orange`) to the cart.
 
-**Endpoint**
+**Endpoint:**
 
 `POST <host>/rest/<store_code>/V1/carts/mine/items`
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
 `Authorization` `Bearer <customer token>`
 
-**Payload**
+**Payload:**
 
 ```json
 {
@@ -48,7 +49,7 @@ The following example adds an orange medium-sized Radiant women's t-shirt (`sku`
 }
 ```
 
-**Response**
+**Response:**
 
 ```json
 {
@@ -67,17 +68,17 @@ The requirements for adding a [downloadable product](https://glossary.magento.co
 
 The following example adds the downloadable product Advanced Pilates & Yoga (`sku`: 240-LV08)
 
-**Endpoint**
+**Endpoint:**
 
 `POST <host>/rest/<store_code>/V1/carts/mine/items`
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
 `Authorization` `Bearer <customer token>`
 
-**Payload**
+**Payload:**
 
 ```json
 {
@@ -89,7 +90,7 @@ The following example adds the downloadable product Advanced Pilates & Yoga (`sk
 }
 ```
 
-**Response**
+**Response:**
 
 ```json
 {
@@ -137,17 +138,17 @@ The `GET /V1/configurable-products/:sku/children` call returns information about
 
 We now know the values for `option_value` for `size` and `color` are `168` and `52`, so we're ready to add the product to the cart.
 
-**Endpoint**
+**Endpoint:**
 
 `POST <host>/rest/<store_code>/V1/carts/mine/items`
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
 `Authorization` `Bearer <customer token>`
 
-**Payload**
+**Payload:**
 
 ```json
 {
@@ -174,7 +175,7 @@ We now know the values for `option_value` for `size` and `color` are `168` and `
 }
 ```
 
-**Response**
+**Response:**
 
 ```json
 {
@@ -206,10 +207,10 @@ We now know the values for `option_value` for `size` and `color` are `168` and `
 
 The sample data provides one bundled product, the Sprite Yoga Companion Kit (`sku`: `24-WG080`). The kit contains the following items:
 
-* Sprite Statis Ball in sizes 55 cm (`sku`: `24-WG081-blue`), 65 cm (`sku`: `24-WG082-blue`), or 75 cm (`sku`: `24-WG083-blue`)
-* Sprite Foam Yoga brick (`sku`: `24-WG084`)
-* Sprite Yoga Strap in lengths 6 ft (`sku`: `24-WG085`), 8 ft (`sku`: `24-WG086`), or 10 ft (`sku`: `24-WG087`)
-* Sprite Foam Roller (`sku`: `24-WG088`)
+*  Sprite Statis Ball in sizes 55 cm (`sku`: `24-WG081-blue`), 65 cm (`sku`: `24-WG082-blue`), or 75 cm (`sku`: `24-WG083-blue`)
+*  Sprite Foam Yoga brick (`sku`: `24-WG084`)
+*  Sprite Yoga Strap in lengths 6 ft (`sku`: `24-WG085`), 8 ft (`sku`: `24-WG086`), or 10 ft (`sku`: `24-WG087`)
+*  Sprite Foam Roller (`sku`: `24-WG088`)
 
 To add a bundle product to a cart, you must specify the `sku` of the bundle product, but not the individual items. You add individual items to the bundle product by specifying the `id` defined in the item's `product_links` object. The `product_links` object primarily describes the ordering and placement of options on the customization page, but it also links an item's `sku` and `id` to the `sku` of the bundle product.
 
@@ -314,23 +315,22 @@ The `GET <host>/rest/<store_code>/V1/bundle-products/24-WG080/options/all` call 
 
 For this example, we'll configure the Sprite Yoga Companion Kit as follows:
 
+*  65 cm Sprite Stasis Ball (`id`: `2`)
+*  Sprite Foam Yoga Brick (`id`: `4`)
+*  8 ft Sprite Yoga strap (`id`: `6`)
+*  Sprite Foam Roller (`id`: `8`)
 
-* 65 cm Sprite Stasis Ball (`id`: `2`)
-* Sprite Foam Yoga Brick (`id`: `4`)
-* 8 ft Sprite Yoga strap (`id`: `6`)
-* Sprite Foam Roller (`id`: `8`)
-
-**Endpoint**
+**Endpoint:**
 
 `POST <host>/rest/<store_code>/V1/carts/mine/items`
 
-**Headers**
+**Headers:**
 
 `Content-Type` `application/json`
 
 `Authorization` `Bearer <customer token>`
 
-**Payload**
+**Payload:**
 
 {% collapsible Show code sample %}
 
@@ -372,7 +372,7 @@ For this example, we'll configure the Sprite Yoga Companion Kit as follows:
 
 {% endcollapsible %}
 
-**Response**
+**Response:**
 
 {% collapsible Show code sample %}
 
@@ -426,4 +426,4 @@ For this example, we'll configure the Sprite Yoga Companion Kit as follows:
 
 ### Verify this step {#verify-step}
 
-[Sign in](https://glossary.magento.com/sign-in) as the customer and click on the [shopping cart](https://glossary.magento.com/shopping-cart). All the items you added are displayed.
+[Sign in](https://glossary.magento.com/sign-in-sign-out) as the customer and click on the [shopping cart](https://glossary.magento.com/shopping-cart). All the items you added are displayed.

@@ -43,13 +43,13 @@ The `CreateSimpleProductEntityTest.xml` data set contains:
 
 This is a data set that:
 
-- corresponds to the XSD schema `<magento2_root_dir>/dev/tests/functional/vendor/magento/mtf/etc/variations.xsd`
-- relates to the `Magento\Catalog\Test\TestCase\Product\CreateSimpleProductEntityTest` test case (performs creation of the simple product)
-- relates to the ticket `MAGETWO-23414` in Jira
-- contains variation `CreateSimpleProductEntityTestVariation1` that
-  - contains data to create product with fixed price (see descriptions in the following table)
-  - defines tag that can be used to customize the test suite run
-  - defines [constraints][constraint] that will be performed after the test flow in the order they are presented in the data set
+-  corresponds to the XSD schema `<magento2_root_dir>/dev/tests/functional/vendor/magento/mtf/etc/variations.xsd`
+-  relates to the `Magento\Catalog\Test\TestCase\Product\CreateSimpleProductEntityTest` test case (performs creation of the simple product)
+-  relates to the ticket `MAGETWO-23414` in Jira
+-  contains variation `CreateSimpleProductEntityTestVariation1` that
+   -  contains data to create product with fixed price (see descriptions in the following table)
+   -  defines tag that can be used to customize the test suite run
+   -  defines [constraints][constraint] that will be performed after the test flow in the order they are presented in the data set
 
 The `CreateSimpleProductEntityTestVariation1` variation contains the following `$product` data:
 {:#ex_variation_table}
@@ -109,8 +109,8 @@ A data set is an [XML](https://glossary.magento.com/xml) file that contains test
 
 Each variation includes:
 
-- Data used during the test flow and assertions
-- Constraints that are called after the test flow
+-  Data used during the test flow and assertions
+-  Constraints that are called after the test flow
 
 The following table shows structure of the data set:
 {:#dataset_struct_table}
@@ -176,7 +176,7 @@ The following data types are available:
 </ul></td></tr>
 </table>
 
-{: .bs-callout .bs-callout-warning }
+{:.bs-callout-warning}
    A variation should contain only data that is required for its flow and constraints.
 
 A data set should be placed in the same directory with a corresponding test case.
@@ -187,8 +187,8 @@ The FTF enables you to merge data sets from different modules. For example, if y
 
 There are two options to merge data sets in the FTF:
 
-- [add a new variation]
-- [extend an existing variation]
+-  [add a new variation]
+-  [extend an existing variation]
 
 ## HowTos {#howtos}
 
@@ -202,8 +202,8 @@ Data mapping by `name` is performed for the test methods in test case  and `proc
 
 Slash `/` means array nesting. For example:
 
-- `<data name=var/index1>value</data>` is converted as `var[index1 => value]`
-- `<data name=var/index1/index2>value</data>` is converted as `var[index1 => [index2 => value]]`
+-  `<data name=var/index1>value</data>` is converted as `var[index1 => value]`
+-  `<data name=var/index1/index2>value</data>` is converted as `var[index1 => [index2 => value]]`
 
 where `var` is a name of an argument of a [test case] or a [constraint].
 
@@ -317,7 +317,7 @@ The `checkout_data` doesn't contain source and is assigned with values from the 
 
 To add a new variation using [merging], you should simply use the name of a [test case] that you want to merge with. For example, you want to add a new variations from the Magento_ProductVideo module to the `Magento\Catalog\Test\TestCase\Product\UpdateSimpleProductEntityTest` that is placed in the Magento_Catalog module. You can create data set in the Magento_ProductVideo module, containing variations you need, and paste the test case name that you want to merge with:
 
- * Create `<magento2_root_dir>/dev/tests/functional/tests/app/Magento/ProductVideo/Test/TestCase/Product/UpdateSimpleProductEntityTest.xml` with the following code:
+-  Create `<magento2_root_dir>/dev/tests/functional/tests/app/Magento/ProductVideo/Test/TestCase/Product/UpdateSimpleProductEntityTest.xml` with the following code:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -357,17 +357,7 @@ Variations `DeleteVideoFromPCFTestVariation1` and `DeleteVideoFromPCFTestVariati
 
 If you want to extend variation in another module using [merging], you should use a [test case] name that you want to merge with and a variation name that you want to extend.
 
-For example, see how in `Magento/Catalog/Test/TestCase/Product/ValidateOrderOfProductTypeTest.xml`
-
- ```xml
- {%remote_markdown https://raw.githubusercontent.com/magento/magento2/2.1/dev/tests/functional/tests/app/Magento/Catalog/Test/TestCase/Product/ValidateOrderOfProductTypeTest.xml%}
- ```
-
- the variation `ValidateOrderOfProductTypeTestVariation1` is extended by the Magento_Bundle module:
-
- ```xml
- {%remote_markdown https://raw.githubusercontent.com/magento/magento2/2.1/dev/tests/functional/tests/app/Magento/Bundle/Test/TestCase/ValidateOrderOfProductTypeTest.xml%}
-  ```
+For example, see how in [`Magento/Catalog/Test/TestCase/Product/ValidateOrderOfProductTypeTest.xml`][] the variation `ValidateOrderOfProductTypeTestVariation1` is extended by the Magento_Bundle module in [`Magento/Bundle/Test/TestCase/ValidateOrderOfProductTypeTest.xml`][].
 
 ### Replace a variation {#replace_variation}
 
@@ -394,6 +384,8 @@ After a merge of a data set with the variation that is mentioned, a test will us
 [InjectableFixture]: https://github.com/magento/mtf/blob/develop/Magento/Mtf/Fixture/InjectableFixture.php
 [repository]: {{ page.baseurl }}/mtf/mtf_entities/mtf_fixture-repo.html
 [test case]: {{ page.baseurl }}/mtf/mtf_entities/mtf_testcase.html
+[`Magento/Catalog/Test/TestCase/Product/ValidateOrderOfProductTypeTest.xml`]: {{ site.mage2bloburl }}/2.2/dev/tests/functional/tests/app/Magento/Catalog/Test/TestCase/Product/ValidateOrderOfProductTypeTest.xml
+`Magento/Bundle/Test/TestCase/ValidateOrderOfProductTypeTest.xml`]: {{ site.mage2bloburl }}/2.2/dev/tests/functional/tests/app/Magento/Bundle/Test/TestCase/ValidateOrderOfProductTypeTest.xml
 
 <!-- ABBREVIATIONS -->
 

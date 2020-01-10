@@ -1,6 +1,10 @@
 ---
 group: module-reference-guide
+subgroup: 20_Enterprise Edition
+ee_only: true
 title: Magento_CatalogRuleStaging module
+menu_title: CatalogRuleStaging
+menu_order: 2
 ee_only: true
 ---
 
@@ -12,17 +16,17 @@ The Magento_CatalogRuleStaging module changes a catalog rule creation page and t
 
 The Magento_CatalogRuleStaging module enables you to stage the following catalog rule attributes:
 
-- Rule Name
-- Description
-- Websites
-- Customer Groups
-- Priority
-- Product Apply
-- Product Discount Amount
-- Subproduct Discounts
-- Subproduct Apply
-- Subproduct Discount Amount
-- Discard Subsequent Rules
+-  Rule Name
+-  Description
+-  Websites
+-  Customer Groups
+-  Priority
+-  Product Apply
+-  Product Discount Amount
+-  Subproduct Discounts
+-  Subproduct Apply
+-  Subproduct Discount Amount
+-  Discard Subsequent Rules
 
 These attributes cannot be modified and are a part of the static Magento Catalog Rule form.
 
@@ -36,14 +40,14 @@ You can find the list of modules that have dependencies on the Magento_CatalogRu
 
 ## Extension points
 
-[Extension](https://glossary.magento.com/extension) points enable extension developers to interact with the Magento_CatalogRuleStaging module. You can interact with the Magento_CatalogRuleStaging module using the Magento extension mechanism, see [Magento plug-ins]({{ site.baseurl }}/guides/v2.1/extension-dev-guide/plugins.html).
+[Extension](https://glossary.magento.com/extension) points enable extension developers to interact with the Magento_CatalogRuleStaging module. You can interact with the Magento_CatalogRuleStaging module using the Magento extension mechanism, see [Magento plug-ins]({{ site.baseurl }}/guides/v2.2/extension-dev-guide/plugins.html).
 
-[The Magento dependency injection mechanism]({{ site.baseurl }}/guides/v2.1/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Magento_CatalogRuleStaging module.
+[The Magento dependency injection mechanism]({{ site.baseurl }}/guides/v2.2/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Magento_CatalogRuleStaging module.
 
 ### Layouts
 
 You can extend and override layouts in the `app/code/Magento/CatalogRuleStaging/view/adminhtml/layout` directory.
-For more information about layouts, see the [Layout documentation]({{ site.baseurl }}/guides/v2.1/frontend-dev-guide/layouts/layout-overview.html).
+For more information about layouts, see the [Layout documentation]({{ site.baseurl }}/guides/v2.2/frontend-dev-guide/layouts/layout-overview.html).
 
 ## Additional Information
 
