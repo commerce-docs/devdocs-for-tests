@@ -3,6 +3,7 @@
 namespace :multiversion do
   desc 'Checkout versioned branches to versioned directories using version map from Docfile'
   task :init do
+    puts 'Creating versioned content using version map from Docfile'
     versions.each do |version|
       add_version(version['directory'], version['branch'])
     end
@@ -49,6 +50,7 @@ def add_version(directory, branch)
   if File.exist?(directory)
     puts "The #{directory} already exists.".yellow
   else
+    puts "Checking out files from the #{branch} branch to the #{directory} directory ...".magenta
     sh('git', 'worktree', 'add', directory, branch) do |ok,res|
       if !ok
         abort "Cannot checkout files for #{branch}".red
