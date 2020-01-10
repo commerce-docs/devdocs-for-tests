@@ -56,7 +56,7 @@ task build: %w[clean] do
 end
 
 desc 'Pull docs from external repositories'
-task init: %w[multirepo:init]
+task init: %w[multirepo:init multiversion:init]
 
 desc 'Run checks (image optimization and Markdown style linting).'
 task check: %w[check:image_optim check:mdl]
