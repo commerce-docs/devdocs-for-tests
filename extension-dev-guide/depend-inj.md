@@ -1,7 +1,6 @@
 ---
 group: php-developer-guide
 title: Dependency injection
-menu_title: Dependency injection
 ---
 
 Magento 2 uses [Dependency Injection] to replace functionality provided by the `Mage` class in Magento 1.x.
@@ -106,7 +105,8 @@ Since you cannot specify this data in the constructor signature, Magento cannot 
 
 To get around this limitation, injectable objects can depend on [factories] that produce newable objects.
 
-**Related topics:**
+{:.ref-header}
+Related topics
 
 *  [The `di.xml` file]({{ page.baseurl }}/extension-dev-guide/build/di-xml-file.html)
 *  [ObjectManager]({{ page.baseurl }}/extension-dev-guide/object-manager.html)

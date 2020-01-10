@@ -8,11 +8,17 @@ This page describes rules and best practices for backward compatible development
 
 See the [versioning][versioning] documentation for the definitions of MAJOR and MINOR changes and how it impacts [extension](https://glossary.magento.com/extension) developers.
 
-The core Magento team and contributing developers work in two release types
+ {:.bs-callout-info}
+ Note that the 'marketing version' (Magento 2.3) is different than the official version number. v2.2 -> v2.3 represents a MAJOR release for Magento, even though semantically, it is a MINOR increase to the 'marketing version' number.
+
+The core Magento team and contributing developers work in two release types:
 
 1. New and significant release (product's MINOR release)
+
    -  Necessary MAJOR and MINOR changes are allowed, but the Magento architecture team ultimately decides what is allowed.
+
 1. New patch release (product's PATCH release)
+
    -  PATCH changes are allowed, but MAJOR and MINOR changes are not allowed.
 
  {:.bs-callout-info}
@@ -270,7 +276,7 @@ The following is a list of prohibited Magento API changes:
 
 ### Translatable phrases
 
-Do not modify or add any translatable phrase.
+Do not modify any translatable phrase.
 
 ### Magento functional and integration tests
 
@@ -338,7 +344,8 @@ Review and refactor the class such that parts of the logic go into smaller speci
 -  Turn the existing class into a facade to prevent existing usages of the refactored methods from breaking.
 -  The old public/protected methods should be marked as deprecated with the `@see` tag to suggest the new implementation for new usages.
 -  Remove all unused private properties/methods.
--  Mark as deprecated unused protected properties. Remove the variable type indicated in the DocBlock to remove the dependency.
+-  Mark as deprecated unused protected properties.
+  Remove the variable type indicated in the DocBlock to remove the dependency.
 -  To preserve the constructor signature:
    -  Remove type hinting for unused parameters to remove dependency on their type.
    -  Add `@SuppressWarnings(PHPMD.UnusedFormalParameter)` for unused parameters.
@@ -425,27 +432,31 @@ These backward incompatible changes do not need manual documentation:
 -  Adding removing a class property
 
 Auto-generated [{{site.data.var.ce}} changes]({{ page.baseurl }}/release-notes/backward-incompatible-changes/open-source.html)
-
 Auto-generated [{{site.data.var.ee}} changes]({{ page.baseurl }}/release-notes/backward-incompatible-changes/commerce.html)
 
 ### Where to document
 
 In the [DevDocs repository][devdocs-repo], manually add backward incompatible changes to the following file:
 
-`https://github.com/magento/devdocs/blob/develop/guides/v<version>/release-notes/backward-incompatible-changes/index.md`
+`https://github.com/magento/devdocs/blob/master/src/guides/v<version>/release-notes/backward-incompatible-changes/index.md`
 
-Where: `<version>` is the MINOR version of the product (2.1, 2.2, 2.3, etc).
+Where: `<version>` is the MINOR version of the product (for example, 2.3).
 
-Example: [`https://github.com/magento/devdocs/blob/develop/guides/v2.2/release-notes/backward-incompatible-changes/index.md`][2.2-bic-page].
+Example: [`https://github.com/magento/devdocs/blob/master/src/guides/v2.3/release-notes/backward-incompatible-changes/index.md`][2.3-bic-page].
 
-Update the page for the *next* MINOR product release when working in the `develop` branch of Magento.
+Update the page for the *next* MINOR product release when working in the `2.x-develop` branch of the DevDocs repository.
 
-For example, when 2.2 is released, a new `backward-incompatible-changes.md` for 2.3 becomes available for editing.
+For example, when 2.3 is released, a new `backward-incompatible-changes.md` for 2.4 becomes available for editing.
 
 In order to update the page, create a PR to the DevDocs repository with your changes.
+
+## GraphQl backward compatibility policy
+
+-  For backward compatibility, the GraphQL schema should be considered an API.
+-  To allow for the evolution of GraphQL, we allow MINOR changes to be added within a PATCH. This may change in the future.
 
 <!-- Link definitions -->
 
 [versioning]: {{ page.baseurl }}/extension-dev-guide/versioning/index.html
 [devdocs-repo]: https://github.com/magento/devdocs
-[2.2-bic-page]: https://github.com/magento/devdocs/blob/develop/guides/v2.2/release-notes/backward-incompatible-changes/index.md
+[2.3-bic-page]: https://github.com/magento/devdocs/blob/master/src/guides/v2.3/release-notes/backward-incompatible-changes/index.md

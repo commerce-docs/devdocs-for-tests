@@ -10,16 +10,13 @@ functional_areas:
 
 ## List of REST endpoints for {{site.data.var.ee}} {#listee}
 
-The REST endpoints for {{site.data.var.ee}} are available on {{site.data.var.ee}} installations only. Commerce installations automatically have access to all {{site.data.var.ce}} REST APIs.
+The REST endpoints for {{site.data.var.ee}} (formerly Enterprise Edition (EE)) are available on {{site.data.var.ee}} installations only. Commerce installations automatically have access to all {{site.data.var.ce}} (formerly Community Edition (CE)) REST APIs.
 
-Additions since 2.1 are marked with a single asterisk (*).
-
-See [Integrate with B2B using REST]({{ page.baseurl }}/b2b/integrations.html) for a list of endpoints provided with {{site.data.var.b2b}}.
+See [Integrate with B2B using REST]({{page.baseurl}}/b2b/integrations.html) for a list of endpoints provided with {{site.data.var.b2b}}.
 
 ### CustomerBalance
 
     POST   /V1/carts/mine/balance/apply
-    POST   /V1/carts/mine/balance/unapply
 
 ### GiftCardAccount
 
@@ -76,11 +73,18 @@ See [Integrate with B2B using REST]({{ page.baseurl }}/b2b/integrations.html) fo
 
 The {{site.data.var.ce}} REST APIs are available on all {{site.data.var.ee}} and {{site.data.var.ce}} installations.
 
-Additions since 2.1 are marked with asterisks (*). Additions since 2.2 are marked with hash characters (#).
+Additions since 2.2 are marked with hash characters (#).
 
 ### Analytics
 
-    #GET    /V1/analytics/link
+    GET    /V1/analytics/link
+
+### AsynchronousOperations
+
+    #GET    /V1/bulk
+    #GET    /V1/bulk/:bulkUuid/detailed-status
+    #GET    /V1/bulk/:bulkUuid/status
+    #GET    /V1/bulk/:bulkUuid/operation-status/:status
 
 ### Backend
 
@@ -140,18 +144,18 @@ Additions since 2.1 are marked with asterisks (*). Additions since 2.2 are marke
     GET    /V1/products/:sku/group-prices/:customerGroupId/tiers
     POST   /V1/products/:sku/group-prices/:customerGroupId/tiers/:qty/price/:price
     DELETE /V1/products/:sku/group-prices/:customerGroupId/tiers/:qty
-    *POST   /V1/products/tier-prices-information
-    *POST   /V1/products/tier-prices
-    *PUT    /V1/products/tier-prices
-    *POST   /V1/products/tier-prices-delete
-    *POST   /V1/products/base-prices-information
-    *POST   /V1/products/base-prices
-    *POST   /V1/products/cost-information
-    *POST   /V1/products/cost
-    *POST   /V1/products/cost-delete
-    *POST   /V1/products/special-price-information
-    *POST   /V1/products/special-price
-    *POST   /V1/products/special-price-delete
+    POST   /V1/products/tier-prices-information
+    POST   /V1/products/tier-prices
+    PUT    /V1/products/tier-prices
+    POST   /V1/products/tier-prices-delete
+    POST   /V1/products/base-prices-information
+    POST   /V1/products/base-prices
+    POST   /V1/products/cost-information
+    POST   /V1/products/cost
+    POST   /V1/products/cost-delete
+    POST   /V1/products/special-price-information
+    POST   /V1/products/special-price
+    POST   /V1/products/special-price-delete
     DELETE /V1/categories/:categoryId
     GET    /V1/categories/:categoryId
     POST   /V1/categories
@@ -178,7 +182,7 @@ Additions since 2.1 are marked with asterisks (*). Additions since 2.2 are marke
     POST   /V1/products/:sku/websites
     PUT    /V1/products/:sku/websites
     DELETE /V1/products/:sku/websites/:websiteId
-    *GET   /V1/products-render-info
+    GET   /V1/products-render-info
 
 ### CatalogInventory
 
@@ -205,6 +209,7 @@ Additions since 2.1 are marked with asterisks (*). Additions since 2.2 are marke
 ### CheckoutAgreements
 
     GET    /V1/carts/licence
+    *GET    /V1/carts/licence/list
 
 ### Cms
 
@@ -236,7 +241,7 @@ Additions since 2.1 are marked with asterisks (*). Additions since 2.2 are marke
     GET    /V1/customerGroups/:id
     GET    /V1/customerGroups/default/:storeId
     GET    /V1/customerGroups/default
-    *PUT    /V1/customerGroups/default/:id
+    PUT    /V1/customerGroups/default/:id
     GET    /V1/customerGroups/:id/permissions
     GET    /V1/customerGroups/search
     POST   /V1/customerGroups
@@ -261,7 +266,7 @@ Additions since 2.1 are marked with asterisks (*). Additions since 2.2 are marke
     PUT    /V1/customers/me/password
     GET    /V1/customers/:customerId/password/resetLinkToken/:resetPasswordLinkToken
     PUT    /V1/customers/password
-    #POST  /V1/customers/resetPassword
+    POST  /V1/customers/resetPassword
     GET    /V1/customers/:customerId/confirm
     POST   /V1/customers/confirm
     PUT    /V1/customers/validate
@@ -319,6 +324,54 @@ Additions since 2.1 are marked with asterisks (*). Additions since 2.2 are marke
 
     POST   /V1/integration/admin/token
     POST   /V1/integration/customer/token
+
+### InventoryApi
+
+    #GET    /V1/inventory/sources
+    #GET    /V1/inventory/sources/:sourceCode
+    #POST   /V1/inventory/sources
+    #PUT    /V1/inventory/sources/:sourceCode
+    #GET    /V1/inventory/get-sources-assigned-to-stock-ordered-by-priority/:stockId
+    #GET    /V1/inventory/stocks
+    #GET    /V1/inventory/stocks/:stockId
+    #POST   /V1/inventory/stocks
+    #DELETE /V1/inventory/stocks/:stockId
+    #PUT    /V1/inventory/stocks/:stockId
+    #GET    /V1/inventory/stock-source-links
+    #POST   /V1/inventory/stock-source-links
+    #POST   /V1/inventory/stock-source-links-delete
+    #GET    /V1/inventory/source-items
+    #POST   /V1/inventory/source-items
+    #POST   /V1/inventory/source-items-delete
+
+### InventoryCatalogApi
+
+    #POST   /V1/inventory/bulk-product-source-assign
+    #POST   /V1/inventory/bulk-product-source-unassign
+    #POST   /V1/inventory/bulk-product-source-transfer
+
+### InventoryDistanceBasedSourceSelectionApi
+
+    #GET    /V1/inventory/get-distance-provider-code
+    #GET    /V1/inventory/get-distance
+    #GET    /V1/inventory/get-latlng-from-address
+
+### InventoryLowQuantityNotificationApi
+
+    #GET    /V1/inventory/low-quantity-notification/:sourceCode/:sku
+    #POST   /V1/inventory/low-quantity-notification
+    #POST   /V1/inventory/low-quantity-notifications-delete
+
+### InventorySalesApi
+
+    #GET    /V1/inventory/get-product-salable-quantity/:sku/:stockId
+    #GET    /V1/inventory/is-product-salable/:sku/:stockId
+    #GET    /V1/inventory/is-product-salable-for-requested-qty/:sku/:stockId/:requestedQty
+    #GET    /V1/inventory/stock-resolver/:type/:code
+
+### InventorySourceSelectionApi
+    #GET   /V1/inventory/source-selection-algorithm-list
+    #POST  /V1/inventory/source-selection-algorithm-result
 
 ### Quote
 
@@ -397,7 +450,7 @@ Additions since 2.1 are marked with asterisks (*). Additions since 2.2 are marke
     POST   /V1/orders/:id/unhold
     POST   /V1/orders/:id/comments
     GET    /V1/orders/:id/comments
-    *PUT    /V1/orders/create
+    PUT    /V1/orders/create
     PUT    /V1/orders/:parent_id
     GET    /V1/orders/items/:id
     GET    /V1/orders/items
@@ -409,16 +462,16 @@ Additions since 2.1 are marked with asterisks (*). Additions since 2.2 are marke
     POST   /V1/invoices/:id/capture
     POST   /V1/invoices/comments
     POST   /V1/invoices/
-    *POST   /V1/invoice/:invoiceId/refund
+    POST   /V1/invoice/:invoiceId/refund
     GET    /V1/creditmemo/:id/comments
     GET    /V1/creditmemos
     GET    /V1/creditmemo/:id
     PUT    /V1/creditmemo/:id
     POST   /V1/creditmemo/:id/emails
-    *POST   /V1/creditmemo/refund
+    POST   /V1/creditmemo/refund
     POST   /V1/creditmemo/:id/comments
     POST   /V1/creditmemo
-    *POST   /V1/order/:orderId/refund
+    POST   /V1/order/:orderId/refund
     GET    /V1/shipment/:id
     GET    /V1/shipments
     GET    /V1/shipment/:id/comments
@@ -428,11 +481,11 @@ Additions since 2.1 are marked with asterisks (*). Additions since 2.2 are marke
     DELETE /V1/shipment/track/:id
     POST   /V1/shipment/
     GET    /V1/shipment/:id/label
-    *POST   /V1/order/:orderId/ship
-    *POST   /V1/orders/
+    POST   /V1/order/:orderId/ship
+    POST   /V1/orders/
     GET    /V1/transactions/:id
     GET    /V1/transactions
-    *POST   /V1/order/:orderId/invoice
+    POST   /V1/order/:orderId/invoice
 
 ### SalesRule
 

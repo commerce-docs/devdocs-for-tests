@@ -22,7 +22,7 @@ Database isolation annotation:
 
 ## Test case declaration
 
-Use a test case declaration when a sequence of tests introduces changes to the database and relies on the changes made by each other.
+Use test case declarations when a sequence of tests introduces changes to the database and relies on the changes made by each other.
 For example, typical CRUD tests: _create -> read -> update -> delete_.
 Every next test relies on a database state after the previous one.
 If at any point of that sequence (after creation) the test fails, the database will be polluted with test data.

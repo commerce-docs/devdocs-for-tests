@@ -51,7 +51,7 @@ The following example is a `composer.json` for a metapackage:
     "version": "2.0.0",
     "type": "metapackage",
     "require": {
-        "php": "~7.0.13|~7.1.0",
+        "php": "~7.1.3|~7.2.0",
         "zendframework/zend-stdlib": "~2.4.6",
         "zendframework/zend-code": "~2.4.6",
         "zendframework/zend-server": "~2.4.6",
@@ -101,7 +101,7 @@ The following example is a `composer.json` file for a module:
     "AFL-3.0"
   ],
   "require": {
-    "php": "~7.0.13|~7.1.0",
+    "php": "~7.1.3|~7.2.0",
     "magento/framework": "~100.0.4"
   },
   "autoload": {
@@ -135,8 +135,10 @@ Prerequisite: Git must be set up on your machine.
 
 1. Navigate to your component directory, with the `composer.json` file in the root, and make it a new Git repository. See the [GitHub documentation](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/) for details.
 1. When you have committed and pushed your component to your GitHub repository, you can either:
+
    *  Use [Composer to refer to it directly](https://getcomposer.org/doc/05-repositories.md#vcs), or
    *  Use the following steps to refer to the package through Packagist.
+
       1. Register an account at [packagist.org](https://packagist.org/).
       1. Click the Submit Package button and paste your GitHub repository link. Packagist automatically gathers the information from the component's `composer.json` file and link it to the GitHub repository, allowing you to reference the package as `vendor/module` without any additional repository information, because this is required solely using GitHub.
 
@@ -152,12 +154,12 @@ If you use the Setup Wizard, you must use the Magento Marketplace repository. A 
 
    ```json
    {
-     "repositories": [
-         {
-             "type": "composer",
-             "url": [repository url here]
-         }
-     ]
+       "repositories": [
+           {
+               "type": "composer",
+               "url": [repository url here]
+           }
+       ]
    }
    ```
 

@@ -1,12 +1,6 @@
 ---
 group: php-developer-guide
-subgroup: 99_Module Development
 title: Example bulk operations implementation
-menu_title: Example bulk operations implementation
-menu_order: 29
-ee_only: True
-level3_menu_node: level3child
-level3_subgroup: mq
 functional_areas:
   - Services
 ---
@@ -26,7 +20,6 @@ The following code sample shows how these duties can be completed.
 {% collapsible Code sample: %}
 
 ```php
-
 <?php
 /**
  * Copyright © Magento, Inc. All rights reserved.
@@ -162,7 +155,6 @@ A consumer class receives messages from the message queue and changes the status
 {% collapsible Code sample: %}
 
 ```php
-
 <?php
 /**
  * Copyright © Magento, Inc. All rights reserved.
@@ -278,7 +270,6 @@ class Consumer
         );
     }
 }
-
 ```
 
 {% endcollapsible %}
@@ -293,7 +284,7 @@ The message queue topology must be configured to implement bulk operations. Crea
 *  `queue_publisher.xml`
 *  `queue_topology.xml`
 
-For more information about the `di.xml` file, see [Dependency Injection]({{ page.baseurl }}/extension-dev-guide/depend-inj.html). For information the other files, see [Configure message queues]({{ page.baseurl }}/extension-dev-guide/message-queues/config-mq.html).
+For more information about the `di.xml` file, see [Dependency Injection]({{page.baseurl}}/extension-dev-guide/depend-inj.html). For information the other files, see [Configure message queues]({{page.baseurl}}/extension-dev-guide/message-queues/config-mq.html).
 
 #### Create `communication.xml`
 
@@ -357,6 +348,6 @@ The `queue_topology.xml` file defines the message routing rules and declares que
 
 #### Related Topics
 
-*  [Message Queues Overview]({{ page.baseurl }}/config-guide/mq/rabbitmq-overview.html)
-*  [Bulk Operations]({{ page.baseurl }}/extension-dev-guide/message-queues/bulk-operations.html)
-*  [Configure message queues]({{ page.baseurl }}/extension-dev-guide/message-queues/config-mq.html)
+*  [Message Queues Overview]({{page.baseurl}}/config-guide/mq/rabbitmq-overview.html)
+*  [Bulk Operations]({{page.baseurl}}/extension-dev-guide/message-queues/bulk-operations.html)
+*  [Configure message queues]({{page.baseurl}}/extension-dev-guide/message-queues/config-mq.html)

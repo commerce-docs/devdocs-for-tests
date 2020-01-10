@@ -45,7 +45,7 @@ You could also use a Redis cluster that performs parallel read/write operations 
 
 ## Set up RabbitMQ
 
-{{site.data.var.ee}} supports message queues implemented through RabbitMQ. Magento uses this service for executing numerous asynchronous operations, including B2B catalog operations and asynchronous stock updates. All interfaces for adding more jobs to the job server are distributed with the product and are available for custom asynchronous logic implementation in the scope of third-party extensions. As with any other integration, Magento provides a sample configuration file for RabbitMQ that contains all recommended settings and is fully ready for production usage.
+{{site.data.var.ce}} and {{site.data.var.ee}} support message queues implemented through RabbitMQ. Magento uses this service for executing numerous asynchronous operations, including B2B catalog operations and asynchronous stock updates. All interfaces for adding more jobs to the job server are distributed with the product and are available for custom asynchronous logic implementation in the scope of third-party extensions. As with any other integration, Magento provides a sample configuration file for RabbitMQ that contains all recommended settings and is fully ready for production usage.
 
 ## Split the database
 
@@ -78,7 +78,7 @@ This command performs configuration changes but does not configure replication i
 After splitting your master database and setting slave databases, Magento automatically regulates connections to a specific database, making decisions based on the type of request (POST, PUT, GET, etc) and data resource. If Magento or its extensions performs write operations on a GET request, the system automatically switches the connection from slave to master database. It works the same way with master databases: as soon as you work with a checkout-related table, the system redirects all the queries to a specific database. Meanwhile, all catalog-related queries will go to the main database.
 
 For more details on the configuration and the benefits of multiple master/slave configuration, see
-[Split database performance solution]({{ page.baseurl }}/config-guide/multi-master/multi-master.html).
+[Split database performance solution]({{page.baseurl}}/config-guide/multi-master/multi-master.html).
 
 ## Serve media content
 

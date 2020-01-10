@@ -1,12 +1,7 @@
 ---
 group: php-developer-guide
-subgroup: 99_Module Development
 title: Migrate message queue configuration
 menu_title: Migrate message queue configuration
-menu_order: 27
-ee_only: True
-level3_menu_node: level3child
-level3_subgroup: mq
 functional_areas:
   - Configuration
   - System
@@ -23,7 +18,7 @@ To upgrade the message queues from Magento 2.1, you must create the following fi
 
 The existing `queue.xml` file is deprecated.
 
-For complete details about these files, see [Configure message queues]({{ page.baseurl }}/extension-dev-guide/message-queues/config-mq.html)
+For complete details about these files, see [Configure message queues]({{page.baseurl}}/extension-dev-guide/message-queues/config-mq.html)
 
 {:.bs-callout-warning}
 The Magento 2.1 `communication.xml` file has not changed for Magento 2.2.
@@ -82,7 +77,7 @@ To upgrade from Magento 2.0, you must create the following files in the `<module
 
 The existing `queue.xml` file is deprecated.
 
-For complete details about these files, see [Configure message queues]({{ page.baseurl }}/extension-dev-guide/message-queues/config-mq.html)
+For complete details about these files, see [Configure message queues]({{page.baseurl}}/extension-dev-guide/message-queues/config-mq.html)
 
 #### Create the `queue_consumer.xml` file
 
@@ -131,5 +126,5 @@ The first column in the following table lists the all the parameters in the `que
 {:.ref-header}
 Related topics
 
-*  [Message Queues Overview]({{ page.baseurl }}/config-guide/mq/rabbitmq-overview.html)
-*  [Configure message queues]({{ page.baseurl }}/extension-dev-guide/message-queues/config-mq.html)
+*  [Message Queues Overview]({{page.baseurl}}/config-guide/mq/rabbitmq-overview.html)
+*  [Configure message queues]({{page.baseurl}}/extension-dev-guide/message-queues/config-mq.html)

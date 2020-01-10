@@ -56,6 +56,7 @@ You can access the public methods for the view model class in the template:
 <?php
 
 /** @var $viewModel \OrangeCompany\Catalog\ViewModel\MyNewViewModel */
+
 $viewModel = $block->getViewModel();
 
 ?>

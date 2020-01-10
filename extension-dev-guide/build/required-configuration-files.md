@@ -2,10 +2,6 @@
 group: php-developer-guide
 subgroup: 03_Build
 title: Define your configuration files
-menu_title: Define your configuration files
-menu_order: 2000
-functional_areas:
-  - Configuration
 ---
 
 Each Magento 2 [module](https://glossary.magento.com/module) has its own set of configuration files, gathered into the module's `etc` directory.
@@ -13,7 +9,7 @@ Each Magento 2 [module](https://glossary.magento.com/module) has its own set of 
  {:.bs-callout-info}
 Unlike Magento 1, there is no monolithic configuration file in Magento 2.
 
-{% include php-dev/component-root.md %}
+{% include php-dev/component-root-2.3.md %}
 
 ## Use /etc for your configuration files
 
@@ -59,7 +55,6 @@ If the module is a service that may call an API, or does some other work that is
 
 Keep in mind that you might be able to handle your module's configuration solely with configuration files at the top level of your module's `etc` directory, but the nested directory is a useful way to keep the configuration neatly compartmentalized.
 
-{:.ref-header}
-Next step
+#### Next
 
 [Create your component file structure]({{ page.baseurl }}/extension-dev-guide/build/module-file-structure.html)

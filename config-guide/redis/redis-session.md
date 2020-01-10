@@ -7,11 +7,11 @@ functional_areas:
   - Setup
 ---
 
-## Prerequisite
+## Prerequisite {#reds-cache-prereq}
 
 You must [install Redis]({{ page.baseurl }}/config-guide/redis/config-redis.html#config-redis-install) before continuing.
 
-## Configure Magento to use Redis for session storage
+## Configure Magento to use Redis for session storage {#config-redis-config}
 
 Magento now provides command line options to configure Redis session storage. In previous releases, you edited the `<Magento install dir>app/etc/env.php` file. The command line provides validation and is the recommended configuration method, but you can still edit the `env.php` file.
 
@@ -47,6 +47,10 @@ where
 |session-save-redis-disable-locking|disable_locking|Disable session locking entirely.|0 (false)|
 |session-save-redis-min-lifetime|min_lifetime|Minimum session lifetime, in seconds.|60|
 |session-save-redis-max-lifetime|max_lifetime|Maximum session lifetime, in seconds.|2592000 (720 hours)|
+|session-save-redis-sentinel-master|sentinel_master|Redis Sentinel master name|empty|
+|session-save-redis-sentinel-servers|sentinel_servers|List of Redis Sentinel servers, comma separated|empty|
+|session-save-redis-sentinel-verify-master|sentinel_verify_master|Verify Redis Sentinel master status flag|0 (false)|
+|session-save-redis-sentinel-connect-retires|sentinel_connect_retries|Connection retries for sentinels|5|
 
 ### Example command
 
@@ -60,7 +64,7 @@ bin/magento setup:config:set --session-save=redis --session-save-redis-host=127.
 
 Magento adds lines similar to the following to `<magento_root>app/etc/env.php`:
 
-```php?start_inline=1
+```php
     'session' =>
     array (
       'save' => 'redis',

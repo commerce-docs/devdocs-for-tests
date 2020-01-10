@@ -1,6 +1,6 @@
 ---
 group: installation-guide
-title: System 2.2.x requirements
+title: System 2.3.x requirements
 redirect_from:
   - /magento-system-requirements.html
 functional_areas:

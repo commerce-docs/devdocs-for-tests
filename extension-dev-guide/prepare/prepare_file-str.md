@@ -1,5 +1,6 @@
 ---
 group: php-developer-guide
+subgroup: 02_Prepare
 title: About component file structure
 ---
 
@@ -7,7 +8,7 @@ One of the first things you can do to get started with component development is 
 
 In addition, you can choose the component root directory to start development. The following sections have more information.
 
-{% include php-dev/component-root.md %}
+{% include php-dev/component-root-2.3.md %}
 
 {% include php-dev/component-required-files.md %}
 

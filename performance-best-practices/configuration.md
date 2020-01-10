@@ -17,12 +17,13 @@ All asynchronous operations in {{site.data.var.ce}} are performed using the Linu
 
 An indexer can run in either **Update on Save** or **Update on Schedule** mode. The **Update on Save** mode immediately indexes whenever your catalog or other data changes. This mode assumes a low intensity of update and browsing operations in your store. It can lead to significant delays and data unavailability during high loads. Magento recommends using **Update on Schedule** mode in production, because it stores information about data updates and performs indexation by portions in the background through a specific cron job. You can change the mode of each Magento indexer separately on the  **System** > Tools > **Index Management** configuration page.
 
+<!--  Add to docs in 2.3.1 - MAGEDOC-3020
 We recommend that you use index parallelization and that you set threads count for the index process based on:
 
--  Threads count >= max dimension count (across all indexers)
--  Threads count <= cores count
+- Threads count >= max dimension count (across all indexers)
+- Threads count <= cores count
 
-See the [Reindex in parallel mode section]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-index.html#config-cli-subcommands-index-reindex-parallel) of [Manage the indexers]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-index.html) for more information.
+See the [Reindex in parallel mode section]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-index.html#config-cli-subcommands-index-reindex-parallel) of [Manage the indexers]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-index.html) for more information.  -->
 
 ## Caches
 
@@ -41,7 +42,7 @@ The **Developer** tab and options are only available in [Developer mode]({{ page
 
 ## Deferred stock update
 
-In times of intensive sales,  Magento can defer stock updates related to orders. This minimizes the number of operations and speeds up the order placement process. However, this option is risky and can only be used when Backorders are activated in the store, because this option can lead to negative stock quantities. This option can bring significant performance improvement on Checkout flows for stores that can easily re-fill their stock on demand. To activate deferred stock updates, go to **Stores > Settings > Configuration > Catalog > Inventory > Product Stock Options > Use Deferred Stock Update**. See [Managing Inventory](http://docs.magento.com/m2/ee/user_guide/catalog/inventory.html) in the _{{site.data.var.ee}}User Guide_ for more information.
+In times of intensive sales,  Magento can defer stock updates related to orders. This minimizes the number of operations and speeds up the order placement process. However, this option is risky and can only be used when Backorders are activated in the store, because this option can lead to negative stock quantities. This option can bring significant performance improvement on Checkout flows for stores that can easily re-fill their stock on demand. To activate deferred stock updates on your Magento Commerce site, go to **Stores > Settings > Configuration > Catalog > Inventory > Product Stock Options > Use Deferred Stock Update**. See [Managing Inventory](http://docs.magento.com/m2/ee/user_guide/catalog/inventory.html) in the _{{site.data.var.ee}} User Guide_ for more information.
 
  {:.bs-callout-info}
 This option is available only if **Backorder with any mode** is activated.
@@ -67,9 +68,9 @@ When you activate the **Enable JavaScript Bundling** option, you allow Magento t
 
 ### Bundling tips
 
--  Magento recommends that you use third-party tools for minification and bundling (like [r.js](http://requirejs.org/)). Magento built-in mechanisms are not optimal and are shipped as fallback alternatives.
--  Activating the HTTP2 protocol can be a good alternative to using JS bundling. The protocol provides pretty much the same benefits.
--  We do not recommend using deprecated settings like merging JS and CSS files, as they were designed only for synchronously-loaded JS in the HEAD section of the page. Using this technique can cause bundling and requireJS logic to work incorrectly.
+*  Magento recommends that you use third-party tools for minification and bundling (like [r.js](http://requirejs.org/)). Magento built-in mechanisms are not optimal and are shipped as fallback alternatives.
+*  Activating the HTTP2 protocol can be a good alternative to using JS bundling. The protocol provides pretty much the same benefits.
+*  We do not recommend using deprecated settings like merging JS and CSS files, as they were designed only for synchronously-loaded JS in the HEAD section of the page. Using this technique can cause bundling and requireJS logic to work incorrectly.
 
 ## Database maintenance schedule {#database}
 

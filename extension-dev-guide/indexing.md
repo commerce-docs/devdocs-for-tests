@@ -66,7 +66,11 @@ The following components are involved in the indexing process:
 
 Each index can perform the following types of reindex operations:
 
-*  Full reindex, which means rebuilding all the indexing-related database tables. Full reindexing can be caused by a variety of things, including creating a new web store or new customer group. You can optionally fully reindex at any time using the [command line]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-index.html).
+*  Full reindex, which means rebuilding all the indexing-related database tables
+
+   Full reindexing can be caused by a variety of things, including creating a new web store or new customer group.
+
+   You can optionally fully reindex at any time using the [command line]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-index.html).
 
 *  Partial reindex, which means rebuilding the database tables only for the things that changed (like changing a single product attribute or price)
 
@@ -183,7 +187,7 @@ You can reindex by:
 
 ## Magento indexers {#m2devgde-indexing-outofbox}
 
-The {{site.data.var.ce}} application implements the following indexers (use [bin/magento indexer:info]({{ page.baseurl }}/reference/cli/magento.html#indexerinfo) to list the indexers):
+The Magento `Open Source` application implements the following indexers (use [bin/magento indexer:info]({{ page.baseurl }}/reference/cli/magento.html#indexerinfo) to list the indexers):
 
 | Indexer name | Indexer method name | Indexer class | Description |
 | --- | --- | --- | --- |
@@ -202,6 +206,7 @@ Magento Commerce Edition contains all indexers of Magento Open Source Edition an
 
 | Indexer name | Indexer method name | Indexer class | Description |
 | --- | --- | --- | --- |
+| Inventory | `inventory` | `Magento\InventoryIndexer\Indexer\InventoryIndexer` | Inventory index (MSI) |
 | Product/Target Rule | `targetrule_product_rule` | `Magento\TargetRule\Model\Indexer\TargetRule\Product\Rule` | Indexes product/rule association |
 | Target Rule/Product | `targetrule_rule_product` | `Magento\TargetRule\Model\Indexer\TargetRule\Rule\Product` | Indexes rule/product association |
 | Sales Rule | `salesrule_rule` | `Magento\AdvancedSalesRule\Model\Indexer\SalesRule` | Indexes sales rule |

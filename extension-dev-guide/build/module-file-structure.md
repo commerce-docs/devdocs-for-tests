@@ -2,19 +2,17 @@
 group: php-developer-guide
 subgroup: 03_Build
 title: Create your component file structure
-menu_title: Create your component file structure
-menu_order: 3000
 ---
 
 In this section, we go over the different file structures for the component types. The Magento application looks for the files that make up a component *including configuration files* in particular places inside the component file structure. Follow the predefined file structures for the component type you are developing to ensure that it works as expected.
 
-{% include php-dev/component-root.md %}
+{% include php-dev/component-root-2.3.md %}
 
 ### Module file structure
 
 A typical file structure for a Magento 2 [module](https://glossary.magento.com/module) can look like the following:
 
-![Module File Structure]({{ site.baseurl }}/common/images/pdg-config-file-structure.png){:width="300px"}
+![Module File Structure](../images/pdg-config-file-structure.png){:width="300px"}
 
 #### Common directories
 {:.no_toc}
@@ -25,6 +23,7 @@ Following are some common module directories:
 *  `etc`: contains configuration files; in particular, `module.xml`, which is required.
 *  `Model`: contains PHP model classes as part of MVC vertical implementation of module logic.
 *  `Setup`: contains classes for module database structure and data setup which are invoked when installing or upgrading.
+*  `ViewModel`: contains PHP model clasees as part of a model-view-viewmodel (MVVM) implementation. It allows developers to offload features and business logic from block classes into separate classes that are easier to maintain, test, and reuse.
 
 #### Additional directories
 {:.no_toc}

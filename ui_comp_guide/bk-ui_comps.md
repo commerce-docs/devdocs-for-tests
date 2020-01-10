@@ -2,13 +2,13 @@
 group: ui-components-guide
 title: Overview of UI components
 redirect_from:
-  - /guides/v2.2/ui-components/ui-component.html
-  - /guides/v2.2/ui-components/ui-definition.html
-  - /guides/v2.2/ui-components/ui-secondary.html
-  - /guides/v2.2/ui-components/ui_components_js.html
-  - /guides/v2.2/ui-components/ui-listing-grid.html
-  - /guides/v2.2/ui_comp_guide/concepts/ui_comp_architecture_concept.html
-  - /guides/v2.2/ui_comp_guide/ui_component_explained.html
+  - /guides/v2.3/ui-components/ui-component.html
+  - /guides/v2.3/ui-components/ui-definition.html
+  - /guides/v2.3/ui-components/ui-secondary.html
+  - /guides/v2.3/ui-components/ui_components_js.html
+  - /guides/v2.3/ui-components/ui-listing-grid.html
+  - /guides/v2.3/ui_comp_guide/concepts/ui_comp_architecture_concept.html
+  - /guides/v2.3/ui_comp_guide/ui_component_explained.html
 ---
 
 ## Overview of UI components
@@ -44,7 +44,7 @@ Basic components are declared in the [page layout files]({{ page.baseurl }}/fron
 All components can be configured both for [Admin](https://glossary.magento.com/admin) and [storefront](https://glossary.magento.com/storefront).
 
  {:.bs-callout-info}
-You need to configure styles manually for components on storefront.
+You need to configure styles manually for components on the storefront.
 
 ## When to use UI components?
 
@@ -74,11 +74,13 @@ UI component is a combination of:
 
 ### XML Declaration
 
-XML is widely used in Magento 2, which allows developers to easily reuse existing functionalities and add customizations.
+XML is widely used in Magento 2 which allows developers to easily reuse existing functionalities and add customizations.
 
-Comparing to XML layouts, UI components use more semantical approach to declare and configure user interface.
+Compared to XML layouts, UI components use a more semantical approach to declare and configure the user interface.
 
-An instance of UI component is usually based on the hierarchy of child UI components. For example:
+An instance of a UI component is usually based on the hierarchy of child UI components.
+
+For example:
 
 *  the Form component has Fieldsets, Tabs, and inner fields
 
@@ -98,7 +100,7 @@ A UI component can be bound to one or more [HTML](https://glossary.magento.com/h
 
 A particular instance of a UI component is defined primarily by the following:
 
-1. [definition.xml]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Ui/view/base/ui_component/etc/definition.xml): default component configuration. Can be extended in custom modules.
+1. `<Magento_Ui_module_dir>/view/base/ui_component/etc/definition.xml`: default component configuration. Can be extended in custom modules.
 1. [UI component's XML declaration]({{ page.baseurl }}/ui_comp_guide/concepts/ui_comp_xmldeclaration_concept.html).
 1. [Backend/PHP modifiers]({{ page.baseurl }}/ui_comp_guide/concepts/ui_comp_modifier_concept.html).
 1. Configuration inside the JavaScript classes.

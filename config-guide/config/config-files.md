@@ -11,7 +11,7 @@ functional_areas:
 
 The responsibilities of the `config.xml` configuration file used in earlier versions of Magento is now divided between several files, located in various [module](https://glossary.magento.com/module) directories. Magento's multiple configuration files load on demand only when a module requests a specific configuration type.
 
-You can use these files&mdash;also referred to as *configuration types*&mdash;to customize specific aspects of your module's behavior.
+You can use these files---also referred to as *configuration types*---to customize specific aspects of your module's behavior.
 
 Multiple modules can declare configuration files that affect the same configuration type (for example, events), and these multiple configuration files are merged.
 
@@ -39,6 +39,7 @@ Magento loads configuration files in the following order (all paths are relative
 -  `<component-name>`: Name of your component as defined in [composer.json]({{ site.mage2bloburl }}/{{ page.guide_version }}/composer.json).
 
 ### Configuration file merge {#config-files-load-merge-merge}
+
 Nodes in configuration files are merged based on their fully qualified XPaths, which has a special attribute defined in `$idAttributes` array declared as its identifier. This identifier must be unique for all nodes nested under the same parent node.
 
 Magento's merge algorithm follows:
@@ -62,32 +63,39 @@ The following table shows each configuration type and the Magento configuration 
 
 Configuration file|Description|Stage|Configuration object
 --- | --- | --- | ---
-`acl.xml`|[Access Control List]({{ page.baseurl }}/get-started/authentication/gs-authentication.html#relation-between-aclxml-and-webapixml)|global|[\Magento\Framework\Acl\AclResource\Provider]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Acl/AclResource/Provider.php)
 `address_formats.xml`|Address format declaration|primary, global|[\Magento\Customer\Model\Address\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Customer/Model/Address/Config.php)
+`acl.xml`|[Access Control List]({{ page.baseurl }}/get-started/authentication/gs-authentication.html#relation-between-aclxml-and-webapixml)|global|[\Magento\Framework\Acl\AclResource\Provider]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Acl/AclResource/Provider.php)
 `analytics.xml`|[Advanced reporting]({{ page.baseurl }}/advanced-reporting/data-collection.html)|primary, global|[\Magento\Analytics\Model\Config\Reader]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Analytics/Model/Config/Reader.php)
 `cache.xml`|Cache type declaration|primary, global|[\Magento\Framework\Cache\Config\Data]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Cache/Config/Data.php)
 `catalog_attributes.xml`|Catalog attributes configuration|global|[\Magento\Catalog\Model\Attribute\Config\Data]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/Model/Attribute/Config/Data.php)
 `config.php` and `env.php`|[Deployment configuration]({{ page.baseurl }}/config-guide/config/config-php.html)|These files are readable/writeable by the internal config processor.|Has no object, cannot be customized|
 `config.xml`|System configuration|primary, global|[\Magento\Framework\App\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/App/Config.php)
-`cron_groups.xml`|[Specifies cron group options]({{ page.baseurl }}/config-guide/cron/custom-cron-ref.html)| global | [\Magento\Cron\Model\Groups\Config\Data]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Cron/Model/Groups/Config/Data.php)
+`communication.xml`| [Defines aspects of the message queue system]({{ page.baseurl }}/extension-dev-guide/message-queues/config-mq.html#communicationxml)| global | [\Magento\WebapiAsync\Code\Generator\Config\RemoteServiceReader\Communication]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/WebapiAsync/Code/Generator/Config/RemoteServiceReader/Communication.php)
 `crontab.xml`|[Configures cron groups]({{ page.baseurl }}/config-guide/cron/custom-cron-ref.html#config-cli-cron-group-conf)| global | [\Magento\Cron\Model\Config\Data]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Cron/Model/Config/Data.php)
+`cron_groups.xml`|[Specifies cron group options]({{ page.baseurl }}/config-guide/cron/custom-cron-ref.html)| global | [\Magento\Cron\Model\Groups\Config\Data]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Cron/Model/Groups/Config/Data.php)
+`db_schema.xml`|[Declarative schema]({{ page.baseurl }}/extension-dev-guide/declarative-schema/db-schema.html)|global|[Magento\Framework\Setup\Declaration\Schema]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Setup/Declaration/Schema/SchemaConfig.php)
 `di.xml`|[Dependency injection]({{ page.baseurl }}/extension-dev-guide/depend-inj.html) configuration|primary, global, area|[\Magento\Framework\ObjectManager\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/ObjectManager/Config/Config.php)
 `eav_attributes.xml`| Provides EAV attributes configuration | global | [\Magento\Eav\Model\Entity\Attribute\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Eav/Model/Entity/Attribute/Config.php)
 `email_templates.xml`| Email templates configuration | global | [\Magento\Email\Model\Template\Config\Data]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Email/Model/Template/Config/Data.php)
+`esconfig.xml`| [Elasticsearch locale stopwords config]({{ page.baseurl }}/config-guide/elasticsearch/es-config-stopwords.html#config-create-stopwords) | global | [\Magento\Elasticsearch\Model\Adapter\Index\Config\EsConfig]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Elasticsearch/Model/Adapter/Index/Config/EsConfig.php)
 `events.xml`|Event/observer configuration|global, area|[\Magento\Framework\Event]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Event.php)
 `export.xml`| Export entity configuration | global | [\Magento\ImportExport\Model\Export\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/ImportExport/Model/Export/Config.php)
 `extension_attributes.xml`|[Extension attributes]({{ page.baseurl }}/extension-dev-guide/attributes.html#extension)| global | [\Magento\Framework\Api\ExtensionAttribute\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/ExtensionAttribute/Config.php)
 `fieldset.xml`| Defines fieldsets | global | [\Magento\Framework\DataObject\Copy\Config\Reader]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/DataObject/Copy/Config/Reader.php)
-`import.xml`| Declares import entities | global | [\Magento\ImportExport\Model\Import\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/ImportExport/Model/Import/Config.php)
 `indexer.xml`| [Declares indexers]({{ page.baseurl }}/extension-dev-guide/indexing-custom.html) | global | [\Magento\Framework\Indexer\Config\Reader]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Indexer/Config/Reader.php)
+`import.xml`| Declares import entities | global | [\Magento\ImportExport\Model\Import\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/ImportExport/Model/Import/Config.php)
 `menu.xml`| Defines menu items for admin panel | adminhtml | [\Magento\Backend\Model\Menu\Config\Reader]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Backend/Model/Menu/Config/Reader.php)
 `module.xml`| Defines module config data and soft dependency | primary, global | [\Magento\Framework\Module\ModuleList\Loader]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Module/ModuleList/Loader.php)
 `mview.xml`| [MView configuration]({{ page.baseurl }}/extension-dev-guide/indexing-custom.html#mview-configuration) | primary, global | [\Magento\Framework\Mview\Config\Data]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Mview/Config/Data.php)
 `payment.xml`| Payment module configuration | primary, global | [\Magento\Payment\Model\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Payment/Model/Config.php)
-`pdf.xml`| PDF settings | global | [\Magento\Sales\Model\Order\Pdf\Config\Reader]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Sales/Model/Order/Pdf/Config/Reader.php)
 `persistent.xml`| [Magento_Persistent]({{ page.baseurl }}/mrg/ce/Persistent.html) configuration file | global | [\Magento\Persistent\Helper\Data]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Persistent/Helper/Data.php)
+`pdf.xml`| PDF settings | global | [\Magento\Sales\Model\Order\Pdf\Config\Reader]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Sales/Model/Order/Pdf/Config/Reader.php)
 `product_options.xml`| Provides product options configuration | global | [\Magento\Catalog\Model\ProductOptions\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/Model/ProductOptions/Config.php)
 `product_types.xml`| Defines product type | global | [\Magento\Catalog\Model\ProductTypes\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/Model/ProductTypes/Config.php)
+`queue.xml`| [Message queue configuration]({{ page.baseurl }}/extension-dev-guide/message-queues/message-queues.html#rabbitmq). [Deprecated for [RabbitMQ] usage]({{ page.baseurl }}/extension-dev-guide/message-queues/queue-migration.html) | global | [\Magento\Framework\MessageQueue\Config\Reader\Xml]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/MessageQueue/Config/Reader/Xml.php)
+`queue_consumer.xml`|[Defines the relationship between an existing queue and its consumer]({{ page.baseurl }}/extension-dev-guide/message-queues/config-mq.html#queueconsumerxml) | global | [\Magento\Framework\MessageQueue\Consumer\Config\Xml\Reader]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/MessageQueue/Consumer/Config/Xml/Reader.php)
+`queue_publisher.xml`|[Defines the exchange where a topic is published.]({{ page.baseurl }}/extension-dev-guide/message-queues/config-mq.html#queuepublisherxml)| global | [\Magento\WebapiAsync\Code\Generator\Config\RemoteServiceReader\Publisher]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/WebapiAsync/Code/Generator/Config/RemoteServiceReader/Publisher.php)
+`queue_topology.xml`|[Defines the message routing rules, declares queues and exchanges]({{ page.baseurl }}/extension-dev-guide/message-queues/config-mq.html#queuetopologyxml)| global | [\Magento\Framework\MessageQueue\Topology\Config\Xml\Reader]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/MessageQueue/Topology/Config/Xml/Reader.php)
 `reports.xml`| [Advanced reports]({{ page.baseurl }}/advanced-reporting/report-xml.html) | global | [\Magento\Analytics\ReportXml\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Analytics/ReportXml/Config.php)
 `resources.xml`| Defines module resource | global | [\Magento\Framework\App\ResourceConnection\Config\Reader]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/App/ResourceConnection/Config/Reader.php)
 `routes.xml`|[Route]({{ page.baseurl }}/extension-dev-guide/routing.html) configuration|area|[Magento\Framework\App\Route\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/App/Route/Config.php)
@@ -99,6 +107,7 @@ Configuration file|Description|Stage|Configuration object
 `validation.xml`| Module validation configuration file | global | [\Magento\Framework\Validator\Factory]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Validator/Factory.php)
 `view.xml`| Defines Vendor_Module view config values | global | [\Magento\Framework\View\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/View/Config.php)
 `webapi.xml`| [Configures a web API]({{ page.baseurl }}/extension-dev-guide/service-contracts/service-to-web-service.html) | global | [\Magento\Webapi\Model\Config]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Webapi/Model/Config.php)
+`webapi_async.xml`| [Defines REST custom routes]({{ page.baseurl }}/extension-dev-guide/webapi/custom-routes.html) | global | [\Magento\WebapiAsync\Model\ServiceConfig]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/WebapiAsync/Model/ServiceConfig.php)
 `widget.xml`| Defines widgets | global | [\Magento\Widget\Model\Config\Reader]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Widget/Model/Config/Reader.php)
 `zip_codes.xml`| Defines zip code format for each country | global | [\Magento\Directory\Model\Country\Postcode\Config\Data]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Directory/Model/Country/Postcode/Config/Data.php)
 
@@ -124,3 +133,6 @@ Related topics
 
 -  [Create or extend configuration types]({{ page.baseurl }}/config-guide/config/config-create.html)
 -  [Magento's deployment configuration]({{ page.baseurl }}/config-guide/config/config-php.html)
+
+<!-- Link definitions -->
+[RabbitMQ]: http://www.rabbitmq.com

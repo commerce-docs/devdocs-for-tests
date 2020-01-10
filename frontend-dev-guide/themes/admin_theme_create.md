@@ -54,14 +54,11 @@ In this file, add the following code, having replaced placeholders with your the
 ```php
 <?php
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-\Magento\Framework\Component\ComponentRegistrar::register(
-    \Magento\Framework\Component\ComponentRegistrar::THEME,
-    'adminhtml/%vendor_dir/your_theme_dir%', // Example: 'adminhtml/Magento/backend'
-    __DIR__
-);
+use \Magento\Framework\Component\ComponentRegistrar;
+ComponentRegistrar::register(ComponentRegistrar::THEME, 'adminhtml/%vendor_dir/your_theme_dir%', __DIR__); // Example: 'adminhtml/Magento/backend'
 ```
 
 ## Optionally add `composer.json` {#make_composer}
@@ -90,7 +87,7 @@ To customize the Admin theme logo:
            </referenceBlock>
        </body>
     </page>
-    ```
+   ```
 
 1. Add your custom logo to the `app/design/adminhtml/<Vendor>/<theme>/web/images/` directory.
 

@@ -1,10 +1,9 @@
 ---
 group: configuration-guide
 title: Message Queues Overview
-ee_only: true
 ---
 
-The Message Queue Framework (MQF) is a system within {{site.data.var.ee}} that allows a [module](https://glossary.magento.com/module) to publish messages to queues. It also defines the consumers that will receive the messages asynchronously. The MQF uses [RabbitMQ](http://www.rabbitmq.com) as the messaging broker, which provides a scalable platform for sending and receiving messages. It also includes a mechanism for storing undelivered messages. RabbitMQ is based on the Advanced Message Queuing Protocol (AMQP) 0.9.1 specification.
+The Message Queue Framework (MQF) is a system that allows a [module](https://glossary.magento.com/module) to publish messages to queues. It also defines the consumers that will receive the messages asynchronously. The MQF uses [RabbitMQ](http://www.rabbitmq.com) as the messaging broker, which provides a scalable platform for sending and receiving messages. It also includes a mechanism for storing undelivered messages. RabbitMQ is based on the Advanced Message Queuing Protocol (AMQP) 0.9.1 specification.
 
 The following diagram illustrates the Message Queue Framework.
 
@@ -24,5 +23,5 @@ A basic message queue system can also be set up without using RabbitMQ. In this 
 
 #### Related Topics
 
-*  [Manage message queues]({{ page.baseurl }}/config-guide/mq/manage-mysql.html)
-*  [Install RabbitMQ]({{ page.baseurl }}/install-gde/prereq/install-rabbitmq.html)
+*  [Manage message queues]({{page.baseurl}}/config-guide/mq/manage-mysql.html)
+*  [Install RabbitMQ]({{page.baseurl}}/install-gde/prereq/install-rabbitmq.html)

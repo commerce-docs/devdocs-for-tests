@@ -47,17 +47,17 @@ ComponentRegistrar::register(
     "name": "vendor/custom-shipping",
     "description": "Custom shipping module",
     "require": {
-        "php": "~7.0.13|~7.1.0",
-        "magento/module-config": "101.0.*",
-        "magento/module-store": "100.2.*",
-        "magento/module-backend": "100.2.*",
-        "magento/module-shipping": "100.2.*",
-        "magento/module-catalog": "102.0.*",
-        "magento/module-sales": "101.0.*",
-        "magento/module-sales-rule": "101.0.*",
-        "magento/module-directory": "100.2.*",
-        "magento/module-quote": "101.0.*",
-        "magento/framework": "101.0.*"
+        "php": "~7.1.3||~7.2.0",
+        "magento/framework": "102.0.*",
+        "magento/module-backend": "101.0.*",
+        "magento/module-catalog": "103.0.*",
+        "magento/module-config": "101.1.*",
+        "magento/module-directory": "100.3.*",
+        "magento/module-quote": "101.1.*",
+        "magento/module-sales": "102.0.*",
+        "magento/module-sales-rule": "101.1.*",
+        "magento/module-shipping": "100.3.*",
+        "magento/module-store": "101.0.*"
     },
     "type": "magento2-module",
     "license": [

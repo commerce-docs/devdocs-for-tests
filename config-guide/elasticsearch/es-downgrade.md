@@ -8,14 +8,12 @@ functional_areas:
   - Setup
 ---
 
-Magento 2.2.8 adds support for Elasticsearch (ES) 6.x.
-Magento still provides connectivity for ES 2.x and 5.x, but you must manually enable this support.
+The Magento 2.3.1 update adds support for Elasticsearch (ES) 6.x.
+Magento still provides connectivity for ES 2.x and 5.x but this will need to be specifically enabled.
 
-If you need to run Magento 2.2.8 with Elasticsearch 2.x or 5.x, you must change the Elasticsearch [PHP client][] version.
+If you need to run Magento 2.3.1 with Elasticsearch 2.x or 5.x, you must change the Elasticsearch [PHP client][] version.
 
-{:.bs-callout-tip}
-**End of Life notice:**
-ES 2.x and 5.x versions are [End of Life][]. We do not recommend using ES 2.x. To configure and use the latest version, see (name of the section in this doc)[].
+Both ES 2.x and 5.x are [End of Life][].
 Running ES 2.x is strongly discouraged.
 
 ## Change the Elasticsearch Client version
@@ -23,7 +21,7 @@ Running ES 2.x is strongly discouraged.
 If you need to work with Elasticsearch 5.x, run the following command:
 
 ```bash
-composer require "elasticsearch/elasticsearch:~5.2"
+composer require "elasticsearch/elasticsearch:~5.1"
 ```
 
 If you need to work with Elasticsearch 2.x, run the following command:
@@ -32,9 +30,6 @@ If you need to work with Elasticsearch 2.x, run the following command:
 composer require "elasticsearch/elasticsearch:~2.0"
 ```
 
-{:.bs-callout-info}
-Version 6.x is the latest suported version.
-
 To re-enable Elasticsearch 6.x, run the following command:
 
 ```bash
@@ -42,6 +37,7 @@ composer require "elasticsearch/elasticsearch:~6.1"
 ```
 
 Then configure Elasticsearch within [Magento Admin][].
+
 <!-- Link Definitions -->
 
 [End of Life]: https://www.elastic.co/support/eol

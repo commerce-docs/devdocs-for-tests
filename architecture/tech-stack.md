@@ -1,14 +1,11 @@
 ---
 group: architecture-guide
-subgroup: Architectural Basics
 title: Technology stack
-menu_title: Technology stack
-menu_order: 2
 ---
 
 ## Overview
 
-This page summarizes the technologies we use. For more detailed information, see the [System Requirements]({{ page.baseurl }}/install-gde/system-requirements-tech.html).
+This page summarizes the technologies we use. For more detailed information, see the [System Requirements]({{page.baseurl}}/install-gde/system-requirements-tech.html).
 
 Magento's highly modular structure includes the following open-source technologies.
 
@@ -21,6 +18,11 @@ Magento's highly modular structure includes the following open-source technologi
 
 *  [Composer](https://glossary.magento.com/composer) (dependency management package for PHP)
 
+{:.bs-callout-info}
+Magento, with assistance from our community, is implementing PHP 7.2 compatibility for our upcoming 2.3.0 release. Any backward-incompatibility issues will be resolved in this release, and all 3rd party libraries now support PHP 7.2. Fully tested 7.2 support will be delivered in following patch releases.
+<br/><br/>
+If you are interested in participating in Magento Community projects we welcome your help! See our [ZenHub board](https://app.zenhub.com/workspace/o/magento-engcom/php-7.2-support/boards?repos=116423356,116426364,115111902){:target="_blank"} for a full list of outstanding issues.
+
 ### Database
 
 *  MySQL
@@ -30,20 +32,18 @@ Magento's highly modular structure includes the following open-source technologi
 
 *  Varnish
 
-### Cache storage
+### Cache Storage
 
 *  Redis
-*  Memcache
 
 ### Search
 
-*  Solr ({{site.data.var.ee}})
-*  Elasticsearch ({{site.data.var.ee}} - 2.1.x only)
+*  Elasticsearch ({{site.data.var.ee}} versions 2.1.x and 2.2.x, and Magento Open Source version 2.3.x)
 
 ### Additional technologies
 
 *  HTML5
-*  CSS3 (Less [CSS](https://glossary.magento.com/css) pre-processor)
+*  CSS3 (LESS [CSS](https://glossary.magento.com/css) pre-processor)
 *  [jQuery](https://glossary.magento.com/jquery) (primary [JavaScript](https://glossary.magento.com/javascript) library)
 *  RequireJS (library that helps load JavaScript resources on demand)
 *  Knockout.js (simplifies JavaScript UIs with the Model-View-View Model pattern)
@@ -54,19 +54,19 @@ Magento's highly modular structure includes the following open-source technologi
 
 *  Varnish (caching)
 *  Redis (used for page caching)
-*  Solr (search engine)
 *  Elasticsearch (search engine)
+*  RabbitMQ (message queue)
 
-Magento 2.2 and above only supports PHP7+ and is no longer compatible with HipHop Virtual Machine(HHVM).
+Magento 2.2+ does not support HipHop Virtual Machine (HHVM).
 
 ### Automated testing
 
 Magento also provides automated testing suites that include unit, integration, functional and performance test scripts, as well as JavaScript tests and tools for static code analysis. Components include PHPUnit for the unit test framework and Selenium for the functional test framework.
 
 This framework is located in the `dev/tests` directory. The functional testing framework `mtf` can be found in a [separate repository](https://github.com/magento/mtf){:target="_blank"}.
-For more information, see the [Functional Testing Framework]({{ page.baseurl }}/mtf/mtf_introduction.html) guide.
+For more information, see the [Functional Testing Framework]({{page.baseurl}}/mtf/mtf_introduction.html) guide.
 
 {:.ref-header}
 Related topics
 
-[Architectural basics]({{ page.baseurl }}/architecture/archi_perspectives/ABasics_intro.html)
+[Architectural basics]({{page.baseurl}}/architecture/archi_perspectives/ABasics_intro.html)

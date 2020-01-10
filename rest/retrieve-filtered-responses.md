@@ -81,7 +81,7 @@ The following example returns only the `name`, `qty`, and `sku` fields defined i
      "qty": 1,
      "sku": "WS08-XS-Blue",
    }
- ]
+]
 ```
 
 ## Nested objects

@@ -22,7 +22,7 @@ The color of each element in the diagram indicates whether the element is part o
 *  Grey elements are optional for {{site.data.var.ce}}
 *  Blue elements are optional for {{site.data.var.ee}}
 
-![alt text]({{ page.baseurl }}/performance-best-practices/images/ref-architecture-2.2.png "reference architecture")
+![alt text]({{ page.baseurl }}/performance-best-practices/images/ref-architecture-2.3.png "reference architecture")
 
 The following sections provide recommendations and considerations for each section of the Magento Reference Architecture diagram.
 

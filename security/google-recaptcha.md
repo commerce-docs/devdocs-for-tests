@@ -5,7 +5,7 @@ functional_areas:
   - Configuration
 ---
 
-This extension adds the Google reCAPTCHA module to your Magento installation. Google reCAPTCHA provides a greater level of security for both the storefront and Admin UI than is available with standard CAPTCHA, and gives you the ability to:
+Google reCAPTCHA provides a greater level of security for both the storefront and Admin UI than is available with standard CAPTCHA, and gives you the ability to:
 
 -  Verify when customers create accounts, retrieve passwords, log in to their accounts, or contact your company.
 -  Enhance security when Admin users log in.
@@ -17,32 +17,14 @@ Google reCAPTCHA reduces potential user error when entering a Captcha code and e
 
 ## Install Module
 
-{:.bs-callout-info}
-The Google reCAPTCHA extension is bundled and installed with {{site.data.var.ce}} and {{site.data.var.ee}} 2.1.18 and 2.2.9 and later.
-
-Install the extension using the following Composer command:
-
-```bash
-composer require msp/recaptcha
-```
-
-To complete installation in an existing Magento instance, run the following commands to enable the module:
-
-```bash
-bin/magento module:enable MSP_ReCaptcha
-```
-
-```bash
-bin/magento setup:upgrade
-```
-
-```bash
-bin/magento cache:clean
-```
+The Google reCAPTCHA extension is bundled and installed with {{site.data.var.ce}} and {{site.data.var.ee}} 2.3.x.
 
 ## Configure reCAPTCHA
 
-See the [Magento Admin User Guide](https://docs.magento.com/m2/ce/user_guide/stores/security-google-recaptcha.html) for configuration options to the Magento Admin UI and storefront.
+{:.bs-callout-warning}
+Before reCAPTCHA can be configured, ensure that your `PHP.ini` file includes this setting: `allow_url_fopen = 1`. See [Required PHP Settings]({{page.baseurl}}/install-gde/prereq/php-settings.html).
+
+See the Magento Admin User Guide [Open Source](https://docs.magento.com/m2/ce/user_guide/stores/security-google-recaptcha.html) and [Commerce](https://docs.magento.com/m2/ee/user_guide/stores/security-google-recaptcha.html) for configuration options in the Magento Admin and storefront.
 
 ## Troubleshooting
 

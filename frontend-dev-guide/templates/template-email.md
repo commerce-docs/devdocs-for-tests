@@ -5,6 +5,10 @@ functional_areas:
   - Frontend
 ---
 
+{:.bs-callout-warning}
+Magento 2.3.4 restricts the way that custom variables can be used within email templates.
+See [Migrating custom email templates](template-email-migration.html) for more information.
+
 ## Customize email templates {#customize-email-templates}
 
 Email templates are stored in the `<module_dir>/view/<area>/email` directory of their respective modules. For example, the template for the new order transactional email for the Sales module is located in [`<Magento_Sales_module_dir>/view/frontend/email/order_new.html`]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Sales/view/frontend/email/order_new.html).
@@ -59,6 +63,10 @@ Every frontend email template includes a header and footer template using these 
 You can customize header and footer templates using either the [theme](#customize-email-theme) or [admin](#customize-email-admin) customization methods discussed previously.
 
 ### Customize email content {#customize-content}
+
+{:.bs-callout-warning}
+Custom variables used within email templates in Magento 2.3.4+ must be written in 'strict mode'.
+See [Migrating custom email templates](template-email-migration.html) for more information.
 
 To add the store and sales related information to a template, use system variables.
 
@@ -128,9 +136,9 @@ The value of that variable comes from any of the following:
 *  Any styles you add to any `html` email template inside a comment block, like in the following example, are included in the `template_styles` variable:
 
 ```html
-      <!--@styles
-      .example-style { color: green; }
-      @-->
+ <!--@styles
+   .example-style { color: green; }
+ @-->
 ```
 
 *  If you customize transactional emails using the Magento Admin, you can add CSS styles to the **Template Styles** field to include those styles in the `template_styles` variable.
@@ -363,7 +371,9 @@ The `trans` directive will translate strings into whatever locale is configured 
 The directive supports multiple named parameters, separated by spaces. For example:
 
 ```html
-{% raw %}{{trans "Dear %first_name %last_name," first_name=$first_name last_name=$last_name}}{% endraw %}
+{% raw %}
+{{trans "Dear %first_name %last_name," first_name=$first_name last_name=$last_name}}
+{% endraw %}
 ```
 
 Please note, that variable assignment must not contain spaces.
@@ -371,47 +381,26 @@ Please note, that variable assignment must not contain spaces.
 Correct:
 
 ```html
-{% raw %}{{trans "Thank you for your order from %store_name." store_name=$store.getFrontendName()}}{% endraw %}
+{% raw %}
+{{trans "Thank you for your order from %store_name." store_name=$store.getFrontendName()}}
+{% endraw %}
 ```
 
 Incorrect:
 
 ```html
-{% raw %}{{trans "Thank you for your order from %store_name." store_name = $store.getFrontendName()}}{% endraw %}
+{% raw %}
+{{trans "Thank you for your order from %store_name." store_name = $store.getFrontendName()}}
+{% endraw %}
 ```
 
-{:.bs-callout-info}
+{:.bs-callout .bs-callout-info}
 Exception: argument value can contain spaces if it is enclosed in brackets.
 
 ## Supported email clients and devices {#supported-clients}
 
-We tested responsive emails using a combination of real devices and [Litmus](http://litmus.com/). Due to the greatly varied level of support among email clients for modern web technologies, not all email clients rendered the emails perfectly. However, all of the following clients should render the emails in a manner that allows them to be easily read without obvious issues.
-
-*  Supported Desktop Clients
-   *  Apple Mail 7 (OS X 10.9)
-   *  Apple Mail 8 (OS X 10.10)
-   *  Outlook 2003 (Windows 7)
-   *  Outlook 2007 (Windows 7)
-   *  Outlook 2010 (Windows 7)
-   *  Outlook 2013 (Windows 7)
-   *  Outlook 2016 (OS X 10.10)
-*  Supported Mobile Clients
-   *  Native email app (Android 2.3)
-   *  Native email app (Android 4.2)
-   *  Gmail app (Android 4.2)
-   *  Native email app (Blackberry 5 OS)
-   *  iOS 7 (iPhone 5s)
-   *  iOS 8 (iPad Retina)
-   *  iOS 8 (iPad Mini)
-   *  iOS 8 (iPhone 6)
-   *  iOS 8 (iPhone 6 Plus)
-   *  Windows Phone 8
-*  Supported Web Clients (tested in combination of Firefox, Chrome, and Internet Explorer)
-   *  AOL Mail
-   *  Gmail
-   *  Office 365
-   *  Outlook.com
-   *  Yahoo! Mail
+We test responsive emails using a combination of real devices and [Litmus](http://litmus.com/). Due to the greatly varied level of support among email clients for modern web technologies, not all email clients rendered the emails perfectly.
+We strive to support all current, modern e-mail clients. Let us know about any client-specific issues you might have.
 
 ## Newsletter templates {#newsletter-templates}
 

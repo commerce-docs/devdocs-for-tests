@@ -1,9 +1,6 @@
 ---
 group: php-developer-guide
-subgroup: 99_Module Development
 title: Searching with Repositories
-menu_title: Searching with Repositories
-menu_order: 35
 functional_areas:
   - Search
 ---
@@ -20,17 +17,17 @@ This means that every method call should not rely on previous calls nor should i
 Any field contained in the repository class must also be stateless.
 
 If your repository needs to provide functionality that requires state, such as for caching,  use the registry pattern.
-A good example that uses this pattern is the [`CustomerRepository`]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Customer/Model/ResourceModel/CustomerRepository.php){:target="_blank"} class.
+A good example that uses this pattern is the [`CustomerRepository`]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Customer/Model/ResourceModel/CustomerRepository.php) class.
 
 ### Search Criteria {#m2devgde-search-criteria}
 
-A Search Criteria is an implementation of the [`SearchCriteriaInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteriaInterface.php){:target="_blank"} class that allows you to build custom requests with different conditions.
+A Search Criteria is an implementation of the [`SearchCriteriaInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteriaInterface.php) class that allows you to build custom requests with different conditions.
 
 Repositories use this class to retrieve entities based on a matching criteria.
 
 #### Filter
 
-The [`Filter`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/Filter.php){:target="_blank"} class is the smallest part of a Search Criteria.
+The [`Filter`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/Filter.php) class is the smallest part of a Search Criteria.
 It allows you to add a custom field, value, and condition type to the criteria.
 
 Example of how to define a Filter:
@@ -46,7 +43,7 @@ This filter will find all urls with the suffix of "magento.com".
 
 #### Filter Group
 
-The [`FilterGroup`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/Search/FilterGroup.php){:target="_blank"} class acts like a collection of Filters that apply one or more criteria to a search.
+The [`FilterGroup`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/Search/FilterGroup.php) class acts like a collection of Filters that apply one or more criteria to a search.
 
 The boolean `OR` statement joins Filters inside a single **Filter Group**.
 
@@ -82,13 +79,14 @@ The code above creates a Search Criteria with the Filters put together in the fo
 
 #### Sorting
 
-To apply sorting to the Search Criteria, use the [`SortOrder`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SortOrder.php){:target="_blank"} class.
+To apply sorting to the Search Criteria, use the [`SortOrder`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SortOrder.php) class.
 
 Field and direction make up the two parameters that define a Sort Order object.
 The field is the name of the field to sort.
 The direction is the method of sorting whose value can be `ASC` or `DESC`.
 
 The example below defines a Sort Order object that will sort the customer email in ascending order:
+
 ```php
 $sortOrder
     ->setField("email")
@@ -103,7 +101,6 @@ The `setPageSize` function paginates the Search Criteria by limiting the amount 
 
 ```php
 $searchCriteria->setPageSize(20); //retrieve 20 or less entities
-
 ```
 
 The `setCurrentPage` function sets the current page:
@@ -112,26 +109,44 @@ The `setCurrentPage` function sets the current page:
 $searchCriteria
     ->setPageSize(20)
     ->setCurrentPage(2); //show the 21st to 40th entity
-
 ```
 
 ### Search Result
 
 The `getList(SearchCriteria $searchCriteria)` method defined in your repository should return a Search Result object.
-This object is an instance of a class that implements the interface [`SearchResultsInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchResultsInterface.php){:target="_blank"}.
+This object is an instance of a class that implements the interface [`SearchResultInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchResultsInterface.php).
 
 Search Result objects hold the Search Criteria object and the retrieved entities along with information about the total count of found entities regardless of any limitations set in the criteria.
 
+The search engine determines the maximum number of results that a query can return. For SQL searches, the maximum is the value  of the `PHP_INT_MAX` environment variable. For Elasticsearch, the value is defined in the `Elasticsearch/etc/di.xml` file. The default is 10000.
+
+The example below uses **getList** with the [`ProductRepositoryInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/Api/ProductRepositoryInterface.php).
+We use the [`FilterBuilder`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/FilterBuilder.php) and the [`SearchCriteriaBuilder`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteriaBuilder.php) to avoid shared instances.
+
+```php
+$filter = $this->filterBuilder
+    ->setField(ProductInterface::NAME)
+    ->setConditionType('like')
+    ->setValue('%hoodie%')
+    ->create();
+
+$this->searchCriteriaBuilder->addFilters([$filter]);
+$this->searchCriteriaBuilder->setPageSize(20);
+
+$searchCriteria = $this->searchCriteriaBuilder->create();
+$productsItems  = $this->productRepository->getList($searchCriteria)->getItems();
+```
+
 ### Search Criteria Unify Processing {#m2devgde-searchcriteria-unify-processing}
 
-A Collection Processor is an implementation of the [`CollectionProcessorInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessorInterface.php){:target="_blank"} interface that unifies the application of custom filters, sorting, and paginating.
+A Collection Processor is an implementation of the [`CollectionProcessorInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessorInterface.php) interface that unifies the application of custom filters, sorting, and paginating.
 It contains a one method process that applies a Search Criteria object to an abstract database collection.
 
 You can use [virtual typing]({{ page.baseurl }}/extension-dev-guide/depend-inj.html#dependency-types) in your `di.xml` file to specify the processors used in the Collection Processor.
 
 #### Filter Processor
 
-The [`FilterProcessor`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/FilterProcessor.php){:target="_blank"} class applies Filter Groups and their filters to a collection.
+The [`FilterProcessor`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/FilterProcessor.php) class applies Filter Groups and their filters to a collection.
 
 Below is the code that applies filters to a collection.
 The method applies custom filters for some fields, otherwise it applies `$collection->addFieldToFilter($fields, $conditions)`.
@@ -174,7 +189,7 @@ The method applies custom filters for some fields, otherwise it applies `$collec
 {% endcollapsible %}
 
 You can configure this class to use a specific custom field mapping and custom filter in the `di.xml` file.
-The example below uses [dependency injection](https://glossary.magento.com/dependency-injection) to create a [virtual type](https://glossary.magento.com/virtual-type) from a Filter Processor that applies the module-specific [`ProductCategoryFilter`]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/Model/Api/SearchCriteria/CollectionProcessor/FilterProcessor/ProductCategoryFilter.php){:target="_blank"} on a particular field mapping.
+The example below uses [dependency injection](https://glossary.magento.com/dependency-injection) to create a [virtual type](https://glossary.magento.com/virtual-type) from a Filter Processor that applies the module-specific [`ProductCategoryFilter`]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Catalog/Model/Api/SearchCriteria/CollectionProcessor/FilterProcessor/ProductCategoryFilter.php) on a particular field mapping.
 
 ```xml
     <virtualType name="Magento\Customer\Model\Api\SearchCriteria\CollectionProcessor\GroupFilterProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor">
@@ -234,12 +249,12 @@ class ProductCategoryFilter implements CustomFilterInterface
 
 | Argument | Description |
 | --- | --- |
-| `customFilters` | An array of filters implementing the [`CustomFilterInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/FilterProcessor/CustomFilterInterface.php){:target="_blank"}. These filters allow you to apply custom logic to a particular abstract database collection. |
+| `customFilters` | An array of filters implementing the [`CustomFilterInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/FilterProcessor/CustomFilterInterface.php). These filters allow you to apply custom logic to a particular abstract database collection. |
 | `fieldMapping` | Maps field names defined in the search Criteria to the names in an abstract database collection |
 
 #### Sorting Processor
 
-The [`SortingProcessor`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/SortingProcessor.php){:target="_blank"} class applies the sorting order of a search criteria to an abstract database collection.
+The [`SortingProcessor`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/SortingProcessor.php) class applies the sorting order of a search criteria to an abstract database collection.
 
 Below is an example of how you can configure a Sorting Processor virtual type in the `di.xml` file to use a custom field mapping and default sorting orders.
 
@@ -265,11 +280,11 @@ Below is an example of how you can configure a Sorting Processor virtual type in
 
 #### Pagination Processor
 
-The [`PaginationProcessor`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/PaginationProcessor.php){:target="_blank"} class applies the current page and page size of the search criteria to an abstract database collection.
+The [`PaginationProcessor`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/PaginationProcessor.php) class applies the current page and page size of the search criteria to an abstract database collection.
 
 #### Join Processor
 
-The [`JoinProcessor`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/JoinProcessor.php){:target="_blank"} class allows you to join fields from other tables into an abstract database collection.
+The [`JoinProcessor`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/JoinProcessor.php) class allows you to join fields from other tables into an abstract database collection.
 
 Below is an example of creating a Join Processor virtual type in the `di.xml` file named `Magento\Tax\Model\Api\SearchCriteria\CollectionProcessor\TaxRuleJoinProcessor`:
 
@@ -295,7 +310,7 @@ Below is an example of creating a Join Processor virtual type in the `di.xml` fi
 </virtualType>
 ```
 
-The Join Processor aggregates Custom Joins objects implementing the interface [`CustomJoinInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/JoinProcessor/CustomJoinInterface.php){:target="_blank"}.
+The Join Processor aggregates Custom Joins objects implementing the interface [`CustomJoinInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/lib/internal/Magento/Framework/Api/SearchCriteria/CollectionProcessor/JoinProcessor/CustomJoinInterface.php).
 
 {% collapsible Show Custom Join implementation example %}
 
@@ -327,7 +342,7 @@ The Join Processor aggregates Custom Joins objects implementing the interface [`
 
 ### Using Collection Processors in Repositories
 
-Below is an example of how the [`CustomerRepositoryInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Customer/Model/ResourceModel/CustomerRepository.php){:target="_blank"} repository class uses a Collection Processor.
+Below is an example of how the [`CustomerRepositoryInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Customer/Model/ResourceModel/CustomerRepository.php) repository class uses a Collection Processor.
 
 ```php
 

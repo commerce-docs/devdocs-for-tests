@@ -2,7 +2,7 @@
 group: ui-components-guide
 title: Form component
 redirect_from:
-   - /guides/v2.2/ui-components/ui-form.html
+   - /guides/v2.3/ui-components/ui-form.html
 ---
 
 The Form component is a collection of fields that can be grouped in tabs and fieldsets. It enables [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations.
@@ -270,18 +270,19 @@ To create an instance of the Form component, you need to do the following:
 1. In your custom module, add a configuration file for the instance, for example: `customer_form.xml`.
 1. Add a set of fields (the Fieldset component with the component of the Field) for [entity](https://glossary.magento.com/entity) or     to implement the upload of meta info in the DataProvider.
 1. Create the DataProvider class for the entity that implements DataProviderInterface
-1. Add a component in Magento [layout](https://glossary.magento.com/layout) as a node: `<uiComponent name="customer_form"/>`
 
-   ```xml
-   <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-       <body>
-           <referenceContainer name="content">
-               ...
-               <uiComponent name="customer_form"/>
-           </referenceContainer>
-       </body>
-   </page>
-   ```
+   *  Add a component in Magento [layout](https://glossary.magento.com/layout) as a node: `<uiComponent name="customer_form"/>`
+
+```xml
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            ...
+            <uiComponent name="customer_form"/>
+        </referenceContainer>
+    </body>
+</page>
+```
 
 ### Configure the component
 

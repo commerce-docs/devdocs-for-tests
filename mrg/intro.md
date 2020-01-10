@@ -1,18 +1,8 @@
 ---
-group: module-reference-guide
-title: Introduction to Module Reference Guide
-landing-page: Module Reference Guide
+title: Introduction to the Module Reference Guide
 ---
 
-The [Module](https://glossary.magento.com/module) Reference Guide contains information about Magento modules of {{site.data.var.ce}}
- and {{site.data.var.ee}}.
-
-The information includes:
-
--  module description
--  API description
-
-Information is being published gradually, until we complete work on automation of the process.
+The [Module](https://glossary.magento.com/module) Reference Guide contains brief descriptions for the modules specific to {{site.data.var.ce}}, {{site.data.var.ee}}, and {{site.data.var.b2b}}. The topics are generated from the corresponding READMEs that were pulled in from the Magento codebase.
 
 {:.ref-header}
 Related topics

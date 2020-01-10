@@ -28,6 +28,22 @@ Each [theme](https://glossary.magento.com/theme) resides in a unique directory a
 
 For an extensive introduction to theme elements and an overview of how to extend and override the default Magento themes, see the [Frontend Developer Guide][].
 
+## GraphQL
+
+GraphQL is a data query language developed internally by Facebook in 2012 before being publicly released in 2015. Magento implements GraphQL to provide an alternative to REST and SOAP web APIs for frontend development.
+
+GraphQL allows you to define the structure of the data that you need, and the server returns only the data you request. Each GraphQL-capable module contains a declarative schema that defines the syntax for queries that the module supports, as well as the attributes that can be returned. If you run a REST call such as GET /V1/products/:sku on a simple product, the system might fetch more than 100 lines of data. If all you need is the current price, the call has returned significantly more information than you need. With GraphQL, a query against the same SKU could return just the price.
+
+More information can be found in the [GraphQL Developer Guide][].
+
+## Progressive Web Apps
+
+The Magento Progressive Web App (PWA) Studio project is a set of developer tools that allow you to develop, deploy, and maintain a PWA storefront on top of Magento 2.
+PWA is a way to present a Magento storefront via a set of React JavaScript components.
+Using Magento as a headless backend, you can use PWA components to create mobile friendly frontend.
+
+You can read more about how PWA works with Magento in the [PWA Studio docs][].
+
 ## View model
 
 Magento generates the [HTML](https://glossary.magento.com/html) for a page to display to a user from a tree of view elements.
@@ -64,3 +80,5 @@ Related topics
 
 <!-- Link definitions -->
 [Frontend Developer Guide]: {{page.baseurl}}/frontend-dev-guide/bk-frontend-dev-guide.html
+[GraphQL Developer Guide]: {{ page.baseurl }}/graphql/
+[PWA Studio docs]: http://pwastudio.io
