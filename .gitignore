@@ -24,7 +24,7 @@ _algolia_api_key
 # Versioned docs #
 ###################################
 
-/src/guides
+/src/guides/
 
 
 # Docs from different repositories #
@@ -33,5 +33,5 @@ _algolia_api_key
 /src/mbi/
 /src/page-builder/
 /src/page-builder-migration/
-/src/guides/m1x/
+# /src/guides/m1x/
 /src/mftf/
