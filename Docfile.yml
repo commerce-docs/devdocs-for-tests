@@ -1,4 +1,15 @@
-content_map:
+version_map:
+
+-
+  directory: src/guides/v2.2
+  branch: '2.2'
+
+# -
+#   directory: src/guides/v2.3
+#   branch: '2.3'
+
+repository_map:
+
 -
   directory: src/guides/m1x
   repository: magento/devdocs-m1
@@ -24,4 +35,3 @@ content_map:
   repository: magento/magento2-page-builder-data-migration
   branch: 1.0.0-release
   filter: true
-

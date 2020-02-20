@@ -21,6 +21,12 @@ _config.local.yml
 
 _algolia_api_key
 
+# Versioned docs #
+###################################
+
+/src/guides
+
+
 # Docs from different repositories #
 ###################################
 
