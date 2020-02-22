@@ -3,6 +3,9 @@ version_map:
 -
   directory: src/guides/v2.3
   branch: '2.3.5-develop'
+-
+  directory: src/guides/v2.4
+  branch: '2.4'
 
 repository_map:
 
