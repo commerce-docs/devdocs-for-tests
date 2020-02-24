@@ -26,6 +26,19 @@ namespace :multiversion do
       remove_version(version['directory'])
     end
   end
+
+  desc 'Add versioned content by version and branch. Example: rake multiversion:add version=2.3 branch=2.3.5-develop'
+  task :add do
+    # Get provided arguments
+    version = ENV['version']
+    branch = ENV['branch']
+
+    # Assemble the path where to checkout the tree by version, such as 'src/guides/v2.3'.
+    directory = File.join('src', 'guides', 'v'+version)
+
+    # Create a new tree and checkout the provided branch to the directory.
+    add_version(directory, branch)
+  end
 end
 
 def versions
