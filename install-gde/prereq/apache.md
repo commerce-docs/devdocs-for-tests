@@ -1,9 +1,6 @@
 ---
 group: installation-guide
-subgroup: Prerequisites
 title: Apache
-menu_title: Apache
-menu_order: 1
 functional_areas:
   - Install
   - System
@@ -12,16 +9,16 @@ functional_areas:
 
 ## Apache versions supported {#apache-support}
 
-Magento requires Apache 2.2.x or 2.4.x.
+Magento supports Apache 2.4.x.
 
-## Help if you're just starting out {#apache-help-beginner}
+## Help if you are just starting out {#apache-help-beginner}
 
 If you're new to all this and need some help getting started, we suggest the following:
 
-*  [Is the Magento software installed already?]({{ page.baseurl }}/install-gde/basics/basics_magento-installed.html)
-*  [What is the software that the Magento server needs to run?]({{ page.baseurl }}/install-gde/basics/basics_software.html)
-*  [What operating system is my server running?]({{ page.baseurl }}/install-gde/basics/basics_os-version.html)
-*  [How do I log in to my Magento server using a terminal, command prompt, or SSH?]({{ page.baseurl }}/install-gde/basics/basics_login.html)
+*  [Is the Magento software installed already?]({{page.baseurl }}/install-gde/basics/basics_magento-installed.html)
+*  [What is the software that the Magento server needs to run?]({{page.baseurl }}/install-gde/basics/basics_software.html)
+*  [What operating system is my server running?]({{page.baseurl }}/install-gde/basics/basics_os-version.html)
+*  [How do I log in to my Magento server using a terminal, command prompt, or SSH?]({{page.baseurl }}/install-gde/basics/basics_login.html)
 
 ## Important: Apache rewrites and .htaccess {#apache-help-rewrite}
 
@@ -37,12 +34,12 @@ Magento uses server rewrites and `.htaccess` to provide directory-level instruct
 {% include install/allowoverrides22.md %}
 {% endcollapsible %}
 
- {:.bs-callout-info}
+{:.bs-callout-info}
 Failure to enable these settings typically results in no styles displaying on your storefront or Admin.
 
 ## Verify the Apache version {#install-prereq-apache-verify}
 
-To verify the Apache version you are currently running, enter:
+To verify the Apache version you're currently running, enter:
 
 ```bash
 apache2 -v
@@ -65,11 +62,12 @@ Server built: Jul 22 2014 14:35:32
 The following sections discusses how to install or upgrade Apache:
 
 *  Install Apache
-*  Upgrade to Apache 2.4 on Ubuntu 12 to use PHP 5.6 or PHP 7
+*  Upgrade to Apache 2.4 on Ubuntu 12 to use PHP 7+
 
 ### Installing Apache on Ubuntu 16, 14, or 12 {#install-prereq-apache-ubuntu-install}
+
 {% collapsible Click to show/hide content %}
-To install the default version of Apache (Ubuntu 14, 16&mdash;Apache 2.4, Ubuntu 12&mdash;Apache 2.2):
+To install the default version of Apache (Ubuntu 14, 16---Apache 2.4, Ubuntu 12---Apache 2.2):
 
 1. Install Apache
 
@@ -93,9 +91,11 @@ To install the default version of Apache (Ubuntu 14, 16&mdash;Apache 2.4, Ubuntu
 1. Enable rewrites and `.htaccess` as discussed in the following sections.
 
 ### Enable rewrites and .htaccess for Apache 2.4
+
 {% include install/allowoverrides24.md %}
 
 ### Enable rewrites and .htaccess for Apache 2.2
+
 {% include install/allowoverrides22.md %}
 
 {:.ref-header}
@@ -110,28 +110,33 @@ Next steps
 ### Upgrading Apache on Ubuntu 12 {#install-prereq-apache-ubuntu-upgrade}
 
 {% collapsible Click to show/hide content %}
-To use PHP 5.6 on Ubuntu 12, you must upgrade Apache to version 2.4. (By default, Ubuntu 12 comes with Apache 2.2., which is EOL)
+
+To use PHP 5.6 on Ubuntu 12, you must upgrade Apache to version 2.4. (By default, Ubuntu 12 comes with Apache 2.2.)
 
 To upgrade to Apache 2.4:
 
 1. Add the `ppa:ondrej` repository, which has Apache 2.4:
 
    ```bash
-   apt-add-repository ppa:ondrej/apache2
+   apt-get -y update
    ```
 
-1. Install Apache 2.4:
+   ```bash
+   apt-add-repository ppa:ondrej/apache2
+   ```
 
    ```bash
    apt-get -y update
    ```
 
+1. Install Apache 2.4:
+
    ```bash
    apt-get install -y apache2
    ```
 
-    {:.bs-callout-info}
-   If the `apt-get install` command fails because of unmet dependencies, consult a resource like [http://askubuntu.com](http://askubuntu.com/questions/140246/how-do-i-resolve-unmet-dependencies-after-adding-a-ppa){:target="_blank"}.
+   {:.bs-callout-info}
+   If the 'apt-get install' command fails because of unmet dependencies, consult a resource like [http://askubuntu.com](http://askubuntu.com/questions/140246/how-do-i-resolve-unmet-dependencies-after-adding-a-ppa){:target="_blank"}.
 
 1. Verify the installation.
 
@@ -190,10 +195,11 @@ Installing and configuring Apache is basically a three-step process: install the
 
 1. Continue with the next section.
 
-    {:.bs-callout-info}
+   {:.bs-callout-info}
    Even though Apache 2.4 is provided by default with CentOS 7, you configure it like Apache 2.2. See the following section.
 
 ### Enable rewrites and .htaccess for Apache 2.2 (including CentOS 7)
+
 {% include install/allowoverrides22.md %}
 
 {:.ref-header}
@@ -228,7 +234,7 @@ For example:
 </Directory>
 ```
 
- {:.bs-callout-info}
+{:.bs-callout-info}
 The preceding values for `Order` might not work in all cases. For more information, see the [Apache documentation](https://httpd.apache.org/docs/2.4/mod/mod_access_compat.html#order){:target="_blank"}.
 
 ### Solving 403 Forbidden errors for Apache 2.2 {#apache-error-2-2}
@@ -246,15 +252,15 @@ For example:
 </Directory>
 ```
 
- {:.bs-callout-info}
+{:.bs-callout-info}
 The preceding values for `Order` might not work in all cases. For more information, see the [Apache documentation](https://httpd.apache.org/docs/2.2/mod/mod_authz_host.html#order){:target="_blank"}.
 {% endcollapsible %}
 
 {:.ref-header}
 Related topics
 
-*  [PHP]({{ page.baseurl }}/install-gde/prereq/php-settings.html)
-*  [MySQL]({{ page.baseurl }}/install-gde/prereq/mysql.html)
-*  [Configuring security options]({{ page.baseurl }}/install-gde/prereq/security.html)
-*  [Installing optional software]({{ page.baseurl }}/install-gde/prereq/optional.html)
+*  [PHP]({{page.baseurl}}/install-gde/prereq/php-settings.html)
+*  [MySQL]({{page.baseurl}}/install-gde/prereq/mysql.html)
+*  [Configuring security options]({{page.baseurl }}/install-gde/prereq/security.html)
+*  [Installing optional software]({{page.baseurl }}/install-gde/prereq/optional.html)
 *  [Determine your installation or upgrade path]({{ page.baseurl }}/install-gde/bk-install-guide.html)

@@ -60,7 +60,7 @@ To extract the archive:
 
 1. Click **Web Root**.
 
-  ![]({{ site.baseurl }}/common/images/install-merch_file-manager-setup.png){:width="550px"}
+   ![]({{ site.baseurl }}/common/images/install-merch_file-manager-setup.png){:width="550px"}
 
 1. Click **Go**.
 
@@ -81,4 +81,4 @@ To extract the archive:
 {:.ref-header}
 Related topics
 
-[Install the Magento software]({{ page.baseurl }}/install-gde/install/hosted/hosted_install.html)
+[Install the Magento software]({{page.baseurl }}/install-gde/install/hosted/hosted_install.html)

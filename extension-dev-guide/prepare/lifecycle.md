@@ -34,7 +34,7 @@ If the `schema_version` for your module is found in the `setup_module` table, Ma
 **Example:** InstallSchema.php
 
 ```php
-class \VendorName\ModuleName\Setup\InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
+class VendorName\ModuleName\Setup\InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
 {
     /**
      * {@inheritdoc}
@@ -175,41 +175,55 @@ class \VendorName\ModuleName\Setup\RecurringData implements \Magento\Framework\S
 Use the [`ModuleDataSetupInterface`] when you need to do database manipulations.
 If your installation or upgrade logic spans multiple classes, pass this resource on to other classes that need to modify the database.
 
-**Example:** [Customer module's InstallData.php]
+**Example:** [Customer module's DefaultCustomerGroupsAndAttributes.php]
 
 ```php
-class InstallData implements InstallDataInterface
+class DefaultCustomerGroupsAndAttributes implements DataPatchInterface, PatchVersionInterface
 {
     /**
-     * Customer setup factory
-     *
      * @var CustomerSetupFactory
      */
     private $customerSetupFactory;
     /**
-     * Init
-     *
-     * @param CustomerSetupFactory $customerSetupFactory
+     * @var ModuleDataSetupInterface
      */
-    public function __construct(CustomerSetupFactory $customerSetupFactory)
-    {
+    private $moduleDataSetup;
+    /**
+     * DefaultCustomerGroupsAndAttributes constructor.
+     * @param CustomerSetupFactory $customerSetupFactory
+     * @param ModuleDataSetupInterface $moduleDataSetup
+     */
+    public function __construct(
+        CustomerSetupFactory $customerSetupFactory,
+        \Magento\Framework\Setup\ModuleDataSetupInterface $moduleDataSetup
+    ) {
         $this->customerSetupFactory = $customerSetupFactory;
+        $this->moduleDataSetup = $moduleDataSetup;
     }
     /**
      * {@inheritdoc}
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
-    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    public function apply()
     {
         /** @var CustomerSetup $customerSetup */
-        $customerSetup = $this->customerSetupFactory->create(['setup' => $setup]);
-        $setup->startSetup();
+        $customerSetup = $this->customerSetupFactory->create(['setup' => $this->moduleDataSetup]);
         ...
         $customerSetup->installEntities();
         $customerSetup->installCustomerForms();
         $disableAGCAttribute = $customerSetup->getEavConfig()->getAttribute('customer', 'disable_auto_group_change');
         ...
-    $setup->endSetup();
+        $migrationSetup = $this->moduleDataSetup->createMigrationSetup();
+        $migrationSetup->appendClassAliasReplace(
+            'customer_eav_attribute',
+            'data_model',
+            Migration::ENTITY_TYPE_MODEL,
+            Migration::FIELD_CONTENT_TYPE_PLAIN,
+            ['attribute_id']
+        );
+        $migrationSetup->doUpdateClassAliases();
     }
+    ...
 }
 ```
 
@@ -261,6 +275,7 @@ In this phase, your module should remove all traces of its existence in the data
 | **Method**     | `uninstall()`          |
 
 **Example:** Uninstall.php
+
 ```php
 class \VendorName\ModuleName\Setup\Uninstall implements \Magento\Framework\Setup\UninstallInterface
 {
@@ -292,7 +307,7 @@ Avoid this situation by not including dependencies in your uninstall event class
 [`InstallDataInterface`]: {{ site.mage2bloburl }}/{{page.guide_version}}/lib/internal/Magento/Framework/Setup/InstallDataInterface.php
 [`UpgradeDataInterface`]: {{ site.mage2bloburl }}/{{page.guide_version}}/lib/internal/Magento/Framework/Setup/UpgradeDataInterface.php
 [`ModuleDataSetupInterface`]: {{ site.mage2bloburl }}/{{page.guide_version}}/lib/internal/Magento/Framework/Setup/ModuleDataSetupInterface.php
-[Customer module's InstallData.php]: {{ site.mage2bloburl }}/{{page.guide_version}}/app/code/Magento/Customer/Setup/InstallData.php
+[Customer module's DefaultCustomerGroupsAndAttributes.php]: {{ site.mage2bloburl }}/{{page.guide_version}}/app/code/Magento/Customer/Setup/Patch/Data/DefaultCustomerGroupsAndAttributes.php
 [`ModuleContextInterface`]: {{ site.mage2bloburl }}/{{page.guide_version}}/lib/internal/Magento/Framework/Setup/ModuleContextInterface.php
 [User module's UpgradeData.php]: {{ site.mage2bloburl }}/2.2/app/code/Magento/User/Setup/UpgradeData.php
 [Component Manager]: {{ page.baseurl }}/comp-mgr/module-man/compman-uninst-final.html

@@ -17,4 +17,5 @@ The following diagram illustrates the components and shows the "layers" or tiers
 {:.ref-header}
 Related topics
 
-*  [Architecture layers overview]({{page.baseurl}}/architecture/archi_perspectives/ALayers_intro.html)
+-  [Architecture layers overview]({{page.baseurl}}/architecture/archi_perspectives/ALayers_intro.html)
+-  [Service Isolation](https://github.com/magento/architecture/blob/master/design-documents/service-isolation.md)

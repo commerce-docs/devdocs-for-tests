@@ -9,7 +9,7 @@ return_to:
 menu_order: 10
 level3_subgroup: order-tutorial
 redirect_from:
-  - /guides/v2.2/get-started/order-tutorial/order-issue-refund.html
+  - /guides/v2.3/get-started/order-tutorial/order-issue-refund.html
 functional_areas:
   - Integration
   - Orders
@@ -76,11 +76,12 @@ A [credit memo](https://glossary.magento.com/credit-memo) id, such as `3`.
 Log in to [Admin](https://glossary.magento.com/admin). Click **Sales** > **Credit Memos**. The credit memo is displayed in the grid.
 
 ## Congratulations! You've finished.
+{:.no_toc}
 
 {:.ref-header}
 Related topics
 
 *  [Getting Started with Magento Web APIs]({{ page.baseurl }}/get-started/bk-get-started-api.html)
-*  [Create a configurable product Tutorial]({{ site.baseurl }}/guides/v2.2/rest/tutorials/configurable-product/config-product-intro.html)
+*  [Create a configurable product Tutorial]({{ page.baseurl }}/rest/tutorials/configurable-product/config-product-intro.html)
 *  [REST API Reference Overview]({{ page.baseurl }}/rest/bk-rest.html)
-*  [REST API documentation]({{ site.baseurl }}/swagger/){:target="_blank"}
+*  [REST API documentation]({{site.baseurl}}/redoc/{{page.guide_version}}/)

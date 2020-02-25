@@ -9,59 +9,47 @@ functional_areas:
 
 We recommend using the following software for production instances of Magento:
 
-*  [PHP]({{ page.baseurl }}/install-gde/system-requirements-tech.html#php)
+*  [PHP]({{page.baseurl}}/install-gde/system-requirements-tech.html#php)
 *  Nginx and [PHP-FPM](https://php-fpm.org/)
-*  [MySQL]({{ page.baseurl }}/install-gde/prereq/mysql.html)
-*  [Varnish cache]({{ page.baseurl }}/config-guide/varnish/config-varnish.html)
-*  ({{site.data.var.ee}} only) Use the [Elasticsearch & Elasticsearch Search Adapter]({{ page.baseurl }}/config-guide/elasticsearch/es-overview.html)
+*  [MySQL]({{page.baseurl}}/install-gde/prereq/mysql.html)
+*  [Varnish cache]({{page.baseurl}}/config-guide/varnish/config-varnish.html)
+*  [Elasticsearch & Elasticsearch Search Adapter]({{page.baseurl}}/config-guide/elasticsearch/es-overview.html)
 
 For multi-server deployments, or for merchants planning on scaling their business, we recommend the following:
 
-*  [Redis]({{ page.baseurl }}/config-guide/redis/redis-session.html) for sessions (from 2.0.6+)
-*  A separate Redis instance as your [default cache]({{ page.baseurl }}/config-guide/redis/redis-pg-cache.html) (do not use this instance for page cache)
+*  [Redis]({{page.baseurl}}/config-guide/redis/redis-session.html) for sessions (from 2.0.6+)
+*  A separate Redis instance as your [default cache]({{page.baseurl}}/config-guide/redis/redis-pg-cache.html) (do not use this instance for page cache)
 
-See [Magento 2.2.x technology stack requirements]({{ page.baseurl }}/install-gde/system-requirements-tech.html) for information about supported versions of each type of software.
+See [Magento 2.2.x technology stack requirements]({{page.baseurl}}/install-gde/system-requirements-tech.html) for information about supported versions of each type of software.
 
 ## Operating system
 
 Operating system configurations and optimizations are similar for Magento as other high-load web applications. As the number of concurrent connections handled by the server increases, the number of available sockets can become fully allocated. The Linux kernel supports a mechanism to "reuse" and "recycle" TCP connections. Be aware that more aggressive recycling than re-use may cause issues on the load balancers. To enable these kernel settings, set the following values in `/etc/sysctl.conf`:
 
-```conf
+```terminal
 net.ipv4.tcp_tw_recycle = 1
 net.ipv4.tcp_tw_reuse = 1
 ```
 
 The kernel parameter `net.core.somaxconn` controls the maximum number of open sockets waiting for connections. This value can be safely increased to 1024, but it should be correlated with the ability of the server to handle this amount. To enable this kernel parameter, set the following value in `/etc/sysctl.conf`:
 
-```conf
-net.core.somaxconn = 1024
-```
+`net.core.somaxconn = 1024`
 
 ## PHP
 
-Magento 2.2 fully supports 7.0.13 and higher as well as 7.1.x. There are several factors to account for when configuring PHP to get maximum speed and efficiency on requests processing.
+Magento fully supports PHP 7.2.11. There are several factors to account for when configuring PHP to get maximum speed and efficiency on requests processing.
 
 ### PHP extensions
 
 We recommend limiting the list of active PHP extensions to those that are required for Magento functionality:
 
-*  `php-bcmath`
-*  `php-cli`
-*  `php-common`
-*  `php-curl`
-*  `php-gd`
-*  `php-intl`
-*  `php-mbstring`
-*  `php-mcrypt`
-*  `php-opcache`
-*  `php-openssl`
-*  `php-pdo`
-*  `php-soap`
-*  `php-xml`
-*  `php-xsl`
-*  `php-zip`
+<!--{% assign platform-req = site.data.codebase.v2_3.open-source.composer_lock.platform %}-->
+{% include install/php-extensions-template.md %}
 
 Adding more extensions increases library load times.
+
+ {:.bs-callout-info}
+`php-mcrypt` has been removed from PHP 7.2 and replaced with the [`sodium` library](https://www.php.net/manual/en/book.sodium.php). Ensure that [sodium](https://www.php.net/manual/en/sodium.installation.php) is properly enabled when upgrading to PHP 7.2.
 
  {:.bs-callout-info}
 The presence of any profiling and debugging extensions can negatively impact the response time of your pages. As an example, an active xDebug module without any debug session can increase the page response time by up to 30%.
@@ -70,27 +58,25 @@ The presence of any profiling and debugging extensions can negatively impact the
 
 To guarantee successful execution of all Magento instances without dumping data or code to disk, set the memory limit as follows:
 
-```conf
-memory_limit=768MB
-```
+`memory_limit=768MB`
 
 #### ByteCode
 
 To get maximum speed out of Magento 2 on PHP7, you must activate the OpCache module and properly configure it. These settings are recommended for the module:
 
 ```bash
-opcache.memory_consumption=512MB
-opcache.max_accelerated_files=60000
-opcache.consistency_checks=0
-opcache.validate_timestamps=0
-opcache.enable_cli=1
+  opcache.memory_consumption=512MB
+  opcache.max_accelerated_files=60000
+  opcache.consistency_checks=0
+  opcache.validate_timestamps=0
+  opcache.enable_cli=1
 ```
 
 When you fine-tune the memory allocation for opcache, take into account the size of Magento’s code base and all your extensions. Magento’s performance team uses the values in the preceding example for testing because it provides enough space in opcache for the average number of installed extensions.
 
 If you have a low-memory machine and you do not have many extensions or customizations installed, use the following settings to get a similar result:
 
-```conf
+```bash
 opcache.memory_consumption=64
 opcache.max_accelerated_files=60000
 ```
@@ -99,7 +85,7 @@ opcache.max_accelerated_files=60000
 
 We recommend enabling the [PHP APCu extension](https://getcomposer.org/doc/articles/autoloader-optimization.md#optimization-level-2-b-apcu-cache) and [configuring `composer` to support it]({{ page.baseurl }}/performance-best-practices/deployment-flow.html#preprocess-dependency-injection-instructions) to optimize for maximum performance. This extension caches file locations for opened files, which increases performance for Magento server calls including pages, Ajax calls, and endpoints.
 
-Edit your `apcu.ini` configuration file to add the APCu extension module:
+Edit your `apcu.ini` file to include the following:
 
 ```text
 extension=apcu.so
@@ -148,7 +134,7 @@ Magento distributes a sample configuration file for Varnish (versions 4 and 5) t
 *  **Grace mode** allows you to instruct Varnish to keep an object in cache beyond its Time to Live (TTL) period and serve this stale content if Magento is not healthy or if fresh content hasn’t been fetched yet.
 *  **Saint mode** blacklists unhealthy Magento servers for a configurable amount of time. As a result, unhealthy backends cannot serve traffic when using Varnish as a load balancer.
 
-See [Advanced Varnish configuration]({{ page.baseurl }}/config-guide/varnish/config-varnish-advanced.html) for more information about implementing these features.
+See [Advanced Varnish configuration]({{page.baseurl}}/config-guide/varnish/config-varnish-advanced.html) for more information about implementing these features.
 
 ### Optimize asset performance
 

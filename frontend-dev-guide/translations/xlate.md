@@ -35,9 +35,13 @@ Localizing Magento storefronts and the Admin panel gives your company global pre
 
 *  Magento supports two types of language packages:
 
-   *  Translated Module and theme packages. Magento auto-discovers packages included in the `i18n` directory of a module or theme. When installing themes and extensions, consider checking for multiple language versions to download and use.
+   *  Translated Module and theme packages.
 
-   *  An entire dictionary in one directory. Use and distribute the dictionary as a standalone component (similar to modules and themes).
+      Magento auto-discovers packages included in the `i18n` directory of a module or theme. When installing themes and extensions, consider checking for multiple language versions to download and use.
+
+   *  An entire dictionary in one directory.
+
+      Use and distribute the dictionary as a standalone component (similar to modules and themes).
 
 *  Customize the default strings in Magento. For example, changing "Add to Wish List" to "Wish List".
 *  Use ready-to-use language packages prepared by other users or create your own. The [Magento Marketplace] offers language packs to download and install.
@@ -70,7 +74,7 @@ To translate names, titles, and phrases used in Magento:
 1. Translate the terms.
 1. If desired, package your translations in a [language package].
 
-{:.bs-callout-info}
+ {:.bs-callout-info}
 Only one variant of translation can be used for a word or phrase in a package. Otherwise, Magento returns an error.
 
 Anyone can submit inline translations on the [storefront](https://glossary.magento.com/storefront) using the Text Editor. These inline translations overwrite a dictionary and save to your database (not in an instance's dictionary). Inline translations are theme-specific and do not apply if another theme is assigned.
@@ -96,9 +100,12 @@ Assembling the preceding `pt_BR.csv` files across all modules and the current th
 
 ### Dictionary generator tool {#m2devgde-xlate-generatortool}
 
-You can generate a translation dictionary to use by itself (for example, to translate words and phrases in a custom module) or for use by a [language package](https://glossary.magento.com/language-package). See [dictionary generator tool].
+You can generate a translation dictionary to use by itself (for example, to translate words and phrases in a custom module) or for use by a [language package](https://glossary.magento.com/language-package). For more information, see [dictionary generator tool - We intend to publish more information on this technique at a later time].
 
 ## Language packages {#m2devgde-xlate-languagepack}
+
+{:.bs-callout-tip}
+Existing language packages can be installed using the [Extension Manager]({{ page.baseurl}}/comp-mgr/extens-man/extensman-main-pg.html) or [Composer]({{ site.baseurl }}/cloud/howtos/install-components.html) like any other extension. You can search for package names on Packagist.
 
 Magento enables you to create the following types of language packages:
 
@@ -127,13 +134,14 @@ Magento enables you to create the following types of language packages:
 
 *  Language packages that contain a entire dictionary in one directory.
 
-You can distribute this language package as a standalone component (similar to modules and themes). Interestingly, it violates Magento's modularity principles on purpose; that is, so that a system integrator can translate variations provided by extensions.
+   You can distribute this language package as a standalone component (similar to modules and themes). Interestingly, it violates Magento's modularity principles on purpose; that is, so that a system integrator can translate variations provided by extensions.
 
 In addition to the `.csv` file that contains the language dictionary, the language package contains meta-information:
 
 *  `composer.json` that contains any dependencies for the language package and a mapping to its defined [locale](https://glossary.magento.com/locale). [Sample composer.json]({{ page.baseurl }}/extension-dev-guide/package/package_module.html#sample-composerjson-file).
 
-*  `language.xml`, in which you declare a language package. [Sample language.xml]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-i18n.html#config-cli-subcommands-xlate-example2).
+*  `language.xml`, in which you declare a language package.
+   [Sample language.xml]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-i18n.html#config-cli-subcommands-xlate-example2).
 
 ## Community Engineering Translations project {#translations-project}
 

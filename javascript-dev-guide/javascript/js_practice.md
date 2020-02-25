@@ -1,10 +1,7 @@
 ---
 group: javascript-developer-guide
-subgroup: 1_Javascript
 title: Customizing JavaScript illustration
 ---
-
-## Overview {#practice_overview}
 
 This topic features a step-by-step illustration of how to customize a [jQuery](https://glossary.magento.com/jquery) [widget](https://glossary.magento.com/widget) and how to use a custom widget instead the default Magento one.
 
@@ -37,12 +34,12 @@ To be able to extend `gallery.js`, OrangeCo needs to know the path to it. To get
 
 ### Step 2: Add the custom widget extending the gallery widget {#add_code1}
 
-In the `app/design/OrangeCo/orange/web/js` OrangeCo adds `orange-gallery.js` with the following content:
+In the `app/design/frontend/OrangeCo/orange/web/js` OrangeCo adds `orange-gallery.js` with the following content:
 
 ```javascript
 define([
   'jquery',
-  'jquery/ui',
+  'jquery-ui-modules/widget',
   'mage/gallery'
 ], function($){
 
@@ -91,7 +88,7 @@ Using the approach described in the previous section, OrangeCo defines that the 
 For the jCarousel widget to be able to use the configuration passed to the gallery widget,
 OrangeCo needs to add a "wrapper" script.
 
-To do this, OrangeCo adds the following files in the `app/design/OrangeCo/orange/web/js` directory:
+To do this, OrangeCo adds the following files in the `app/design/frontend/OrangeCo/orange/web/js` directory:
 
 -  The jCarousel widget source file: `jquery.jcarousel.js`
 -  A \"wrapper\" `orange-carousel.js` with the following content:
@@ -129,7 +126,8 @@ var config = {
 };
 ```
 
-## Recommended reading
+{:.ref-header}
+Recommended reading
 
 [Use custom JavaScript]
 

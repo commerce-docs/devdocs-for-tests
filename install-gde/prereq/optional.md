@@ -6,7 +6,7 @@ functional_areas:
   - System
   - Setup
 redirect_from:
-  - guides/v2.2/install-gde/trouble/php/tshoot_phpini.html
+  - guides/v2.3/install-gde/trouble/php/tshoot_phpini.html
 ---
 
 ## Magento optional software {#install-optional-intro}
@@ -16,7 +16,8 @@ We strongly recommend you install NTP because otherwise, cron-related tasks migh
 The other optional utilities discussed in this topic might assist you with your installation; however, they are not required to install or use Magento.
 
 ## Installing and Configuring Network Time Protocol (NTP) {#install-optional-ntp}
-[NTP](http://www.ntp.org) enables servers to synchronize their system clocks using [globally available pool servers](http://www.pool.ntp.org/en){:target="_blank"}. Magento recommends you use NTP servers you trust, whether they are dedicated hardware solutions your internal network or external, public servers.
+
+[NTP](http://www.ntp.org){:target="_blank"} enables servers to synchronize their system clocks using [globally available pool servers](http://www.pool.ntp.org/en){:target="_blank"}. Magento recommends you use NTP servers you trust, whether they are dedicated hardware solutions your internal network or external, public servers.
 
 If you are deploying Magento on multiple hosts, NTP is a simple way to guarantee their clocks are all synchronized, no matter what time zone the servers are in. Also, cron-related tasks (such as indexing and transactional e-mails) depend on the server clock being accurate.
 
@@ -34,7 +35,7 @@ Enter the following command to install NTP:
 apt-get install ntp
 ```
 
-Continue with [Use NTP pool servers](#install-optional-ntp-servers)
+Continue with [Use NTP pool servers](#install-optional-ntp-servers).
 
 ### Install and configure NTP on CentOS {#install-optional-ntp-centos}
 
@@ -130,7 +131,7 @@ If a 404 (Not Found) error displays, check the following:
 *  Start the web server if necessary.
 *  Make sure your firewall allows traffic on port 80.
 
-   [Help for Ubuntu](https://help.ubuntu.com/community/UFW){:target="_blank"}
+   [Help for Ubuntu](https://help.ubuntu.com/community/UFW)
 
    [Help for CentOS](http://wiki.centos.org/HowTos/Network/IPTables){:target="_blank"}
 
@@ -240,8 +241,8 @@ To install phpmyadmin on CentOS:
 {:.ref-header}
 Related topics
 
-*  [Apache]({{ page.baseurl }}/install-gde/prereq/apache.html)
-*  [PHP]({{ page.baseurl }}/install-gde/prereq/php-settings.html)
-*  [MySQL]({{ page.baseurl }}/install-gde/prereq/mysql.html)
-*  [Configuring security options]({{ page.baseurl }}/install-gde/prereq/security.html)
+*  [Apache]({{page.baseurl }}/install-gde/prereq/apache.html)
+*  [PHP]({{page.baseurl }}/install-gde/prereq/php-settings.html)
+*  [MySQL]({{page.baseurl }}/install-gde/prereq/mysql.html)
+*  [Configuring security options]({{page.baseurl }}/install-gde/prereq/security.html)
 *  [How to get the Magento software]({{ page.baseurl }}/install-gde/bk-install-guide.html)

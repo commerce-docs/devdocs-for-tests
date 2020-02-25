@@ -1,14 +1,7 @@
 ---
 group: web-api
-subgroup: 50_Testing
 title: Web API functional testing
-menu_title: Web API functional testing
-menu_order: 1
-menu_node: parent
 ---
-
-## Web API functional testing
-{:.no_toc}
 
 The Web [API](https://glossary.magento.com/api) testing framework allows you to test Magento [Web API](https://glossary.magento.com/web-api) from the client application point of view. The tests can be used with either REST or SOAP. The REST or SOAP [adapter](https://glossary.magento.com/adapter) that runs the tests is specified in PHPUnit configuration. See [How to Run the Tests](#howto) for more information.
 
@@ -20,10 +13,8 @@ The Web API functional testing framework depends on the integration testing fram
 
 In the Web API functional tests only, the custom annotation  `@magentoApiDataFixture` is available for declaring fixtures. The difference of this annotation from `@magentoDataFixture` is that the fixture will be committed and accessible during HTTP requests made within the test body. The usage rules of `@magentoApiDataFixture` are the same as `@magentoDataFixture` usage rules.
 
-<div class="a" id="info">
-
-<p>If data was added to the DB using <code>@magentoApiDataFixture</code>, it will not be automatically cleared after test execution. The data is cleared when <code>@magentoDataFixture</code> is used.</p>
-</div>
+{:.bs-callout-tip}
+If data was added to the DB using `@magentoApiDataFixture`, it will not be automatically cleared after test execution. The data is cleared when `@magentoDataFixture` is used.
 
 Do not define fixtures in `dev/tests/api-functional`. Instead, they must be taken from `dev/tests/integration`. The integration framework defines most necessary fixtures, and they should be reused during Web API functional testing. If the existing set of fixtures is insufficient, add new fixtures under `dev/tests/integration`. The fixtures will then be available for both testing frameworks.
 
@@ -93,6 +84,7 @@ interface AdapterInterface
 ```
 
 ## How to Run the Tests {#howto}
+
 ### Prerequisites {#prereq}
 
 1. Install the [PHP](https://glossary.magento.com/php) Soap [extension](https://glossary.magento.com/extension).
@@ -105,14 +97,12 @@ interface AdapterInterface
 
 ### Running the Tests {#running}
 
-1. Copy `/dev/tests/api-functional/phpunit.xml.dist` to `/dev/tests/api-functional/phpunit.xml`.
+1. Copy `/dev/tests/api-functional/phpunit_rest.xml.dist` and `phpunit_soap.xml.dist` to `/dev/tests/api-functional/phpunit_rest.xml` and `phpunit_soap.xml`.
 
-   a. Specify your Magento instance URL as a value of `TESTS_BASE_URL` in `phpunit.xml`.
-
-   b. Choose the required Web API adapter, `rest` or `soap`, to be used and specify it in `TESTS_WEB_API_ADAPTER`.
+1. Define the Magento instance URL as a value of `TESTS_BASE_URL`, Test Webservice User as value of `TESTS_WEBSERVICE_USER` and Test Webservice API key as value of `TESTS_WEBSERVICE_APIKEY` in copied file i.e. `phpunit_rest.xml` or `phpunit_soap.xml`.
 
 1. Copy `/dev/tests/api-functional/config/install-config-mysql.php.dist` to `/dev/tests/api-functional/config/install-config-mysql.php`.
 
-1. Configure your DB connection and install settings in `/dev/tests/api-functional/config/install-config-mysql.php`.  Specify the Magento database. The base URL to access this Magento instance must be specified in `phpunit.xml`.
+1. Configure your DB connection and install settings in `/dev/tests/api-functional/config/install-config-mysql.php`. Specify the Magento database. The base URL to access this Magento instance must be the same specified in the `phpunit_rest.xml` or `phpunit_soap.xml` file.
 
-1. Run `phpunit` using the `/dev/tests/api-functional/phpunit.xml` configuration file.
+1. Run `phpunit` using the `/dev/tests/api-functional/phpunit_rest.xml` or `/dev/tests/api-functional/phpunit_soap.xml` configuration file.

@@ -40,10 +40,10 @@ The  [braintree_error_mapping.xml]({{ site.mage2bloburl }}/{{ page.guide_version
 
 The message definitions are based on the [error_mapping.xsd]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Payment/etc/error_mapping.xsd) schema. Messages must comply with the following structure:
 
--  `message_list` &mdash; the root node. It can contain a list of specific messages
--  `message` &mdash; the node, which contains the customized message and two attributes
-   -  `code` &mdash; the error code returned from the payment gateway. The value can be numeric or string
-   -  `translate` &mdash; a boolean attribute that determines whether to collect all message translations
+-  `message_list` --- the root node. It can contain a list of specific messages
+-  `message` --- the node, which contains the customized message and two attributes
+   -  `code` --- the error code returned from the payment gateway. The value can be numeric or string
+   -  `translate` --- a boolean attribute that determines whether to collect all message translations
 
 ### Configure dependency injection
 
@@ -103,31 +103,40 @@ It has different responsibilities and should not map messages, because it works 
 It is the responsibility of a gateway command to call an appropriate service.
 
 For example, Magento provides a response validator for Braintree: [`\Magento\Braintree\Gateway\Validator\GeneralResponseValidator`]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Braintree/Gateway/Validator/GeneralResponseValidator.php).
-Its implementation allows to add additional validators.
+Its implementation allows to retrieve errors codes from a response.
 
-First, create a new validator. It can be a simple class with the `__invoke` method, because `GeneralResponseValidator` calls the validator as a function:
+First, create a new code provider. It can be a simple class with a public method that should return a list of error codes by the provided response:
 
 ```php
-class ErrorCodeValidator
+class ErrorCodeProvider
 {
     /**
-     * Invokes validation.
+     * Retrieves list of error codes from Braintree response.
      *
      * @param Successful|Error $response
      * @return array
      */
-    public function __invoke($response)
+    public function getErrorCodes($response): array
     {
+        $result = [];
         if (!$response instanceof Error) {
-            return [true, [__('Transaction is successful.')]];
+            return $result;
         }
 
-        return [false, $this->getErrorCodes($response->errors)];
+        /** @var ErrorCollection $collection */
+        $collection = $response->errors;
+
+        /** @var Validation $error */
+        foreach ($collection->deepAll() as $error) {
+            $result[] = $error->code;
+        }
+
+        return $result;
     }
 }
 ```
 
-Then add the created validator to a list of validators in the `GeneralResponseValidator` class:
+Then add the created provider as a dependency to the `GeneralResponseValidator` class:
 
 ```php
 class GeneralResponseValidator extends AbstractValidator
@@ -135,26 +144,35 @@ class GeneralResponseValidator extends AbstractValidator
     public function __construct(
         ResultInterfaceFactory $resultFactory,
         SubjectReader $subjectReader,
-        ErrorCodeValidator $errorCodeValidator
+        ErrorCodeProvider $errorCodeProvider
     ) {
         parent::__construct($resultFactory);
         $this->subjectReader = $subjectReader;
-        $this->errorCodeValidator = $errorCodeValidator;
+        $this->errorCodeProvider = $errorCodeProvider;
     }
 
-    protected function getResponseValidators()
+    public function validate(array $validationSubject)
     {
-        return [
-            function ($response) {
-                return [
-                    property_exists($response, 'success') && $response->success === true,
-                    [$response->message ?? __('Braintree error response.')]
-                ];
-            },
-            $this->errorCodeValidator
-        ];
+        /** @var Successful|Error $response */
+        $response = $this->subjectReader->readResponseObject($validationSubject);
+
+        $isValid = true;
+        $errorMessages = [];
+
+        foreach ($this->getResponseValidators() as $validator) {
+            $validationResult = $validator($response);
+
+            if (!$validationResult[0]) {
+                $isValid = $validationResult[0];
+                $errorMessages = array_merge($errorMessages, $validationResult[1]);
+            }
+        }
+        $errorCodes = $this->errorCodeProvider->getErrorCodes($response);
+
+        return $this->createResult($isValid, $errorMessages, $errorCodes);
     }
 }
 ```
 
-You can also add the validator as an anonymous function, but a separate class is better for testing purposes.
+The `GeneralResponseValidator` returns an implementation of [`\Magento\Payment\Gateway\Validator\ResultInterface`]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Payment/Gateway/Validator/ResultInterface.php)
+and the `\Magento\Payment\Gateway\Command\GatewayCommand` uses method `ResultInterface::getErrorCodes()` method to map error codes to user-friendly messages.

@@ -1,7 +1,6 @@
 ---
 group: configuration-guide
 title: Configure nginx and Elasticsearch
-ee_only: True
 functional_areas:
   - Configuration
   - Search
@@ -15,7 +14,7 @@ functional_areas:
 
 This section discusses how to configure nginx as an *unsecure* proxy so that Magento can use Elasticsearch running on this server. This section does not discuss setting up HTTP Basic authentication; that is discussed in [Secure communication with nginx](#es-ws-secure-nginx).
 
-{:.bs-callout-info}
+ {:.bs-callout-info}
 The reason the proxy is not secured in this example is it's easier to set up and verify. You can use TLS with this proxy if you want; to do so, make sure you add the proxy information to your secure server block configuration.
 
 See one of the following sections for more information:
@@ -27,7 +26,7 @@ See one of the following sections for more information:
 
 Make sure your global `/etc/nginx/nginx.conf` contains the following line so it loads the other configuration files discussed in the following sections:
 
-```terminal
+```conf
 include /etc/nginx/conf.d/*.conf;
 ```
 
@@ -39,10 +38,10 @@ This section discusses how to specify who can access the [nginx](https://glossar
 
    ```conf
    server {
-     listen 8080;
-     location / {
-      proxy_pass http://localhost:9200;
-     }
+      listen 8080;
+      location /_cluster/health {
+         proxy_pass http://localhost:9200/_cluster/health;
+      }
    }
    ```
 
@@ -130,20 +129,8 @@ To create a password:
    htpasswd -c /etc/nginx/passwd/.<filename> <username>
    ```
 
-    {:.bs-callout-info}
-   For security reasons, `<filename>` should be hidden; that is, it must start with a period. An example follows.
-
-   Example:
-
-   ```bash
-   mkdir -p /etc/nginx/passwd
-   ```
-
-   ```bash
-   htpasswd -c /etc/nginx/passwd/.magento_elasticsearch magento_elasticsearch
-   ```
-
-   Follow the prompts on your screen to create the user's password.
+   {:.bs-callout-warning}
+   For security reasons, `<filename>` should be hidden; that is, it must start with a period.
 
 1. *(Optional).* To add another user to your password file, enter the same command without the `-c` (create) option:
 
@@ -158,36 +145,36 @@ To create a password:
 This section discusses how to specify who can access the nginx server.
 
 {:.bs-callout-warning}
-The example shown is for an _unsecure_ proxy. To use a secure proxy, add the following contents (except the listen port) to your secure server block.
+The example shown is for an *unsecure* proxy. To use a secure proxy, add the following contents (except the listen port) to your secure server block.
 
 Use a text editor to modify either `/etc/nginx/conf.d/magento_es_auth.conf` (unsecure) or your secure server block with the following contents:
 
 ```conf
 server {
- listen 8080;
- server_name 127.0.0.1;
+  listen 8080;
+  server_name 127.0.0.1;
 
- location / {
-  limit_except HEAD {
-    auth_basic "Restricted";
-    auth_basic_user_file  /etc/nginx/passwd/.htpasswd_magento_elasticsearch;
+  location / {
+   limit_except HEAD {
+      auth_basic "Restricted";
+      auth_basic_user_file  /etc/nginx/passwd/.htpasswd_magento_elasticsearch;
+   }
+   proxy_pass http://127.0.0.1:9200;
+   proxy_redirect off;
+   proxy_set_header Host $host;
+   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
-  proxy_pass http://127.0.0.1:9200;
-  proxy_redirect off;
-  proxy_set_header Host $host;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
- }
 
- location /_aliases {
-  auth_basic "Restricted";
-  auth_basic_user_file  /etc/nginx/passwd/.htpasswd_magento_elasticsearch;
-  proxy_pass http://127.0.0.1:9200;
-  proxy_redirect off;
-  proxy_set_header Host $host;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
- }
+  location /_aliases {
+   auth_basic "Restricted";
+   auth_basic_user_file  /etc/nginx/passwd/.htpasswd_magento_elasticsearch;
+   proxy_pass http://127.0.0.1:9200;
+   proxy_redirect off;
+   proxy_set_header Host $host;
+   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
 
- include /etc/nginx/auth/*.conf;
+  include /etc/nginx/auth/*.conf;
 }
 ```
 
@@ -227,7 +214,6 @@ This section discusses how to specify who can access the Elasticsearch server.
 
 {% include config/es-verify-proxy.md %}
 
-{:.ref-header}
-Next step
+#### Next
 
-[Configure Elasticsearch stopwords]({{ page.baseurl }}/config-guide/elasticsearch/es-config-stopwords.html)
+[Configure Elasticsearch stopwords]({{page.baseurl}}/config-guide/elasticsearch/es-config-stopwords.html)

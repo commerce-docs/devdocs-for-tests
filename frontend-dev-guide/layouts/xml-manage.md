@@ -18,6 +18,7 @@ This article describes the following typical [layout](https://glossary.magento.c
 -  [Reference a CMS block](#ref_cms_block)
 -  [Making the block visibility dynamic](#ref_config_block)
 -  [Create a block](#xml-manage-block)
+-  [Set body attributes](#layout_body_attributes)
 -  [Set the template used by a block](#set_template)
 -  [Modify block arguments](#layout_markup_modify-block)
 -  [Reference a block](#xml-manage-ref-block)
@@ -188,6 +189,23 @@ To wrap div or block using container see example:
 </container>
 ```
 
+To add new classes to the container:
+
+```xml
+<referenceContainer name="page.wrapper" htmlClass="my-new-page-wrapper-class second-class"/>
+```
+
+![Container Classes]({{ site.baseurl }}/common/images/container-classes-result.png)
+
+{:.bs-callout-warning}
+This method overrides existing classes.
+
+To add a new ID to the container:
+
+```xml
+<referenceContainer name="page.wrapper" htmlId="MyWrapper"/>
+```
+
 ## Create a block {#xml-manage-block}
 
 Blocks are created (declared) using the `<block>` instruction.
@@ -204,6 +222,53 @@ Example: add a block with a product [SKU](https://glossary.magento.com/sku) info
 </block>
 ```
 
+## Set body attributes {#layout_body_attributes}
+
+To set attributes for the HTML `body` tag use the `<attribute>` instruction.
+
+**Example:** Add a new class to the `body` tag.
+
+```xml
+<page>
+    <body>
+        <attribute name="class" value="my-new-body-class"/>
+    </body>
+</page>
+```
+
+**Example:** Add a custom attribute to the `body` tag.
+
+```xml
+<page>
+    <body>
+        <attribute name="data-role" value="my-body-role"/>
+    </body>
+</page>
+```
+
+**Example:** Add an id to the `body` tag.
+
+```xml
+<page>
+    <body>
+        <attribute name="id" value="my-new-body-id"/>
+    </body>
+</page>
+```
+
+{:.bs-callout-warning}
+It is not recommended to set the `body` id in layout files that have a wider impact (`e.g. default.xml`).
+
+**Example:** Add an inline style to the `body` tag.
+
+```xml
+<page>
+    <body>
+        <attribute name="style" value="opacity:0;"/>
+    </body>
+</page>
+```
+
 ## Reference a block {#xml-manage-ref-block}
 
 To update a block use the `<referenceBlock>` instruction.
@@ -218,6 +283,18 @@ Example: pass the image to the `logo` block.
 </referenceBlock>
 ```
 
+To add a new class to the block:
+
+```xml
+<referenceBlock name="page.main.title">
+    <arguments>
+        <argument name="css_class" xsi:type="string">my-new-block-class</argument>
+    </arguments>
+</referenceBlock>
+```
+
+![Block Class]({{ site.baseurl }}/common/images/block-class-result.png)
+
 ## Reference a CMS block {#ref_cms_block}
 
 A CMS block is injected into the layout by using the [Magento/Cms/Block/Block] class with the `block_id` argument. Any `block` or `container` can be used as a reference.
@@ -226,14 +303,14 @@ A CMS block is injected into the layout by using the [Magento/Cms/Block/Block] c
 <referenceContainer name="content.bottom">
     <block class="Magento\Cms\Block\Block" name="block_identifier">
         <arguments>
-            <!- CMS Block id -->
+            <!-- Here is the CMS Block id -->
             <argument name="block_id" xsi:type="string">my_cms_block_identifier</argument>
         </arguments>
     </block>
 </referenceContainer>
 ```
 
-As a result, the CMS block is added to the bottom of the page.
+As a result, the CMS block added to the bottom of the page.
 
 ![CMS Block]({{ site.baseurl }}/common/images/cms-block-reference.png)
 
@@ -282,6 +359,9 @@ Template values specified as attributes have higher priority during layout gener
 
 ## Modify block arguments {#layout_markup_modify-block}
 
+ {:.bs-callout-info}
+Magento 2.3.2 added a `shared` attribute. Now, instances of the view models are shared by default. If a view model is required to be a new instance each time, you must add the attribute `shared="false"` on the argument node in the layout xml file.
+
 To modify block arguments, use the `<referenceBlock>` instruction.
 
 **Example:** change the value of the existing block argument and add a new argument.
@@ -303,7 +383,7 @@ Extending layout:
   <arguments>
     <!-- Modified block argument -->
     <argument name="label" xsi:type="string">New Block Label</argument>
-    <!- Newly added block argument -->
+    <!-- Newly added block argument -->
     <argument name="custom_label" xsi:type="string">Custom Block Label</argument>
   </arguments>
 </referenceBlock>
@@ -471,7 +551,7 @@ As result, the `<body>` tag has a new `my-new-body-class` class on all product p
 
 ## Manage the 'My Account' dashboard navigation links
 
- You can remove navigation links from the 'My Account' dashboard on the storefront by setting the `remove` attribute.
+You can remove navigation links from the 'My Account' dashboard on the storefront by setting the `remove` attribute.
 
 ```xml
 <!-- ################################## -->
@@ -524,7 +604,7 @@ As result, the `<body>` tag has a new `my-new-body-class` class on all product p
 <!-- "Order by SKU" link -->
 <referenceBlock name="customer-account-navigation-checkout-sku-link" remove="true"/>
 
-<!-- File:  app/design/frontend/<Vendor>/<theme>/Magento_CustomerCustomAttributes/layout/customer_account.xml -->
+<!-- File:  app/design/frontend/<Vendor>/<theme>/Magento_CustomerBalance/layout/customer_account.xml -->
 <!-- "Store credit" link -->
 <referenceBlock name="customer-account-navigation-customer-balance-link" remove="true"/>
 
@@ -551,7 +631,7 @@ As result, the `<body>` tag has a new `my-new-body-class` class on all product p
 
 ## Create cms-page/product/category-specific layouts
 
-As of Magento 2.2.11, merchants can select layout updates to be applied to specific Category/Product/CMS Page pages on the frontend. These layout
+As of Magento 2.3.4, merchants can select layout updates to be applied to specific Category/Product/CMS Page pages on the frontend. These layout
 updates are made by creating layout XML files following specific naming conventions.
 
 For Categories:
@@ -560,8 +640,8 @@ For Categories:
 
 where:
 
--  _Category ID_ is the desired category ID.
--  _Layout Update Name_ is shown as the option for the __Custom layout update__ field of the __Design__ section on the _Category Edit_ page.
+-  _Category ID_ is desired category ID
+-  _Layout Update Name_ is what is shown as the option for __Custom layout update__ field of __Design__ section on _Category Edit_ page.
 
 For Products:
 
@@ -571,7 +651,7 @@ where:
 
 -  _Product SKU_ is the desired product's SKU encoded as a URI.
   _example_: "My Product SKU" -> "My%20Product%20SKU"
--  _Layout Update Name_ is shown as the option for the __Custom layout update__ field of the __Design__ section on the _Product Edit_ page.
+-  _Layout Update Name_ is what is shown as the option for __Custom layout update__ field of __Design__ section on _Product Edit_ page
 
 For CMS Pages:
 
@@ -579,8 +659,9 @@ For CMS Pages:
 
 where:
 
--  _CMS Page Identifier_ is the desired page's _URL Key_ with "/" symbols replaced with "_".
--  _Layout Update Name_ is shown as the option for the __Custom layout update__ field of the __Design__ section on _CMS Page Edit_ page.
+-  _CMS Page Identifier_ is the desired page's _URL Key_ with "/" symbols replaced with "_"
+-  _Layout Update Name_ is what is shown as the option for __Custom layout update__ field of __Design__
+  section on _CMS Page Edit_ page
 
 These files must be placed in the appropriate folders for layout XML files. They will be available as __Custom Layout Update__ options for Merchants after flushing the cache.
 

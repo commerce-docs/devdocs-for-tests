@@ -45,7 +45,7 @@ class VaultDetailsHandler implements HandlerInterface
      * @param \Braintree\Transaction $transaction
      * @return PaymentTokenInterface|null
      */
-    private function getVaultPaymentToken(Transaction $transaction)
+    protected function getVaultPaymentToken(Transaction $transaction)
     {
         // Check token existing in gateway response
         $token = $transaction->creditCardDetails->token;
@@ -56,6 +56,7 @@ class VaultDetailsHandler implements HandlerInterface
         /** @var PaymentTokenInterface $paymentToken */
         $paymentToken = $this->paymentTokenFactory->create(PaymentTokenFactoryInterface::TOKEN_TYPE_CREDIT_CARD);
         $paymentToken->setGatewayToken($token);
+        $paymentToken->setExpiresAt($this->getExpirationDate($transaction));
 
         $paymentToken->setTokenDetails($this->convertDetailsToJSON([
             'type' => $this->getCreditCardType($transaction->creditCardDetails->cardType),
@@ -100,5 +101,4 @@ Example of the Braintree `di.xml`:
 The persistence layer for Payment Token is implemented in the [Vault Module]({{ site.mage2bloburl }}/{{ page.guide_version }}/app/code/Magento/Vault).
 
 ## What's next
-
 [Adding and using  UI_Vault component to place orders on the storefront]({{ page.baseurl }}/payments-integrations/vault/token-ui-component-provider.html).

@@ -1,7 +1,6 @@
 ---
 group: rest-api
 title: Bulk endpoints
-ee_only: True
 contributor_name: comwrap GmbH
 contributor_link: http://comwrap.com/
 functional_areas:
@@ -11,9 +10,9 @@ functional_areas:
 Bulk API endpoints differ from other REST endpoints in that they combine multiple calls of the same type into an array and execute them as a single request. The endpoint handler splits the array into individual entities and writes them as separate messages to the message queue.
 
 {:.bs-callout-info}
-Use the `bin/magento queue:consumers:start async.operations.all` command to start the consumer that handles asynchronous and bulk API messages. Also, before using the Bulk API to process messages, you must install and configure RabbitMQ, which is the default message broker. See [RabbitMQ]({{ page.baseurl }}/install-gde/prereq/install-rabbitmq.html).
+Use the [`bin/magento queue:consumers:start async.operations.all`]({{ page.baseurl }}/config-guide/cli/config-cli-subcommands-queue.html) command to start the consumer that handles asynchronous and bulk API messages. Also, before using the Bulk API to process messages, you must install and configure RabbitMQ, which is the default message broker. See [RabbitMQ]({{ page.baseurl }}/install-gde/prereq/install-rabbitmq.html).
 
-### Routes
+## Routes
 
 To call a bulk endpoint, add the prefix `/async/bulk` before the `/V1` of a synchronous endpoint route. For example:
 
@@ -32,9 +31,9 @@ Synchronous route | Bulk route
 `POST /V1/carts/:quoteId/items` | `POST async/bulk/V1/carts/byQuoteId/items`
 
 {:.bs-callout-info}
-GET and DELETE requests are not supported.
+GET requests are not supported.
 
-### Payloads
+## Payloads
 
 The payload of a bulk request contains an array of request bodies. For example, the minimal payload for creating four customers with `POST /async/bulk/V1/customers` would be structured as follows:
 
@@ -77,7 +76,7 @@ The payload of a bulk request contains an array of request bodies. For example, 
 {:.bs-callout-tip}
 The second and third requests are duplicates.
 
-### Responses
+## Responses
 
 The response contains an array that indicates whether the call successfully added each request to the message queue. Although the duplicated request to create a customer will fail, Magento added it to the message queue successfully.
 
@@ -109,3 +108,51 @@ The response contains an array that indicates whether the call successfully adde
     "errors": false
 }
 ```
+
+## DELETE requests
+
+The following call asynchronously deletes CMS blocks with IDs `1` and `2`:
+
+```http
+DELETE <host>/rest/async/bulk/V1/cmsPage/byPageId
+```
+
+### DELETE request payload
+
+```json
+[
+    {
+        "page_id": "1"
+    },
+    {
+        "page_id": "2"
+    }
+]
+```
+
+## Store scopes
+
+You can specify a store code in the route of an asynchronous endpoint so that it operates on a specific store, as shown below:
+
+```http
+POST /<store_code>/async/bulk/V1/products
+PUT /<store_code>/async/bulk/V1/products/bySku
+```
+
+As a result, the asynchronous calls update the products on the specific store, instead of the default store.
+
+You can specify the `all` store code to perform operations on all existing stores:
+
+```http
+POST /all/async/bulk/V1/products
+PUT /all/async/bulk/V1/products/bySku
+```
+
+## Fallback and creating/updating objects when setting store scopes
+
+The following rules apply when you create or update an object, such as a product.
+
+*  If you do not set the store code while creating a new product, Magento creates a new object with all values set globally for each scope.
+*  If you do not set the store code while updating a product, then by fallback, Magento updates values for the default store only.
+*  If you include the `all` parameter, then Magento updates values for all store scopes (in case a particular store doesn't yet have its own value set).
+*  If `<store_code>` parameter is set, then values for only defined store will be updated.

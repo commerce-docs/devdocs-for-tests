@@ -8,7 +8,6 @@ functional_areas:
 ---
 
 ## Overview of cron {#config-cli-cron-overview}
-
 {% include config/cron-overview.md %}
 
 To run cron in a web browser, see [Secure cron.php to run in a browser]({{ page.baseurl }}/config-guide/secy/secy-cron.html)
@@ -19,7 +18,7 @@ This section discusses how to create or remove your Magento crontab (that is, th
 
 {% include config/setup-cron_2.2_about.md %}
 
-{% include config/setup-cron_2.2_how-to.md %}
+{% include config/setup-cron_2.3_how-to.md %}
 
 ### Remove the Magento crontab {#config-cron-remove}
 
@@ -35,7 +34,7 @@ To remove the Magento crontab:
    bin/magento cron:remove
    ```
 
-{:.bs-callout-info}
+ {:.bs-callout-info}
 This command has no effect on cron jobs outside the `#~ MAGENTO START` and `#~ MAGENTO END` comments in your crontab.
 
 ## Run cron from the command line {#config-cli-cron-group-run}
@@ -51,7 +50,7 @@ where `--group` specifies the cron group to run (omit this option to run cron fo
 To run the indexing cron job, enter:
 
 ```bash
-bin/magento cron:run --group index`
+bin/magento cron:run --group index
 ```
 
 To run the default cron job, enter:

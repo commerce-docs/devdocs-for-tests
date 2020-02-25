@@ -1,7 +1,6 @@
 ---
 group: php-developer-guide
 title: Dependency injection
-menu_title: Dependency injection
 ---
 
 Magento 2 uses [Dependency Injection] to replace functionality provided by the `Mage` class in Magento 1.x.
@@ -46,23 +45,34 @@ Service classes that do not exist in the codebase, such as [proxies], [factories
 The following code sample highlights the two types of dependency injections used in Magento:
 
 ```php
+
 namespace Magento\Backend\Model\Menu;
+
 class Builder
 {
+    /**
+     * @var \Magento\Backend\Model\Menu\Item\Factory
+     */
+    private $_itemFactory;
+
     /**
      * @param \Magento\Backend\Model\Menu\Item\Factory $menuItemFactory
      */
     public function __construct(
-        Magento\Backend\Model\Menu\Item\Factory $menuItemFactory,  // Service dependency
+        \Magento\Backend\Model\Menu\Item\Factory $menuItemFactory,  // Service dependency
     ) {
         $this->_itemFactory = $menuItemFactory;
     }
 
+    /**
+     * @param \Magento\Backend\Model\Menu\Builder\AbstractCommand
+     */
     public function processCommand(\Magento\Backend\Model\Menu\Builder\AbstractCommand $command) // API param
     {
         // processCommand Code
     }
 }
+
 ```
 
 ### Constructor injection
@@ -106,7 +116,8 @@ Since you cannot specify this data in the constructor signature, Magento cannot 
 
 To get around this limitation, injectable objects can depend on [factories] that produce newable objects.
 
-**Related topics:**
+{:.ref-header}
+Related topics
 
 *  [The `di.xml` file]({{ page.baseurl }}/extension-dev-guide/build/di-xml-file.html)
 *  [ObjectManager]({{ page.baseurl }}/extension-dev-guide/object-manager.html)

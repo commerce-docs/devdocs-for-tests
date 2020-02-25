@@ -104,9 +104,9 @@ This section lists variable names and config paths available for options in the 
 
 These configuration values are available in the Magento Admin in **Stores** > Settings > **Configuration** > **Customers** > **Customer Configuration**.
 
-|Name  | Config path | EE only? | Encrypted? | System-specific? | Sensitive? |
+Name  | Config path | EE only? | Encrypted? | System-specific? | Sensitive? |
 |--------------|--------------|--------------|--------------|--------------|--------------|
-|Default Email Domain | `customer/create_account/email_domain` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) |
+Default Email Domain | `customer/create_account/email_domain` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) |
 
 ## Catalog category
 
@@ -125,13 +125,13 @@ These configuration values are available in the Magento Admin in **Stores** > Se
 | Solr Server Username | `catalog/search/solr_server_username` | ![EE-only]({{ site.baseurl }}/common/images/cloud_ee.png) | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
 | Solr Server Password | `catalog/search/solr_server_password` | ![EE-only]({{ site.baseurl }}/common/images/cloud_ee.png) | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
 | Solr Server Path | `catalog/search/solr_server_path` | ![EE-only]({{ site.baseurl }}/common/images/cloud_ee.png) | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
-| Elasticsearch Server Hostname | `catalog/search/elasticsearch_server_hostname` | ![EE-only]({{ site.baseurl }}/common/images/cloud_ee.png) | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
-| Elasticsearch Server Port | `catalog/search/elasticsearch_server_port` | ![EE-only]({{ site.baseurl }}/common/images/cloud_ee.png) | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
-| Elasticsearch Index Prefix | `catalog/search/elasticsearch_index_prefix` | ![EE-only]({{ site.baseurl }}/common/images/cloud_ee.png) | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
-| Enable Elasticsearch HTTP Auth | `catalog/search/elasticsearch_enable_auth` | ![EE-only]({{ site.baseurl }}/common/images/cloud_ee.png) | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) |
-| Elasticsearch HTTP Username | `catalog/search/elasticsearch_username` | ![EE-only]({{ site.baseurl }}/common/images/cloud_ee.png) | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) |
-| Elasticsearch HTTP Password | `catalog/search/elasticsearch_password` | ![EE-only]({{ site.baseurl }}/common/images/cloud_ee.png) | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) |
-| Elasticsearch Server Timeout | `catalog/search/elasticsearch_server_timeout` | ![EE-only]({{ site.baseurl }}/common/images/cloud_ee.png) | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) |
+| Elasticsearch Server Hostname | `catalog/search/elasticsearch_server_hostname` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
+| Elasticsearch Server Port | `catalog/search/elasticsearch_server_port` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
+| Elasticsearch Index Prefix | `catalog/search/elasticsearch_index_prefix` | !<!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
+| Enable Elasticsearch HTTP Auth | `catalog/search/elasticsearch_enable_auth` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) |
+| Elasticsearch HTTP Username | `catalog/search/elasticsearch_username` | !<!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) |
+| Elasticsearch HTTP Password | `catalog/search/elasticsearch_password` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) |
+| Elasticsearch Server Timeout | `catalog/search/elasticsearch_server_timeout` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | ![Sys-specific]({{ site.baseurl }}/common/images/cloud_env.png) |
 
 ### XML sitemap sensitive and system-specific paths
 
@@ -173,6 +173,7 @@ These configuration values are available in the Magento Admin in **Stores** > Se
 | Send Shipment Comment Email Copy To | `sales_email/shipment_comment/copy_to` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
 | Send Credit Memo Email Copy To | `sales_email/creditmemo/copy_to` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
 | Send Credit Memo Comment Email Copy To | `sales_email/creditmemo_comment/copy_to` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
+| Send Pickup Ready Email Copy To | `sales_email/temando_pickup/copy_to` | <!-- ![Not EE-only]({{ site.baseurl }}/common/images/red-x.png) --> | | | ![Sensitive]({{ site.baseurl }}/common/images/cloud_sens.png) |
 
 ### Checkout sensitive and system-specific paths
 

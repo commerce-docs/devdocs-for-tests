@@ -1,6 +1,7 @@
 ---
 group: php-developer-guide
 title: Routing
+version: 2.3
 ---
 
 In web applications, such as Magento, routing is the act of providing data from a URL request to the appropriate class for processing.
@@ -91,7 +92,7 @@ Where:
 
 *  `%name%` - The unique name of your router in Magento.
 *  `%classpath%` - The path to your router class.
-    Example: [`Magento\Robots\Controller\Router`]
+   Example: [`Magento\Robots\Controller\Router`]
 *  `%sortorder%` - The sort order of this entry in the router list.
 
 ## `routes.xml`
@@ -115,7 +116,7 @@ Where:
 
 *  `%routerId` - specifies the name of the router in Magento.
     See the reference tables in the [Router class section].
-*  `%routeId%` - specifies the unique node id for this route in Magento, is also the first segment of its associated layout handle XML filename (routeId_controller_action.xml).
+*  `%routeId%` - specifies the unique node id for this route in Magento, is also the first segment of its associated layout handle XML filename (`routeId_controller_action.xml`).
 *  `%frontName%` - specifies the first segment after the base URL of a request.
 *  `%moduleName%` - specifies the name of your module.
 
@@ -144,6 +145,10 @@ If `app/code/OrangeCompany/RoutingExample/Controller/Account/Login.php` exists, 
 
 Action classes are extensions of the [`Action`] class that a router returns on matched requests.
 The `execute()` function in these classes contain the logic for dispatching requests.
+
+Each Action should implement one or more Magento\Framework\App\Action\Http*HTTP Method*ActionInterface to declare which HTTP request methods it can process.
+
+Magento has a `form key` validation in place for all `POST` non-AJAX requests - if your `Action` doesn't need that validation or you want to modify it you can implement `CsrfAwareActionInterface`.
 
 If you need to forward a request to another action in your class, use the `_forward()` function.
 

@@ -3,7 +3,6 @@ group: php-developer-guide
 title: WebApi request processors pool
 contributor_name: Comwrap GmbH
 contributor_link: https://www.comwrap.com
-ee_only: true
 functional_areas:
   - Configuration
 ---

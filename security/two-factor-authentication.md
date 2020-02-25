@@ -20,25 +20,7 @@ At this time, Two-Factor Authentication can be installed only from the command l
 
 ## Install 2FA
 
-Install the extension using the following Composer command:
-
-```bash
-composer require msp/twofactorauth:3.0.0
-```
-
-To complete installation in an existing Magento instance, run the following commands to enable the module:
-
-```bash
-bin/magento module:enable --all
-```
-
-```bash
-bin/magento setup:upgrade
-```
-
-```bash
-bin/magento cache:clean
-```
+The 2FA extension installs when you install or upgrade to Magento Open Source or Commerce 2.3.X. This extensions installs like a Core Bundled Extension (CBE).
 
 ## Configure and manage 2FA
 
@@ -61,7 +43,7 @@ After enabling and configuring 2FA for your Magento instance, Magento Admin user
 | : --------- | : --------- | : ------- |
 | [Google Authenticator](https://support.google.com/accounts/answer/1066447?co=GENIE.Platform%3DAndroid&hl=en)  | Generate and enter code from mobile app Requirements: Enable in Admin  | `google`|
 | [Authy](https://authy.com/)  | SMS, call, token, and one touch <br/>Requirements: Enable in Admin and API keys  | `authy` |
-| [U2F Keys](https://docs.magento.com/m2/2.1/ee/user_guide/stores/security-two-factor-authentication-use.html)   | Physical device to authenticate, like [YubiKey](https://www.yubico.com/). <br/>Requirements: Enable in Admin  | `u2fkey` |
+| [U2F Keys](https://docs.magento.com/m2/ee/user_guide/stores/security-two-factor-authentication-use.html#u2f-key)   | Physical device to authenticate, like [YubiKey](https://www.yubico.com/). <br/>Requirements: Enable in Admin  | `u2fkey` |
 | [Duo Security](https://duo.com/)  | SMS and push notification. <br/>Requirements: Enable in Admin, Integration and Secret keys, API hostname  | `duo` |
 
 ## Troubleshooting

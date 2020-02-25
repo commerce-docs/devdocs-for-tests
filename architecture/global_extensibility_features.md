@@ -1,8 +1,11 @@
 ---
 group: architecture-guide
 title: Global features that support extensibility
-menu_title: Global features that support extensibility
 ---
+
+## Overview
+
+Essential qualities foster extensibility throughout the entire set of Magento components. This discussion focuses on:
 
 *  Modularity
 *  Reliance on popular design patterns
@@ -11,10 +14,17 @@ menu_title: Global features that support extensibility
 *  Web APIs
 *  Service contracts and [dependency injection](https://glossary.magento.com/dependency-injection)
 *  Plug-ins
+*  Declarative schema
+
+### Modularity
 
 The concept of the *module* is the heart of Magento [extension](https://glossary.magento.com/extension) development, and modular design of software components (in particular, modules, themes, and language packages) is a core architectural principle of the product. Self-contained modules of discrete code are organized by feature, thereby reducing each module's external dependencies.
 
 If a [module](https://glossary.magento.com/module) is self-contained, then you can modify or replace it without affecting other areas of the code. This *loose coupling* of software components reduces the ripple effects throughout your code base of changing code.
+
+ See the [PHP Developer Guide]({{ page.baseurl }}/extension-dev-guide/bk-extension-dev-guide.html) for detailed instructions on how to create modules.
+
+### Reliance on popular design patterns
 
 Reliance on known architectural and programming structures helps [PHP](https://glossary.magento.com/php) developers orient themselves to the specific development issues that affect coding in a particular product ecosystem. This can reduce the learning curve for new Magento developers.
 
@@ -34,36 +44,15 @@ The wider Magento ecosystem provides an extensive community and rich third-party
 
 You can enhance your storefront by adding unique attributes to the default product attributes. For example, you might need to add a new attribute to describe a product, such as texture or an industry-specific rating. You can add these attributes from the Magento Admin, and the storefront  displays them.
 
-<table>
-   <tbody>
-      <tr style="background-color: lightgray">
-         <th>Attribute type</th>
-         <th>Displayed by storefront?</th>
-
-      </tr>
-<tr>
-         <td>EAV
-         </td>
-         <td>no</td>
-         </tr>
-
-         <tr>
-         <td>Custom
-         </td>
-         <td>yes</td>
-         </tr>
-         <tr>
-         <td>Extension
-         </td>
-         <td>no</td>
-         </tr>
-
-</tbody>
-</table>
+Attribute type | Displayed by storefront?
+--- | ---
+EAV | No
+Custom | Yes
+Extension | No
 
 Attribute types fall into three general categories:
 
-*  <b>EAV (Entity-Attribute-Value) attributes</b> are site-specific attributes that you can define for a local site using the [Magento Admin](https://glossary.magento.com/magento-admin).
+*  **EAV (Entity-Attribute-Value) attributes** are site-specific attributes that you can define for a local site using the [Magento Admin](https://glossary.magento.com/magento-admin).
 
 *  **Custom attributes** are a subset of EAV attributes. Objects that use EAV attributes typically store values in several MySQL tables. The Customer and [Catalog](https://glossary.magento.com/catalog) modules use EAV attributes.
 
@@ -94,6 +83,10 @@ Plug-ins, like modules, are a mechanism for adding features to the core Magento 
 Plug-ins are also called *interceptors*. Applications use the [plug-in](https://glossary.magento.com/plug-in) pattern to change method behavior without modifying the actual class. Plug-ins can typically intercept method processing before or after the method runs, or only when the method throws an [exception](https://glossary.magento.com/exception).
 
 See [Plug-ins]({{page.baseurl}}/extension-dev-guide/plugins.html) in [PHP Developer Guide]({{page.baseurl}}/extension-dev-guide/bk-extension-dev-guide.html) for information on declaring and prioritizing plug-ins.
+
+### Declarative schema
+
+[Declarative schema]({{page.baseurl}}/extension-dev-guide/declarative-schema/index.html) allows developers to declare the final desired state of the database as it pertains to their modules. The system adjusts to database changes automatically without performing redundant operations. Developers are no longer forced to write installation and upgrade scripts for each new version. In addition, declarative schema allows data be deleted when a module is uninstalled.
 
 {:.ref-header}
 Related topic

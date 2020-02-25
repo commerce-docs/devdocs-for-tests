@@ -35,17 +35,17 @@ Generate the dictionary and translate:
 1. Extract translatable words and phrases from enabled components using the translation collection command. Content extracts into a `.csv` file.
 1. Translate the existing words and phrases. You can also add additional custom terms as needed.
 
-You have options for using the translated dictionary:
+   You have options for using the translated dictionary:
 
 1. You can package the translation dictionaries into a language package and provide the package to the Magento store administrator.
 
-1. In the Magento Admin, the store administrator configures the translations.
+1. In the Magento Admin, the store administrator [configures the translations].
 
-   Command options:
+Command options:
 
-   ```bash
-   bin/magento i18n:collect-phrases [-o|--output="<csv file path and name>"] [-m|--magento] <path to directory to translate>
-   ```
+```bash
+    bin/magento i18n:collect-phrases [-o|--output="<csv file path and name>"] [-m|--magento] <path to directory to translate>
+```
 
 The following table explains this command's parameters and values:
 
@@ -80,9 +80,7 @@ Product 'Multimeter-2000' has been added to shopping cart.
 
 The resulting phrase must contain at least one of each placeholder.
 For example, suppose there are placeholders from `%1` to `%3` in the original phrase.
-
-The translation can have as many of these placeholders in any order, but there must be at least one occurrence of `%1`, `%2`, and `%3`.
-
+ The translation can have as many of these placeholders in any order, but there must be at least one occurrence of `%1`, `%2`, and `%3`.
 The translation cannot contain placeholder values not present in the original value (for example, `%4`, `%5`, and so on).
 
 An example of translating a phrase:
@@ -93,13 +91,13 @@ An example of translating a phrase:
 
 ## Create a language package {#config-cli-subcommands-xlate-pack}
 
-As opposed to a translation dictionary, you can translate any or all words and phrases in the Magento application using a language package. You can translate a particular component&mdash;like a module or a theme&mdash;using a translation dictionary. [Learn more about language packages].
+As opposed to a translation dictionary, you can translate any or all words and phrases in the Magento application using a language package. You can translate a particular component---like a module or a theme---using a translation dictionary. [Learn more about language packages].
 
 This section discusses how to create a language package, which writes `.csv` files to modules and themes. To create a language package, you must perform the tasks discussed in the following sections:
 
 1. [Collect and translate words and phrases](#config-cli-subcommands-xlate-dict).
 
-   (The `--magento` parameter is required.)
+  (The `--magento` parameter is required.)
 
 1. [Run the language package command](#config-cli-subcommands-xlate-pack-cmd).
 1. [Create directories and files](#m2devgde-xlate-files).
@@ -292,16 +290,13 @@ Similar to the preceding example, generate a `.csv` file, but instead of specify
 
    **Sample `registration.php`:**
 
-   ```php
+   ```php?start_inline=1
    /**
-    * Copyright © 2015 Magento. All rights reserved.
-    * See COPYING.txt for license details.
-    */
-   \Magento\Framework\Component\ComponentRegistrar::register(
-       \Magento\Framework\Component\ComponentRegistrar::LANGUAGE,
-       'magento_xx_yy',
-       __DIR__
-   );
+   * Copyright © Magento, Inc. All rights reserved.
+   * See COPYING.txt for license details.
+   */
+   use \Magento\Framework\Component\ComponentRegistrar;
+   ComponentRegistrar::register(ComponentRegistrar::LANGUAGE, 'magento_xx_yy', __DIR__);
    ```
 
    **Sample `language.xml`:**
@@ -310,7 +305,7 @@ Similar to the preceding example, generate a `.csv` file, but instead of specify
    <?xml version="1.0"?>
    <!--
    /**
-    * Copyright © 2015 Magento. All rights reserved.
+    * Copyright © Magento, Inc. All rights reserved.
     * See COPYING.txt for license details.
     */
    -->

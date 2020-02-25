@@ -33,24 +33,24 @@ To install memcached on CentOS, perform the following tasks as a user with `root
    ```
 
    ```bash
-   yum install -y php-pecl-memcached
+   yum install -y php-pecl-memcache
    ```
 
    {:.bs-callout-info}
-   The syntax of the preceding commands might depend on what package repositories you use. For example, if you use webtatic and PHP 5.6, enter <code>yum install -y php56w-pecl-memcache</code>. Use `yum search memcache|grep php` to find the appropriate package name.
+   The syntax of the preceding commands might depend on what package repositories you use. For example, if you use webtatic and PHP 5.6, enter `yum install -y php56w-pecl-memcache`. Use `yum search memcache|grep php` to find the appropriate package name.
 
 1. Change the memcached configuration setting for `CACHESIZE` and `OPTIONS`:
 
-   1. Open `/etc/sysconfig/memcached` in a text editor.
-   1. Locate the value for `CACHESIZE` and change it to at least 1GB. For example
+    1. Open `/etc/sysconfig/memcached` in a text editor.
+    1. Locate the value for `CACHESIZE` and change it to at least 1GB. For example
 
-      ```conf
-      CACHESIZE="1GB"
-      ```
+        ```config
+        CACHESIZE="1GB"
+        ```
 
-   1. Locate the value for `OPTIONS` and change it to `localhost` or `127.0.0.1`
+    1. Locate the value for `OPTIONS` and change it to `localhost` or `127.0.0.1`
 
-   For more information about configuring memcached, see [the memcached wiki](https://code.google.com/p/memcached/wiki/NewConfiguringServer).
+    For more information about configuring memcached, see [the memcached wiki](https://code.google.com/p/memcached/wiki/NewConfiguringServer).
 
 1. Save your changes to `memcached` and exit the text editor.
 1. Restart memcached.
@@ -61,7 +61,11 @@ To install memcached on CentOS, perform the following tasks as a user with `root
 
 1. Restart your web server.
 
-   For Apache, `service httpd restart`
+   For Apache:
+
+   ```bash
+   service httpd restart
+   ```
 
 1. Continue with the next section.
 
@@ -87,11 +91,11 @@ To verify memcached is recognized by the web server:
 
 1. Make sure memcache displays as follows:
 
-   ![Confirm memcache is recognized by the web server]({{ site.baseurl }}/common/images/config_memcache.png)
+  ![Confirm memcache is recognized by the web server]({{ site.baseurl }}/common/images/config_memcache.png)
 
-   Verify you're using memcached version 3.0.5 or later.
+  Verify you're using memcached version 3.0.5 or later.
 
-   If memcache does not display, restart the web server and refresh the browser page. If it still does not display, verify you installed the `php-pecl-memcache` extension.
+  If memcache does not display, restart the web server and refresh the browser page. If it still does not display, verify you installed the `php-pecl-memcache` extension.
 
 ### Create a memcache test consisting of a MySQL database and PHP script
 
@@ -168,7 +172,7 @@ telnet localhost <memcache port>
 
 At the prompt, enter
 
-```shell
+```bash
 stats items
 ```
 
@@ -182,14 +186,15 @@ STAT items:3:evicted_nonzero 0
 STAT items:3:evicted_time 0
 STAT items:3:outofmemory 0
 STAT items:3:tailrepairs 0
+```
 
 Flush the memcache storage and quit Telnet:
 
-```shell
+```bash
 flush_all
 ```
 
-```shell
+```bash
 quit
 ```
 

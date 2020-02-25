@@ -13,10 +13,7 @@ functional_areas:
 
 ### Symptom: The following message displays when you try to access the Magento storefront or Admin:
 
-```text
-Whoops, it looks like you have an invalid PHP version.
-Magento supports PHP 5.5 or newer.
-```
+Magento supports PHP 7.1.3 or later. Please read [Magento System Requirements]({{ page.baseurl }}/install-gde/system-requirements-tech.html).
 
 #### Solution
 
@@ -40,3 +37,4 @@ Try the following:
 
    *  Ubuntu: `service apache2 restart`
    *  CentOS: `service httpd restart`
+

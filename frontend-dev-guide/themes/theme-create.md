@@ -8,7 +8,7 @@ functional_areas:
 
 This topic discusses how to create the files that make up a theme, how to add a logo to a theme, and how to size images.
 
-{:.bs-callout-info}
+ {:.bs-callout-info}
 A new theme you create is not applied for your store automatically. You need to apply it manually in the Admin panel. This procedure is described in the [Apply and configure a theme in Admin]({{page.baseurl}}/frontend-dev-guide/themes/theme-apply.html) topic.
 
 ## Prerequisites
@@ -42,13 +42,13 @@ To create the directory for your theme:
 
 1. Under the `<vendor>` directory, create a directory named according to your theme.
 
-    <pre>
+   <pre>
     app/design/frontend/
-    ├──&nbsp;<Vendor&gt;/
-    │&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├──...<theme&gt;/
+    ├──&nbsp;&lt;Vendor&gt;/
+    │&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├──...&lt;theme&gt;/
     │&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├──&nbsp;...
     │&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├──&nbsp;...
-    </pre>
+   </pre>
 
 The folder name conventionally matches naming used in the theme's code: any alphanumeric set of characters, as the vendor sees fit, is acceptable. This convention is merely a recommendation, so nothing prevents naming this directory in another way.
 
@@ -62,11 +62,11 @@ After you create a directory for your theme, you must create `theme.xml` contain
 
    ```xml
    <theme xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/theme.xsd">
-        <title>New theme</title> <!-- your theme's name -->
-        <parent>Magento/blank</parent> <!-- the parent theme, in case your theme inherits from an existing theme -->
-        <media>
-            <preview_image>media/preview.jpg</preview_image> <!-- the path to your theme's preview image -->
-        </media>
+      <title>New theme</title> <!-- your theme's name -->
+      <parent>Magento/blank</parent> <!-- the parent theme, in case your theme inherits from an existing theme -->
+      <media>
+         <preview_image>media/preview.jpg</preview_image> <!-- the path to your theme's preview image -->
+      </media>
    </theme>
    ```
 
@@ -74,8 +74,8 @@ After you create a directory for your theme, you must create `theme.xml` contain
 
    ```xml
    <theme xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/theme.xsd">
-        <title>New theme</title> <!-- your theme's name -->
-        <parent>Magento/blank</parent> <!-- the parent theme, in case your theme inherits from an existing theme -->
+         <title>New theme</title> <!-- your theme's name -->
+         <parent>Magento/blank</parent> <!-- the parent theme, in case your theme inherits from an existing theme -->
    </theme>
    ```
 
@@ -95,13 +95,15 @@ Example of a theme `composer.json` file:
 {
     "name": "magento/theme-frontend-luma",
     "description": "N/A",
+    "config": {
+        "sort-packages": true
+    },
     "require": {
-        "php": "~5.5.0|~5.6.0|~7.0.0",
-        "magento/theme-frontend-blank": "100.0.*",
-        "magento/framework": "100.0.*"
+        "php": "~7.1.3||~7.2.0",
+        "magento/framework": "*",
+        "magento/theme-frontend-blank": "*"
     },
     "type": "magento2-theme",
-    "version": "100.0.1",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
@@ -123,14 +125,13 @@ To register your theme in the system, add a `registration.php` file in your them
 ```php
 <?php
 /**
- * Copyright © 2015 Magento. All rights reserved.
+ * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-\Magento\Framework\Component\ComponentRegistrar::register(
-    \Magento\Framework\Component\ComponentRegistrar::THEME,
-    'frontend/<Vendor>/<theme>',
-    __DIR__
-);
+
+use \Magento\Framework\Component\ComponentRegistrar;
+
+ComponentRegistrar::register(ComponentRegistrar::THEME, 'frontend/<Vendor>/<theme>', __DIR__);
 ```
 
 Where `<Vendor>` is your vendor name and `<theme>` is the theme code.
@@ -152,12 +153,12 @@ If the product image sizes of your theme differ from those of the parent theme, 
 1. Configure all storefront product image sizes in the `view.xml` file. For example, you can make the [category](https://glossary.magento.com/category) grid view product images square by specifying a size of 250 x 250 pixels:
 
    ```xml
-   ...
-       <image id="category_page_grid" type="small_image">
-           <width>250</width>
-           <height>250</height>
-       </image>
-   ...
+    ...
+        <image id="category_page_grid" type="small_image">
+            <width>250</width>
+            <height>250</height>
+        </image>
+    ...
    ```
 
 For details about images configuration in the `view.xml` file, see the [Configure images properties for a theme]({{page.baseurl}}/frontend-dev-guide/themes/theme-images.html) topic.
@@ -174,7 +175,7 @@ Your theme will likely contain several types of static files:
 Each type should be stored in a separate sub-directory of `web` in your theme folder:
 
 <pre>
-app/design/<area&gt;/<Vendor&gt;/<theme&gt;/
+app/design/&lt;area&gt;/&lt;Vendor&gt;/&lt;theme&gt;/
 ├──&nbsp;web/
 │&nbsp;├──&nbsp;css/
 │&nbsp;│&nbsp;├──&nbsp;source/&nbsp;
@@ -187,7 +188,7 @@ In the `.../<theme>/web/images` directory, you store the general theme-related s
 
 It is likely that your theme will also contain module-specific files, which are stored in the corresponding sub-directories, like `.../<theme>/<Namespace_Module>/web/css` and similar. Managing the module-specific theme files is discussed in the following sections of this guide.
 
-{:.bs-callout-info}
+ {:.bs-callout-info}
 When you change files stored here during theme development, you need to clear the `pub/static` and `var/view_preprocessed` directories, and then reload the pages. Otherwise, the old versions of files are displayed on the storefront.
 
 ### To clear the `pub/static` directory:
@@ -207,7 +208,7 @@ rm -rf <magento_root>/var/view_preprocessed/*
 At this point your theme file structure looks as follows:
 
 <pre>
-app/design/frontend/<Vendor&gt;/
+app/design/frontend/&lt;Vendor&gt;/
 ├──&nbsp;&lt;theme&gt;/
 │&nbsp;&nbsp;&nbsp;├──&nbsp;etc/
 │&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├──&nbsp;view.xml
@@ -263,7 +264,7 @@ To learn more about theme layouts, refer to the [Layout section]({{page.baseurl}
 When your theme changes are not visible even after clearing the cache, try redeploying your static files using the `magento setup:static-content:deploy` command, or add the `-f` argument to force deploy static content in any deployment mode in case you are not in production mode.
 
  {:.bs-callout-info}
-Running this command with the `-f` argument can fix issues regarding deployment of static content, but it removes **all** symlinks and deploys the actual static content files.
+Running this command with the `-f` argument can fix issues regarding deployment of static content, but removes **all** symlinks and deploys the actual static content files.
 
 ## What's next {#next}
 

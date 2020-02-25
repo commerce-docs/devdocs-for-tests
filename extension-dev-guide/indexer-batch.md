@@ -1,12 +1,6 @@
 ---
 group: php-developer-guide
-subgroup: 99_Module Development
 title: Indexer optimization
-menu_title: Indexer optimization
-menu_order: 14
-level3_menu_node: level3child
-level3_subgroup: index
-
 ---
 
 ## Indexer Batching
@@ -84,7 +78,7 @@ Changing the batch size can help you optimize indexer running time. For example,
 *  300 tier prices
 *  About 40,000 products (of which 254 are configurable)
 
-reducing the batch size for `catalog_product_price` indexer from 5000 to 1000 decreases the execution time from about 4 hours to less than 2 hours. You can experiment to determine the ideal batch size. In general, halving the batch size can decrease the indexer execution time.
+Reducing the batch size for `catalog_product_price` indexer from 5000 to 1000 decreases the execution time from about 4 hours to less than 2 hours. You can experiment to determine the ideal batch size. In general, halving the batch size can decrease the indexer execution time.
 
 The following examples illustrate how to define a custom batch size for configurable products. Add these samples to your  `{Your_Module_Name}/etc/di.xml`.
 
@@ -129,6 +123,22 @@ Make sure that these indexers are in "Update By Schedule" mode. If "Update On Sa
 
  {:.bs-callout-info}
 The indexer table switching mechanism requires additional database storage.
+
+### EAV indexer optimization
+
+The Product EAV indexer reorganizes the EAV product structure to a flat structure.
+As of Magento 2.3, under certain circumstances, you can disable this indexer to improve performance. (Its indexation takes about 5 minutes on a large Magento 2 Commerce performance profile.)
+
+The following conditions must apply to disable Product EAV indexer:
+
+*  You are using a search engine other than MySQL (such as Elasticsearch). If you are using MySQL as the search engine, you cannot disable the Product EAV indexer.
+
+*  You have not installed any 3rd-party extensions that rely on the Product EAV indexer.
+
+{:.bs-callout-info}
+To determine whether any 3rd-party extensions are using the Product EAV indexer, check the `catalog_product_index_eav` table for reading/writing activity.
+
+To disable the Product EAV indexer in the Admin, go to **Stores** > Settings > **Configuration** > **Catalog** > **Catalog** > **Catalog Search** and make sure the **Search Engine** field has a value other than MySQL.  Then set the value of **Enable EAV Indexer** to No.
 
 {:.ref-header}
 Related topics

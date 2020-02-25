@@ -1,6 +1,6 @@
 ---
 group: installation-guide
-title: System 2.2.x requirements
+title: System 2.3.x requirements
 functional_areas:
   - Install
   - System

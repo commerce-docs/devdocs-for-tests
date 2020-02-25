@@ -2,10 +2,12 @@
 group: installation-guide
 title: Install Magento using Composer
 redirect_from:
-  - guides/v2.2/install-gde/prereq/integrator_install.html
-  - guides/v2.2/install-gde/prereq/integrator_install_composer.html
-  - guides/v2.2/install-gde/prereq/integrator_install_ce.html
-  - guides/v2.2/install-gde/prereq/integrator_install_ee.html
+  - guides/v2.3/install-gde/prereq/integrator_install.html
+  - guides/v2.3/install-gde/prereq/integrator_install_composer.html
+  - guides/v2.3/install-gde/prereq/integrator_install_ce.html
+  - guides/v2.3/install-gde/prereq/integrator_install_ee.html
+  - guides/v2.3/release-notes/2.3.0-install.html
+  - guides/v2.3/release-notes/2.3.0-alpha-install.html
 functional_areas:
   - Install
   - System
@@ -34,26 +36,48 @@ To get the Magento metapackage:
     **{{site.data.var.ce}}**
 
     ```bash
-    composer create-project --repository=https://repo.magento.com/ magento/project-community-edition:<version-tag> <install-directory-name>
+    composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition <install-directory-name>
     ```
 
     **{{site.data.var.ee}}**
 
     ```bash
-    composer create-project --repository=https://repo.magento.com/ magento/project-enterprise-edition:<version-tag> <install-directory-name>
+    composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition <install-directory-name>
     ```
 
     When prompted, enter your Magento authentication keys. Public and private keys are created and configured in your [Magento Marketplace][].
 
-    To install {{site.data.var.ce}} version 2.2.9 run in current folder:
-
-    ```bash
-    composer create-project --repository=https://repo.magento.com/ magento/project-community-edition:2.2.9 .
-    ```
-
     If you encounter errors, such as `Could not find package...` or `...no matching package found`, make sure there are no typos in your command. If you still encounter errors, you may not be authorized to download {{site.data.var.ee}}. Contact [Magento support](https://magento.com/support) for help.
 
     See [troubleshooting][] for help with more errors.
+
+    {% include install/pre-release.md %}
+
+### Example - Minor release
+
+Minor releases contain new features, quality fixes, and security fixes. Use Composer to specify a minor release. For example, to specify the {{site.data.var.ee}} 2.3.0 metapackage:
+
+```bash
+composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition=2.3.0 <install-directory-name>
+```
+
+### Example - Quality patch
+
+Quality patches primarily contain functional _and_ security fixes. However, they can also sometimes contain new, backward-compatible features. Use Composer to download a quality patch. For example, to specify the {{site.data.var.ee}} 2.3.3 metapackage:
+
+```bash
+composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition=2.3.3 <install-directory-name>
+```
+
+### Example - Security patch
+
+Security patches contain security fixes only. They are designed to make the upgrade process faster and easier.
+
+Security patches use the Composer naming convention `2.3.2-px`. Use Composer to specify a patch. For example, to download the {{site.data.var.ee}} 2.3.2-p1 metapackage:
+
+```bash
+composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition=2.3.2-p1 <install-directory-name>
+```
 
 ## Set file permissions
 

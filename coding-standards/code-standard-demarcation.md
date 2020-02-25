@@ -9,16 +9,18 @@ functional_areas:
   - Standards
 ---
 
-<p>Magento core developers must follow the Magento code demarcation standard.</p>
-<p>This standard is recommended for third-party [extension](https://glossary.magento.com/extension) developers.</p>
-<p>Some parts of Magento code might not comply with the standard, but we are working to gradually improve this.</p>
-<p>The standard was developed in the scope of our efforts to ensure the following:</p>
-<ul>
-   <li>Decouple visual (CSS) layer from the functional (JavaScript) layer.</li>
-   <li>Decouple functional (JavaScript) layer from the [markup](https://glossary.magento.com/markup) (HTML).</li>
-   <li>Reinstate emphasis on using of [jQuery](https://glossary.magento.com/jquery) templates.</li>
-   <li>Reinstate emphasis on decoupling HTML, [CSS](https://glossary.magento.com/css) and JS from [PHP](https://glossary.magento.com/php) classes.</li>
-</ul>
+Magento core developers must follow the Magento code demarcation standard.
+
+This standard is recommended for third-party [extension](https://glossary.magento.com/extension) developers.
+
+Some parts of Magento code might not comply with the standard, but we are working to gradually improve this.
+
+The standard was developed in the scope of our efforts to ensure the following:
+
+-  Decouple visual (CSS) layer from the functional (JavaScript) layer.
+-  Decouple functional (JavaScript) layer from the [markup](https://glossary.magento.com/markup) (HTML).
+-  Reinstate emphasis on using of [jQuery](https://glossary.magento.com/jquery) templates.
+-  Reinstate emphasis on decoupling HTML, [CSS](https://glossary.magento.com/css) and JS from [PHP](https://glossary.magento.com/php) classes.
 
 Use [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt) to interpret the "MUST," "MUST NOT," "REQUIRED," "SHALL," "SHALL NOT," "SHOULD," "SHOULD NOT," "RECOMMENDED," "MAY," and "OPTIONAL" keywords.
 
@@ -26,7 +28,7 @@ Use [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt) to interpret the "MUST," "MU
 
 ### For attribute names and values you must use meaningful unabbreviated lowercase words comprised of Latin characters concatenated with a hyphen (`-`)
 
-Helps simplify and unify naming conventions that are used to apply visual styles to page elements.
+-  Helps simplify and unify naming conventions that are used to apply visual styles to page elements.
 
 **Acceptable:**
 
@@ -35,7 +37,7 @@ Helps simplify and unify naming conventions that are used to apply visual styles
    <p> ... </p>
    <p> ... </p>
 </section>
-<a href="#information-dialog-tree">Scroll to text</a></a>
+<a href="#information-dialog-tree">Scroll to text</a>
 ```
 
 **Unacceptable:**
@@ -57,7 +59,7 @@ Helps simplify and unify naming conventions that are used to apply visual styles
 -  Forces engineers to think about reusable page components instead of unique singleton components.
 -  Reduces long-term maintenance efforts.
 
-**Acceptable PHTML template:**
+**Acceptable [PHTML](https://glossary.magento.com/phtml) template:**
 
 The following acceptable example is terse and uses an Accessible Rich Internet Applications (ARIA) approach.
 
@@ -77,6 +79,8 @@ The following acceptable example is terse and uses an Accessible Rich Internet A
 **Unacceptable combination of PHTML, JavaScript, and CSS files:**
 
 The following unacceptable example replaces a single PHTML file with a combination of a PHTML, JavaScript, and CSS files.
+
+**PHTML file:**
 
 ```php
 <ul id="my-special-menu">
@@ -99,7 +103,7 @@ $('#my-special-menu').on('click','li[id^="button"]', function() { ... })
 #my-special-menu > li { ... }
 ```
 
-### You must follow the separation of presentation and content methodology.
+### You must follow the separation of presentation and content methodology
 
 The following list will help you make a distinction between the actual meaning of a document, and how this meaning is presented to its readers:
 
@@ -121,16 +125,16 @@ The following list will help you make a distinction between the actual meaning o
 -  visualization
 -  view
 
-### You must use semantic HTML markup only, and must not use presentation markup.
+### You must use semantic HTML markup only, and must not use presentation markup
 
-**Acceptable**:
+**Acceptable:**
 
 ```html
 <p>HTML has been created to <strong>semantically</strong> represent documents.</p>
 <p><strong>Warning:</strong> Following the procedure described below may irreparably damage your equipment.</p>
 ```
 
-**Unacceptable**:
+**Unacceptable:**
 
 ```html
 <p>HTML has been created to <b>semantically</b> represent documents.</p>
@@ -199,7 +203,7 @@ content='Exception: CSS attributes where values must be calculated beyond the cs
    this.element.toggleClass(this.options.hiddenClass);
 ...
    this.options.hOffset = /* calculation based on dimensions of some DOM elements within a widget */
-   this.element.find(this.options.myCustomElement).css({'margin-top', this.options.hOffset + 'px'})
+   this.element.find(this.options.myCustomElement).css({'margin-top', this.options.hOffset + 'px'});
 ...
 ```
 
@@ -221,7 +225,7 @@ this.element.on('click', function() {
 -  Enforces clean, strict separation between visual presentation and markup.
 -  Enables frontend teams quickly and easily clean up old styles.
 
-**Acceptable PHTML template;**
+**Acceptable PHTML template:**
 
 ```php
 <div class="no-display"> ... </div>
@@ -266,7 +270,7 @@ $( this.options.tooltip).tooltip();  // Globally for ALL tooltip elements
 
 **Unacceptable PHTML file:**
 
-```php
+```html
 <div id="my-widget"></div>
 ```
 
@@ -279,7 +283,7 @@ $('form').validate();
 $('[role="menu"]').navigation();
 ```
 
-### You must assign HTML helper classes in JavaScript to modify presentation layer.
+### You must assign HTML helper classes in JavaScript to modify presentation layer
 
 HTML helper class names added in JavaScript REQUIRE underscore symbol ("_") at the beginning and must be written in lowercase.
 
@@ -303,7 +307,7 @@ HTML helper class names added in JavaScript REQUIRE underscore symbol ("_") at t
 
 ### You must not select DOM elements based on HTML structure
 
-Allows frontend teams to modify markup and themes without affecting business logic.
+-  Allows frontend teams to modify markup and themes without affecting business logic.
 
 **Acceptable JavaScript file:**
 
@@ -338,8 +342,8 @@ this.element.parent().find('[data-action="edit"]').data('entity_id');
 ```php
 ...
 $fieldset->addField('new_category_parent', 'text', array(
-    'label'    => Mage::helper('Mage_Catalog_Helper_Data')->__('Parent Category'),
-    'title'    => Mage::helper('Mage_Catalog_Helper_Data')->__('Parent Category'),
+    'label'    => __('Parent Category'),
+    'title'    => __('Parent Category'),
     'required' => true,
     'class'    => 'parent category',
 ));
@@ -351,8 +355,8 @@ $fieldset->addField('new_category_parent', 'text', array(
 ```php
 ...
 $fieldset->addField('new_category_parent', 'text', array(
-    'label'    => Mage::helper('Mage_Catalog_Helper_Data')->__('Parent Category'),
-    'title'    => Mage::helper('Mage_Catalog_Helper_Data')->__('Parent Category'),
+    'label'    => __('Parent Category'),
+    'title'    => __('Parent Category'),
     'required' => true,
     'style'    => 'border: 1px solid #ccc;',
 ));
@@ -427,6 +431,7 @@ jQuery('#{$htmlId}-suggest').treeSuggest({$selectorOptions});
 **Acceptable PHP file:**
 
 ```php
+...
 public function getAttributeName($element)
 {
     return ($element->getExtType() === 'multiple') ? $element->getId() . '_checkbox' : NULL;
@@ -447,7 +452,7 @@ public function getAttributeId($element)
    <input type="checkbox"
       <?php echo ($this->getAttributeName($element)) ? ' name="' . $this->getAttributeName($element) . '"' : NULL; ?>
       data-mage-init="{customToggleWidget: [elementSelector: "input[name='someCustomName']"]}" />
-   <?php echo Mage::helper('Mage_Catalog_Helper_Data')->__('Change'); ?>
+   <?php echo __('Change'); ?>
 </label>
 </span>
 <!-- jQuery.hide() code can be either located in the widget itself OR can ask PHP Block class whether or not 'weight_and_type_switcher' should be visible. Based on this condition CSS can be applied to hide/show those elements. -->
@@ -471,7 +476,7 @@ public function getCheckbox($elementName){
 <span class="attribute-change-checkbox">
    <label>
       <?php echo $this->getCheckbox($element)?>
-      <?php echo Mage::helper('Mage_Catalog_Helper_Data')->__('Change'); ?>
+      <?php echo __('Change'); ?>
    </label>
 </span>
 <!-- jQuery.hide() code can be either located in the widget itself OR can ask PHP Block class whether or not 'weight_and_type_switcher' should be visible. Based on this condition CSS can be applied to hide/show those elements. -->

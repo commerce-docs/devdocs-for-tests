@@ -1,7 +1,6 @@
 ---
 group: rest-api
 title: Search for the status of a bulk operation
-ee_only: True
 contributor_name: comwrap GmbH
 contributor_link: https://www.comwrap.com
 functional_areas:
@@ -48,7 +47,7 @@ The operation with bulk UUID `c43ed402-3dd3-4100-92e2-dc5852d3009b` contains a `
             },
             "id": 4,
             "bulk_uuid": "c43ed402-3dd3-4100-92e2-dc5852d3009b",
-            "topic_name": "async.V1.customers.POST",
+            "topic_name": "async.magento.customer.api.accountmanagementinterface.createaccount.post",
             "serialized_data": "{\"entity_id\":null,\"entity_link\":\"\",\"meta_information\":\"{\\\"customer\\\":{\\\"email\\\":\\\"mshaw@example.com\\\",\\\"firstname\\\":\\\"Melanie Shaw\\\",\\\"lastname\\\":\\\"Doe\\\"},\\\"password\\\":\\\"Password1\\\",\\\"redirectUrl\\\":\\\"\\\"}\"}",
             "result_serialized_data": null,
             "status": 3,
@@ -61,7 +60,7 @@ The operation with bulk UUID `c43ed402-3dd3-4100-92e2-dc5852d3009b` contains a `
             },
             "id": 5,
             "bulk_uuid": "c43ed402-3dd3-4100-92e2-dc5852d3009b",
-            "topic_name": "async.V1.customers.POST",
+            "topic_name": "async.magento.customer.api.accountmanagementinterface.createaccount.post",
             "serialized_data": "{\"entity_id\":null,\"entity_link\":\"\",\"meta_information\":\"{\\\"customer\\\":{\\\"email\\\":\\\"bmartin@example.com\\\",\\\"firstname\\\":\\\"Bryce\\\",\\\"lastname\\\":\\\"Martin\\\"},\\\"password\\\":\\\"Password1\\\",\\\"redirectUrl\\\":\\\"\\\"}\"}",
             "result_serialized_data": null,
             "status": 3,
@@ -74,7 +73,7 @@ The operation with bulk UUID `c43ed402-3dd3-4100-92e2-dc5852d3009b` contains a `
             },
             "id": 6,
             "bulk_uuid": "c43ed402-3dd3-4100-92e2-dc5852d3009b",
-            "topic_name": "async.V1.customers.POST",
+            "topic_name": "async.magento.customer.api.accountmanagementinterface.createaccount.post",
             "serialized_data": "{\"entity_id\":null,\"entity_link\":\"\",\"meta_information\":\"{\\\"customer\\\":{\\\"email\\\":\\\"bmartin@example.com\\\",\\\"firstname\\\":\\\"Bryce\\\",\\\"lastname\\\":\\\"Martin\\\"},\\\"password\\\":\\\"Password1\\\",\\\"redirectUrl\\\":\\\"\\\"}\"}",
             "result_serialized_data": null,
             "status": 3,
@@ -87,7 +86,7 @@ The operation with bulk UUID `c43ed402-3dd3-4100-92e2-dc5852d3009b` contains a `
             },
             "id": 7,
             "bulk_uuid": "c43ed402-3dd3-4100-92e2-dc5852d3009b",
-            "topic_name": "async.V1.customers.POST",
+            "topic_name": "async.magento.customer.api.accountmanagementinterface.createaccount.post",
             "serialized_data": "{\"entity_id\":null,\"entity_link\":\"\",\"meta_information\":\"{\\\"customer\\\":{\\\"email\\\":\\\"tgomez@example.com\\\",\\\"firstname\\\":\\\"Teresa\\\",\\\"lastname\\\":\\\"Gomez\\\"},\\\"password\\\":\\\"Password1\\\",\\\"redirectUrl\\\":\\\"\\\"}\"}",
             "result_serialized_data": null,
             "status": 3,
@@ -100,7 +99,7 @@ The operation with bulk UUID `c43ed402-3dd3-4100-92e2-dc5852d3009b` contains a `
             },
             "id": 10,
             "bulk_uuid": "799a59c0-09ca-4d60-b432-2953986c1c38",
-            "topic_name": "async.V1.customers.POST",
+            "topic_name": "async.magento.customer.api.accountmanagementinterface.createaccount.post",
             "serialized_data": "{\"entity_id\":null,\"entity_link\":\"\",\"meta_information\":\"{\\\"customer\\\":{\\\"email\\\":\\\"bmartin@example.com\\\",\\\"firstname\\\":\\\"Bryce\\\",\\\"lastname\\\":\\\"Martin\\\"},\\\"password\\\":\\\"Password1\\\",\\\"redirectUrl\\\":\\\"\\\"}\"}",
             "result_serialized_data": null,
             "status": 3,
