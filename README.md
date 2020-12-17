@@ -10,7 +10,8 @@ Our goal is to provide the Magento community with comprehensive and quality tech
 
 ## Building this site
 
-This site is built by [Jekyll](https://jekyllrb.com/), which is an open-source tool developed in [Ruby](https://www.ruby-lang.org/en/).
+This site is built by [Jekyll](https://jekyllrb.com/),
+which is an open-source tool developed in [Ruby](https://www.ruby-lang.org/en/).
 
 You can build the site locally in the following ways:
 
