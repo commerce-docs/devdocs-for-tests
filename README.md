@@ -26,7 +26,8 @@ You can build the site locally in the following ways:
 
 ## Build locally
 
-You do not need to set up a webserver to serve the site locally. Jekyll will use its own webserver for this.
+You do not need to set up a webserver to serve the site locally.
+Jekyll will use its own webserver for this.
 
 ### Set up Ruby
 
@@ -43,7 +44,9 @@ Clone the repository. The first time you are at the `devdocs` directory, run:
 bundle install
 ```
 
-The website file structure contains directories pulled from multiple sources, not only this repository. The full list with mapped directories is defined in the [Docfile.yml](./Docfile.yml). It includes public and private repositories.
+The website file structure contains directories pulled from multiple sources, not only this repository.
+The full list with mapped directories is defined in the [Docfile.yml](./Docfile.yml).
+It includes public and private repositories.
 To pull all the mapped sources:
 
 ```bash
